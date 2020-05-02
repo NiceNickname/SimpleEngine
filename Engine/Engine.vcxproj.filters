@@ -1,93 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="src">
-      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\OpenGL">
-      <UniqueIdentifier>{C15FA925-AD17-EB72-161F-C4CE02F68563}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor">
-      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor\GLEW">
-      <UniqueIdentifier>{B17667C1-1D2C-E0B6-A620-DA8D12D5D6BA}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor\GLEW\include">
-      <UniqueIdentifier>{24BF1419-9020-F226-198E-38D985EE28E6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor\GLEW\include\GL">
-      <UniqueIdentifier>{06EE64D9-F2E7-8D2B-DB54-243CC7EDF397}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor\GLFW">
-      <UniqueIdentifier>{D27667C1-3E2C-E0B6-C720-DA8D33D5D6BA}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor\GLFW\include">
-      <UniqueIdentifier>{45501F1D-B1B1-FC2A-3A1F-43DDA67F33EA}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor\GLFW\include\GLFW">
-      <UniqueIdentifier>{A4FE9F69-9023-EFE9-B96E-D479A5F2ED07}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor\stb_image">
-      <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
+    <Filter Include="OpenGL">
+      <UniqueIdentifier>{8A864AC8-7628-759E-5FE3-88F24B24FCEE}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OpenGL\IndexBuffer.h">
-      <Filter>src\OpenGL</Filter>
+      <Filter>OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\Shader.h">
-      <Filter>src\OpenGL</Filter>
+      <Filter>OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\VertexArray.h">
-      <Filter>src\OpenGL</Filter>
+      <Filter>OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\VertexBuffer.h">
-      <Filter>src\OpenGL</Filter>
+      <Filter>OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\VertexBufferLayout.h">
-      <Filter>src\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\GLEW\include\GL\eglew.h">
-      <Filter>vendor\GLEW\include\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\GLEW\include\GL\glew.h">
-      <Filter>vendor\GLEW\include\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\GLEW\include\GL\glxew.h">
-      <Filter>vendor\GLEW\include\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\GLEW\include\GL\wglew.h">
-      <Filter>vendor\GLEW\include\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\GLFW\include\GLFW\glfw3.h">
-      <Filter>vendor\GLFW\include\GLFW</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\GLFW\include\GLFW\glfw3native.h">
-      <Filter>vendor\GLFW\include\GLFW</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\stb_image\stb_image.h">
-      <Filter>vendor\stb_image</Filter>
+      <Filter>OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\EntryPoint.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
+    <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\OpenGL\IndexBuffer.cpp">
-      <Filter>src\OpenGL</Filter>
+      <Filter>OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\Shader.cpp">
-      <Filter>src\OpenGL</Filter>
+      <Filter>OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\VertexArray.cpp">
-      <Filter>src\OpenGL</Filter>
+      <Filter>OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\VertexBuffer.cpp">
-      <Filter>src\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\stb_image\stb_image.cpp">
-      <Filter>vendor\stb_image</Filter>
+      <Filter>OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

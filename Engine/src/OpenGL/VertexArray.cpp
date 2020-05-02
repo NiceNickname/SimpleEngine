@@ -7,8 +7,6 @@ VertexArray::VertexArray()
 
 VertexArray::~VertexArray()
 {
-	delete m_Ibo;
-	delete m_Vbo;
 	glDeleteVertexArrays(1, &m_Id);
 }
 

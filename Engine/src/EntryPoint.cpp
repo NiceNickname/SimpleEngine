@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <crtdbg.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -9,6 +11,8 @@
 
 int main(void)
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	GLFWwindow* window;
 
 	/* Initialize the library */
@@ -56,25 +60,11 @@ int main(void)
 	arr->SetIB(indexbuffer);
 	
 
-	/*unsigned int vao;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-
-	unsigned int vbo;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, nullptr);
-
-	unsigned int ibo;
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);*/
+	
 
 
-	Shader shader("res/shaders/shader.vert", "res/shaders/shader.fragm");
-	shader.Bind();
+	Shader* shader = new Shader("res/shaders/shader.vert", "res/shaders/shader.fragm");
+	shader->Bind();
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -82,7 +72,6 @@ int main(void)
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		arr->Draw();
 
 		/* Swap front and back buffers */
@@ -91,14 +80,16 @@ int main(void)
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
-	shader.Unbind();
+	shader->Unbind();
 
-	/*glDeleteBuffers(1, &ibo);
-	glDeleteBuffers(1, &vbo);
-	glDeleteVertexArrays(1, &vao);*/
-
+	delete shader;
+	delete vertexbuffer;
+	delete indexbuffer;
 	delete arr;
 
+	
 	glfwTerminate();
+
+	
 	return 0;
 }
