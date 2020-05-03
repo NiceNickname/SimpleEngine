@@ -6,7 +6,7 @@
 
 enum class DATATYPE
 {
-	FLOAT3 = 0, FLOAT2
+	FLOAT2 = 0, FLOAT3
 };
 struct LayoutElement
 {
@@ -27,6 +27,7 @@ struct LayoutElement
 			case DATATYPE::FLOAT2: return 2;
 			case DATATYPE::FLOAT3: return 3;
 		}
+		return 0;
 	}
 
 	unsigned int GetSize()
@@ -36,15 +37,17 @@ struct LayoutElement
 			case DATATYPE::FLOAT2: return 2 * sizeof(float);
 			case DATATYPE::FLOAT3: return 3 * sizeof(float);
 		}
+		return 0;
 	}
 
 	unsigned int GetType()
 	{
 		switch (type)
 		{
-		case DATATYPE::FLOAT3:		return GL_FLOAT;
-		case DATATYPE::FLOAT2:		return GL_FLOAT;
+			case DATATYPE::FLOAT3:		return GL_FLOAT;
+			case DATATYPE::FLOAT2:		return GL_FLOAT;
 		}
+		return 0;
 	}
 
 };
@@ -62,6 +65,7 @@ struct VertexBufferLayout
 		}
 		Stride = offset;
 	}
+
 
 	std::vector<LayoutElement> Elements;
 	unsigned int Stride;

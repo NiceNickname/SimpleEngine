@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
+    </Filter>
     <Filter Include="OpenGL">
       <UniqueIdentifier>{8A864AC8-7628-759E-5FE3-88F24B24FCEE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{3DEA79DA-298C-A4B0-1247-B804FE872B01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\App.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine.h" />
+    <ClInclude Include="src\EntryPoint.h" />
     <ClInclude Include="src\OpenGL\IndexBuffer.h">
       <Filter>OpenGL</Filter>
     </ClInclude>
@@ -21,9 +32,14 @@
     <ClInclude Include="src\OpenGL\VertexBufferLayout.h">
       <Filter>OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Window\Window.h">
+      <Filter>Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\EntryPoint.cpp" />
+    <ClCompile Include="src\Core\App.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\OpenGL\IndexBuffer.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
@@ -35,6 +51,9 @@
     </ClCompile>
     <ClCompile Include="src\OpenGL\VertexBuffer.cpp">
       <Filter>OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\Window.cpp">
+      <Filter>Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
