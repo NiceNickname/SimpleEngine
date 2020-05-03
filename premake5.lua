@@ -20,7 +20,12 @@ project "Engine"
 
    defines { "GLEW_STATIC" }
 
-   includedirs { "%{prj.name}/vendor/GLFW/include", "%{prj.name}/vendor/GLEW/include", "%{prj.name}/src" }
+   includedirs 
+   { "%{prj.name}/vendor/GLFW/include", 
+      "%{prj.name}/vendor/GLEW/include", 
+      "%{prj.name}/vendor/stb_image",
+      "%{prj.name}/src" 
+   }
    
 
    
@@ -70,8 +75,9 @@ project "User"
 	includedirs
 	{
 		"Engine/vendor/GLEW/include",
-		"Engine/vendor/GLFW/include",
-		"Engine/src",
+      "Engine/vendor/GLFW/include",
+      "Engine/vendor/stb_image",
+		"Engine/src"
 	}
 
 	links

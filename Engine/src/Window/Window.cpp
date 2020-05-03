@@ -33,6 +33,7 @@ void Window::Init()
 		std::cout << "glew not initialized" << std::endl;
 
 	glEnable(GL_DEPTH_TEST);
+	glActiveTexture(GL_TEXTURE0);
 
 }
 

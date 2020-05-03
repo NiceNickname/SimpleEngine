@@ -154,3 +154,23 @@ std::string Shader::fromFile(const std::string& path)
 	fin.close();
 	return result;
 }
+
+int Shader::GetUniform(const std::string& name)
+{
+	if (m_LocationCache.find(name) != m_LocationCache.end())
+		return m_LocationCache[name];
+
+	int result = glGetUniformLocation(m_Id, name.c_str());
+	if (result == -1)
+		return result;
+	else
+	{
+		m_LocationCache.insert(std::make_pair(name, result));
+		return result;
+	}
+}
+
+void Shader::SetUniform1i(const std::string& name, int value)
+{
+	glUniform1i(GetUniform(name), value);
+}

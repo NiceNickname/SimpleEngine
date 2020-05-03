@@ -3,6 +3,7 @@
 #include <crtdbg.h>
 #include "Core/App.h"
 
+App* CreateApp();
 
 int main(void)
 {

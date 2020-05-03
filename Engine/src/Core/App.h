@@ -18,4 +18,3 @@ protected:
 
 };
 
-App* CreateApp();

@@ -23,6 +23,9 @@
     <ClInclude Include="src\OpenGL\Shader.h">
       <Filter>OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\OpenGL\Texture.h">
+      <Filter>OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\OpenGL\VertexArray.h">
       <Filter>OpenGL</Filter>
     </ClInclude>
@@ -35,6 +38,7 @@
     <ClInclude Include="src\Window\Window.h">
       <Filter>Window</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -46,6 +50,9 @@
     <ClCompile Include="src\OpenGL\Shader.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\OpenGL\Texture.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\OpenGL\VertexArray.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
@@ -55,5 +62,6 @@
     <ClCompile Include="src\Window\Window.cpp">
       <Filter>Window</Filter>
     </ClCompile>
+    <ClCompile Include="vendor\stb_image\stb_image.cpp" />
   </ItemGroup>
 </Project>

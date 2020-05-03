@@ -8,6 +8,7 @@
 #include "OpenGL/VertexBuffer.h"
 #include "OpenGL/IndexBuffer.h"
 #include "OpenGL/VertexBufferLayout.h"
+#include "OpenGL/Texture.h"
 #include "Window/Window.h"
 #include "Core/App.h"
 #include "EntryPoint.h"

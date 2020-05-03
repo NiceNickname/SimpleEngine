@@ -33,6 +33,10 @@ class Game : public App
 
 		Shader* shader = new Shader("res/shaders/shader.vert", "res/shaders/shader.fragm");
 		shader->Bind();
+		shader->SetUniform1i("tex", 0);
+
+		Texture* texture = new Texture("res/textures/checkerboard.jpg");
+		texture->Bind();
 
 		/* Loop until the user closes the window */
 		while (m_Running)
