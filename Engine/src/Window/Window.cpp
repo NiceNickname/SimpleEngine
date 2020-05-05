@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Input/Input.h"
 #include <iostream>
 Window::Window()
 {
@@ -34,6 +35,8 @@ void Window::Init()
 
 	glEnable(GL_DEPTH_TEST);
 	glActiveTexture(GL_TEXTURE0);
+
+	glfwSetKeyCallback(m_Window, Input::KeyCallBack);
 
 }
 

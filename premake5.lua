@@ -27,7 +27,6 @@ project "Engine"
       "%{prj.name}/src" 
    }
    
-
    
    links 
    {
@@ -55,6 +54,8 @@ project "Engine"
    filter "configurations:Release"
       defines { "NDEBUG" }
       optimize "On"
+
+
 
 project "User"
 	location "User"

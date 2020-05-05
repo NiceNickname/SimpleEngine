@@ -6,7 +6,7 @@
 
 enum class DATATYPE
 {
-	FLOAT2 = 0, FLOAT3
+	FLOAT1 = 0, FLOAT2, FLOAT3, INT1, MAT4
 };
 struct LayoutElement
 {
@@ -24,9 +24,14 @@ struct LayoutElement
 	{
 		switch (type)
 		{
+			case DATATYPE::INT1:
+			case DATATYPE::FLOAT1:
+				return 1;
 			case DATATYPE::FLOAT2: return 2;
 			case DATATYPE::FLOAT3: return 3;
+			case DATATYPE::MAT4:   return 16;
 		}
+
 		return 0;
 	}
 
@@ -34,9 +39,13 @@ struct LayoutElement
 	{
 		switch (type)
 		{
+			case DATATYPE::INT1:   return 1 * sizeof(int);
+			case DATATYPE::FLOAT1: return 1 * sizeof(float);
 			case DATATYPE::FLOAT2: return 2 * sizeof(float);
 			case DATATYPE::FLOAT3: return 3 * sizeof(float);
+			case DATATYPE::MAT4:   return 16 * sizeof(float);
 		}
+
 		return 0;
 	}
 
@@ -44,9 +53,13 @@ struct LayoutElement
 	{
 		switch (type)
 		{
-			case DATATYPE::FLOAT3:		return GL_FLOAT;
+			case DATATYPE::INT1:		return GL_INT;
+			case DATATYPE::FLOAT1:		return GL_FLOAT;
 			case DATATYPE::FLOAT2:		return GL_FLOAT;
+			case DATATYPE::FLOAT3:		return GL_FLOAT;
+			case DATATYPE::MAT4:		return GL_FLOAT;
 		}
+
 		return 0;
 	}
 

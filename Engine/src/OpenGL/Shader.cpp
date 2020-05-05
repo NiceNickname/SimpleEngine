@@ -174,3 +174,25 @@ void Shader::SetUniform1i(const std::string& name, int value)
 {
 	glUniform1i(GetUniform(name), value);
 }
+
+
+void Shader::SetUniform1f(const std::string& name, float value)
+{
+	glUniform1f(GetUniform(name), value);
+}
+
+void Shader::SetUniform2f(const std::string& name, float x, float y)
+{
+	glUniform2f(GetUniform(name), x, y);
+
+}
+
+void Shader::SetUniform3f(const std::string& name, const Vector3f& value)
+{
+	glUniform3f(GetUniform(name), value.x, value.y, value.z);
+}
+
+void Shader::SetUniformMat4f(const std::string& name, const Mat4f& value)
+{
+	glUniformMatrix4fv(GetUniform(name), 1, GL_FALSE, (const GLfloat*)(value.m_Elements));
+}

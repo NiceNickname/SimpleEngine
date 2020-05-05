@@ -39,6 +39,8 @@
       <Filter>Window</Filter>
     </ClInclude>
     <ClInclude Include="vendor\stb_image\stb_image.h" />
+    <ClInclude Include="src\Math\Math.h" />
+    <ClInclude Include="src\Input\Input.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -63,5 +65,7 @@
       <Filter>Window</Filter>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp" />
+    <ClCompile Include="src\Math\Math.cpp" />
+    <ClCompile Include="src\Input\Input.cpp" />
   </ItemGroup>
 </Project>
