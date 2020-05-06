@@ -10,7 +10,7 @@ VertexArray::~VertexArray()
 	glDeleteVertexArrays(1, &m_Id);
 }
 
-void VertexArray::SetVB(VertexBuffer* vb)
+void VertexArray::SetVB(const std::shared_ptr<VertexBuffer>& vb)
 {
 	glBindVertexArray(m_Id);
 	m_Vbo = vb;
@@ -27,7 +27,7 @@ void VertexArray::SetVB(VertexBuffer* vb)
 
 }
 
-void VertexArray::SetIB(IndexBuffer* ib)
+void VertexArray::SetIB(const std::shared_ptr<IndexBuffer>& ib)
 {
 	glBindVertexArray(m_Id);
 	m_Ibo = ib;
