@@ -1,13 +1,17 @@
 #include "Input.h"
 
-bool Input::keys[65546];
 
-void Input::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods)
+namespace Engine
 {
-	keys[key] = action != GLFW_RELEASE;
-}
+	bool Input::keys[65546];
 
-bool Input::IsKeyDown(int keycode)
-{
-	return keys[keycode];
+	void Input::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods)
+	{
+		keys[key] = action != GLFW_RELEASE;
+	}
+
+	bool Input::IsKeyDown(int keycode)
+	{
+		return keys[keycode];
+	}
 }

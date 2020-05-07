@@ -1,8 +1,10 @@
 #include "App.h"
 
+namespace Engine
+{
+	void App::Run()
+	{
 
-void App::Run()
-{	
-	
 
+	}
 }

@@ -1,20 +1,22 @@
 #pragma once
-
+#include <memory>
 #include "Window/Window.h"
 
 
-
-class App
+namespace Engine
 {
-public:
-	App() {}
-	virtual void Run();
+	class App
+	{
+	public:
+		App() {}
+		virtual void Run();
 
-protected:
+	protected:
 
-	Window* m_Window;
+		std::unique_ptr<Window> m_Window;
 
-	bool m_Running = true;
+		bool m_Running = true;
 
-};
+	};
+}
 
