@@ -1,6 +1,6 @@
 workspace "Engine"
    configurations { "Debug", "Release" }
-   platforms { "Win32", "Win64"}
+   platforms { "Win64"}
    startproject "User"
 
    include "Engine/vendor/GLEW"
@@ -16,7 +16,13 @@ project "Engine"
    targetdir "%{prj.name}/out/bin/%{cfg.buildcfg}-%{cfg.architecture}"
    objdir "%{prj.name}/out/obj/%{cfg.buildcfg}-%{cfg.architecture}"
 
-   files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
+   files 
+   { 
+      "%{prj.name}/src/**.h", 
+      "%{prj.name}/src/**.cpp",
+      "%{prj.name}/vendor/stb_image/*.h",
+      "%{prj.name}/vendor/stb_image/*.cpp"
+   }
 
    defines { "GLEW_STATIC" }
 
@@ -34,11 +40,6 @@ project "Engine"
         "GLFW",
         "GLEW"
    }
-
-
-   filter "platforms:Win32"
-      system "Windows"
-      architecture "x86"
 
    filter "platforms:Win64"
       system "Windows"
@@ -85,10 +86,6 @@ project "User"
 	{
 		"Engine"
 	}
-
-	filter "platforms:Win32"
-      system "Windows"
-      architecture "x86"
 
    filter "platforms:Win64"
       system "Windows"

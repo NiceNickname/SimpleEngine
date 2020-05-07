@@ -1,71 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="OpenGL">
-      <UniqueIdentifier>{8A864AC8-7628-759E-5FE3-88F24B24FCEE}</UniqueIdentifier>
+    <Filter Include="src\Core">
+      <UniqueIdentifier>{A5D31CCF-91A0-77DA-BAB9-6582A6E5AC68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Window">
-      <UniqueIdentifier>{3DEA79DA-298C-A4B0-1247-B804FE872B01}</UniqueIdentifier>
+    <Filter Include="src\Input">
+      <UniqueIdentifier>{EC4823B3-58B3-D729-A1F1-88CF0D9BB57E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Math">
+      <UniqueIdentifier>{261422CF-12E1-7CDA-3BFA-6A822726B268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\OpenGL">
+      <UniqueIdentifier>{C15FA925-AD17-EB72-161F-C4CE02F68563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Window">
+      <UniqueIdentifier>{74C3D837-607B-1A85-C982-F3E0B559B575}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\stb_image">
+      <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\App.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine.h" />
-    <ClInclude Include="src\EntryPoint.h" />
+    <ClInclude Include="src\Engine.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntryPoint.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\Input.h">
+      <Filter>src\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Math.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
     <ClInclude Include="src\OpenGL\IndexBuffer.h">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\Shader.h">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\Texture.h">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\VertexArray.h">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\VertexBuffer.h">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\VertexBufferLayout.h">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\Window.h">
-      <Filter>Window</Filter>
+      <Filter>src\Window</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\stb_image\stb_image.h" />
-    <ClInclude Include="src\Math\Math.h" />
-    <ClInclude Include="src\Input\Input.h" />
+    <ClInclude Include="vendor\stb_image\stb_image.h">
+      <Filter>vendor\stb_image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input\Input.cpp">
+      <Filter>src\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Math.cpp">
+      <Filter>src\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\IndexBuffer.cpp">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\Shader.cpp">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\Texture.cpp">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\VertexArray.cpp">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\VertexBuffer.cpp">
-      <Filter>OpenGL</Filter>
+      <Filter>src\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Window\Window.cpp">
-      <Filter>Window</Filter>
+      <Filter>src\Window</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\stb_image\stb_image.cpp" />
-    <ClCompile Include="src\Math\Math.cpp" />
-    <ClCompile Include="src\Input\Input.cpp" />
+    <ClCompile Include="vendor\stb_image\stb_image.cpp">
+      <Filter>vendor\stb_image</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
