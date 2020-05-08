@@ -2,11 +2,13 @@
 
 class Game : public Engine::App
 {
-	virtual void Run() override
+private:
+	std::shared_ptr<Engine::VertexArray> m_VAO;
+	std::shared_ptr<Engine::Shader> m_Shader;
+	std::shared_ptr<Engine::Texture> m_Texture;
+
+	virtual void Start() override
 	{
-		m_Window = std::make_unique<Engine::Window>();
-
-
 		float vertices[] = {
 			-0.5f,  -0.5f,  0.0f, 0.0f, 0.0f,
 			-0.5f,   0.5f,  0.0f, 0.0f, 1.0f,
@@ -35,36 +37,35 @@ class Game : public Engine::App
 
 		vertexbuffer->SetLayout(layout);
 
-		auto arr = std::make_shared<Engine::VertexArray>();
-		arr->SetVB(vertexbuffer);
-		arr->SetIB(indexbuffer);
+		m_VAO = std::make_shared<Engine::VertexArray>();
+		m_VAO->SetVB(vertexbuffer);
+		m_VAO->SetIB(indexbuffer);
 
-		auto shader = std::make_shared<Engine::Shader>("res/shaders/shader.vert", "res/shaders/shader.fragm");
-		shader->Bind();
-		shader->SetUniform1i("tex", 1);
-		shader->SetUniformMat4f("view", view);
+		m_Shader = std::make_shared<Engine::Shader>("res/shaders/shader.vert", "res/shaders/shader.fragm");
+		m_Shader->Bind();
+		m_Shader->SetUniform1i("tex", 1);
+		m_Shader->SetUniformMat4f("view", view);
 
-		auto texture = std::make_shared<Engine::Texture>("res/textures/checkerboard.jpg");
-		texture->Bind(1);
+		m_Texture = std::make_shared<Engine::Texture>("res/textures/checkerboard.jpg");
+		m_Texture->Bind(1);
 
-		/* Loop until the user closes the window */
-		while (m_Running)
-		{
-			/* Render here */
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			Update();
-
-			arr->Draw();
-
-			m_Window->Update();
-		}
 	}
 
-	void Update()
+	void Update() override
 	{
 		if (Engine::Input::IsKeyDown(GLFW_KEY_SPACE))
 			std::cout << "Space pressed" << std::endl;
+	}
+
+	void Render() override
+	{
+		/* Render here */
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		Update();
+
+		m_VAO->Draw();
+
 	}
 };
 

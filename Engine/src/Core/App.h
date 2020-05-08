@@ -8,14 +8,19 @@ namespace Engine
 	class App
 	{
 	public:
-		App() {}
-		virtual void Run();
+		App() { m_Window = std::make_unique<Engine::Window>(); }
+
+		void Run();
 
 	protected:
+		virtual void Start() {}
+		virtual void Update() {}
+		virtual void Render() {}
 
+	protected:
+		bool m_Running = true;
 		std::unique_ptr<Window> m_Window;
 
-		bool m_Running = true;
 
 	};
 }

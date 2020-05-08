@@ -26,7 +26,8 @@ namespace Engine
 		static Mat4f Identity();
 		static Mat4f Ortho(float left, float right, float bottom, float top, float near, float far);
 		static Mat4f Translate(const Vector3f& position);
-		static Mat4f Rotate(float Rotation);
+		Mat4f Rotate(float Rotation);
+
 		Mat4f Product(const Mat4f& another);
 		inline float* GetElements() { return m_Elements; }
 

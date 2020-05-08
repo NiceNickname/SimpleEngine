@@ -11,9 +11,10 @@ namespace Engine
 		~Window();
 		void Init();
 		void Update();
+		inline GLFWwindow* GetPointer() { return m_Window; }
 
 	private:
 		GLFWwindow* m_Window;
-
+		
 	};
 }
