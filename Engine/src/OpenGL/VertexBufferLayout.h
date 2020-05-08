@@ -27,11 +27,10 @@ namespace Engine
 			switch (type)
 			{
 			case DATATYPE::INT1:
-			case DATATYPE::FLOAT1:
-				return 1;
-			case DATATYPE::FLOAT2: return 2;
-			case DATATYPE::FLOAT3: return 3;
-			case DATATYPE::MAT4:   return 16;
+			case DATATYPE::FLOAT1:	return 1;
+			case DATATYPE::FLOAT2:	return 2;
+			case DATATYPE::FLOAT3:	return 3;
+			case DATATYPE::MAT4:	return 16;
 			}
 
 			return 0;
@@ -72,12 +71,14 @@ namespace Engine
 		VertexBufferLayout(const std::initializer_list<LayoutElement>& elements)
 		{
 			unsigned int offset = 0;
+
 			for (LayoutElement el : elements)
 			{
 				el.offset = offset;
 				offset += el.GetSize();
 				Elements.push_back(el);
 			}
+
 			Stride = offset;
 		}
 

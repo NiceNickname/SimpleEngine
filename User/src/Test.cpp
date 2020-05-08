@@ -2,7 +2,7 @@
 
 class Game : public Engine::App
 {
-private:
+public:
 	std::shared_ptr<Engine::VertexArray> m_VAO;
 	std::shared_ptr<Engine::Shader> m_Shader;
 	std::shared_ptr<Engine::Texture> m_Texture;

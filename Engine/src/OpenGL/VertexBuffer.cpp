@@ -22,7 +22,7 @@ namespace Engine
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 
-	void VertexBuffer::SetLayout(VertexBufferLayout layout)
+	void VertexBuffer::SetLayout(const VertexBufferLayout& layout)
 	{
 		m_Layout = layout;
 	}

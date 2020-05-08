@@ -9,6 +9,7 @@ namespace Engine
 	{
 	public:
 		App() { m_Window = std::make_unique<Engine::Window>(); }
+		virtual ~App() {}
 
 		void Run();
 
