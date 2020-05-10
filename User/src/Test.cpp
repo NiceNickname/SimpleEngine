@@ -59,13 +59,13 @@ public:
 
 	void Render() override
 	{
-		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		Update();
-
 		m_VAO->Draw();
+	}
 
+	void ImGuiRender() override
+	{
+		ImGui::Begin("Hello, World!");
+		ImGui::End();
 	}
 };
 

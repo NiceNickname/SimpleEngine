@@ -2,6 +2,8 @@
 #include <Gl/glew.h>
 #include <GLFW/glfw3.h>
 
+
+
 namespace Engine
 {
 	class Window
@@ -15,6 +17,8 @@ namespace Engine
 
 	private:
 		GLFWwindow* m_Window;
+		bool m_ShowDemo = true;
+		
 		
 	};
 }

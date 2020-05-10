@@ -12,11 +12,14 @@ namespace Engine
 		virtual ~App() {}
 
 		void Run();
+		void ImGuiBegin();
+		void ImGuiEnd();
 
 	protected:
 		virtual void Start() {}
 		virtual void Update() {}
 		virtual void Render() {}
+		virtual void ImGuiRender() {}
 
 	protected:
 		bool m_Running = true;

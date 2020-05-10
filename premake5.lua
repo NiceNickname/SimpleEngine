@@ -5,6 +5,7 @@ workspace "Engine"
 
    include "Engine/vendor/GLEW"
    include "Engine/vendor/GLFW"
+   include "Engine/vendor/imgui"
 
 project "Engine"
    location "Engine"
@@ -30,6 +31,7 @@ project "Engine"
    { "%{prj.name}/vendor/GLFW/include", 
       "%{prj.name}/vendor/GLEW/include", 
       "%{prj.name}/vendor/stb_image",
+      "%{prj.name}/vendor/imgui",
       "%{prj.name}/src" 
    }
    
@@ -38,7 +40,9 @@ project "Engine"
    {
         "opengl32.lib",
         "GLFW",
-        "GLEW"
+        "GLEW",
+        "ImGui"
+
    }
 
    filter "platforms:Win64"
@@ -79,6 +83,7 @@ project "User"
 		"Engine/vendor/GLEW/include",
       "Engine/vendor/GLFW/include",
       "Engine/vendor/stb_image",
+      "Engine/vendor/imgui",
 		"Engine/src"
 	}
 
