@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
+#include "glm/gtc/type_ptr.hpp"
 
 
 namespace Engine
@@ -190,13 +191,13 @@ namespace Engine
 
 	}
 
-	void Shader::SetUniform3f(const std::string& name, const Vector3f& value)
+	void Shader::SetUniform3f(const std::string& name, const glm::vec3& value)
 	{
 		glUniform3f(GetUniform(name), value.x, value.y, value.z);
 	}
 
-	void Shader::SetUniformMat4f(const std::string& name, const Mat4f& value)
+	void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& value)
 	{
-		glUniformMatrix4fv(GetUniform(name), 1, GL_FALSE, (const GLfloat*)(value.m_Elements));
+		glUniformMatrix4fv(GetUniform(name), 1, GL_FALSE, glm::value_ptr(value));
 	}
 }

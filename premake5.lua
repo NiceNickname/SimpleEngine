@@ -22,7 +22,9 @@ project "Engine"
       "%{prj.name}/src/**.h", 
       "%{prj.name}/src/**.cpp",
       "%{prj.name}/vendor/stb_image/*.h",
-      "%{prj.name}/vendor/stb_image/*.cpp"
+      "%{prj.name}/vendor/stb_image/*.cpp",
+      "%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
    }
 
    defines { "GLEW_STATIC" }
@@ -32,6 +34,7 @@ project "Engine"
       "%{prj.name}/vendor/GLEW/include", 
       "%{prj.name}/vendor/stb_image",
       "%{prj.name}/vendor/imgui",
+      "%{prj.name}/vendor/glm",
       "%{prj.name}/src" 
    }
    
@@ -84,6 +87,7 @@ project "User"
       "Engine/vendor/GLFW/include",
       "Engine/vendor/stb_image",
       "Engine/vendor/imgui",
+      "Engine/vendor/glm",
 		"Engine/src"
 	}
 

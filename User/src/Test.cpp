@@ -1,5 +1,7 @@
 #include <Engine.h>
 
+
+
 class Game : public Engine::App
 {
 public:
@@ -30,7 +32,7 @@ public:
 		auto indexbuffer = std::make_shared<Engine::IndexBuffer>(indices, sizeof(indices));
 
 
-		Engine::Mat4f view = Engine::Mat4f::Translate({-0.5f, -0.5f, 0.0f});
+		glm::mat4 view = glm::translate(glm::mat4(1.0f), { -0.5f, -0.5f, 0.0f });
 
 		Engine::VertexBufferLayout layout = { {"positions", Engine::DATATYPE::FLOAT3 },
 											  {"texCoord", Engine::DATATYPE::FLOAT2} };

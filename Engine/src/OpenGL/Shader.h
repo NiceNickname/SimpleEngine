@@ -1,7 +1,7 @@
 #include <string>
 #include <GL/glew.h>
 #include <unordered_map>
-#include "Math/Math.h"
+#include "glm/gtc/matrix_transform.hpp"
 
 
 namespace Engine
@@ -20,10 +20,10 @@ namespace Engine
 
 		void SetUniform1f(const std::string& name, float value);
 		void SetUniform2f(const std::string& name, float x, float y);
-		void SetUniform3f(const std::string& name, const Vector3f& value);
+		void SetUniform3f(const std::string& name, const glm::vec3& value);
 
 
-		void SetUniformMat4f(const std::string& name, const Mat4f& value);
+		void SetUniformMat4f(const std::string& name, const glm::mat4& value);
 	private:
 		unsigned int m_Id;
 		std::unordered_map<std::string, int> m_LocationCache;
