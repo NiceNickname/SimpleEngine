@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Window.h"
 #include "Input/Input.h"
 #include <iostream>

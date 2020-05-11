@@ -1,4 +1,10 @@
+#include "pch.h"
+
 #include "Renderer.h"
+
+#include "OpenGL/IndexBuffer.h"
+#include "OpenGL/VertexBuffer.h"
+#include "OpenGL/VertexArray.h"
 
 namespace Engine {
 

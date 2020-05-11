@@ -9,7 +9,9 @@
 #include <examples/imgui_impl_glfw.h>
 #include <examples/imgui_impl_opengl3.h>
 
+#include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 #include "Input/Input.h"
 
@@ -23,4 +25,5 @@
 #include "Window/Window.h"
 #include "Core/App.h"
 #include "Core/OrthographicCamera.h"
+#include "Renderer/Renderer.h"
 

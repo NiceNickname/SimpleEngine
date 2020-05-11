@@ -20,7 +20,7 @@ namespace Engine {
 		const glm::vec3& GetPosition() { return m_Position; }
 
 		void SetRotation(float rotation);
-		inline float GetRotation() { return m_Rotation; }
+		float GetRotation() { return m_Rotation; }
 
 	private:
 		void RecalculateView();

@@ -1,5 +1,8 @@
 #pragma once
-#include "Engine.h"
+#include "OpenGL/Texture.h"
+#include "glm/glm.hpp"
+#include <memory>
+
 namespace Engine {
 
 	class Renderer
@@ -13,10 +16,6 @@ namespace Engine {
 		static void Flush();
 		static void ShutDown();
 		static void Draw();
-
-	private:
-
-
 	};
 
 }

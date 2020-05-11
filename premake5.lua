@@ -14,6 +14,9 @@ project "Engine"
    cppdialect "C++17"
    staticruntime "On"
 
+   pchheader "pch.h"
+	pchsource "Engine/src/pch.cpp"
+
    targetdir "%{prj.name}/out/bin/%{cfg.buildcfg}-%{cfg.architecture}"
    objdir "%{prj.name}/out/obj/%{cfg.buildcfg}-%{cfg.architecture}"
 

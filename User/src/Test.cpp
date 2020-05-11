@@ -1,6 +1,4 @@
 #include <Engine.h>
-#include "glm/gtc/type_ptr.hpp"
-#include "Renderer/Renderer.h"
 
 #include "EntryPoint.h"
 
@@ -12,15 +10,16 @@ public:
 	std::shared_ptr<Engine::Shader> m_BatchShader;
 	std::shared_ptr<Engine::Texture> m_Texture;
 	std::shared_ptr<Engine::OrthographicCamera> m_Camera;
+
 	glm::vec3 CameraPosition = { 0.0f, 0.0f, 0.0f };
 
 	virtual void Start() override
 	{
 		float vertices[] = {
-			-10.f,  -10.0f,  0.0f, 0.0f, 0.0f,
-			-10.0f,  -5.0f,  0.0f, 0.0f, 1.0f,
-			 -5.0f,   -5.0f,  0.0f, 1.0f, 1.0f,
-			 -5.0f,  -10.0f,  0.0f, 1.0f, 0.0f
+			-10.0f, -10.0f, 0.0f, 0.0f, 0.0f,
+			-10.0f,  -5.0f, 0.0f, 0.0f, 1.0f,
+			 -5.0f,  -5.0f, 0.0f, 1.0f, 1.0f,
+			 -5.0f, -10.0f, 0.0f, 1.0f, 0.0f
 		};
 
 		unsigned int indices[] = {
@@ -53,12 +52,12 @@ public:
 		m_BatchShader->Bind();
 		m_BatchShader->SetUniformMat4f("view", m_Camera->GetView());
 
-
+		
 		int samplers[10];
 		for (int i = 0; i < 10; i++)
 			samplers[i] = i;
-		m_BatchShader->SetUniformIntArray("u_Textures", sizeof(samplers), samplers);
 
+		m_BatchShader->SetUniformIntArray("u_Textures", sizeof(samplers), samplers);
 
 		Engine::Renderer::Init();
 
@@ -92,8 +91,8 @@ public:
 			for (int j = 0; j < 5; j++)
 			{
 				glm::vec4 color = { 1.0f, 0.0f, 0.0f, 1.0f };
-				Engine::Renderer::DrawQuad({ j, i, 0.0f }, { 1.0f, 1.0f }, color);
-				Engine::Renderer::DrawQuad({ j + 5, i, 0.0f }, { 1.0f, 1.0f}, m_Texture);
+				Engine::Renderer::DrawQuad({ j, i, 0.0f }, { 0.8f, 0.8f }, color);
+				Engine::Renderer::DrawQuad({ j + 5, i, 0.0f }, { 0.8f, 0.8f}, m_Texture);
 			}
 		}
 
