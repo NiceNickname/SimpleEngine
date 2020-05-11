@@ -14,8 +14,11 @@ namespace Engine
 		void Bind();
 		void Unbind();
 		std::string fromFile(const std::string& path);
+
 		int GetUniform(const std::string& name);
+
 		void SetUniform1i(const std::string& name, int value);
+		void SetUniformIntArray(const std::string& name, int size, int* value);
 
 
 		void SetUniform1f(const std::string& name, float value);

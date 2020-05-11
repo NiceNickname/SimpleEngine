@@ -11,6 +11,7 @@ namespace Engine
 		Texture(const std::string& path);
 		~Texture();
 		void Bind(unsigned int slot);
+		inline unsigned int GetId() { return m_Id; }
 
 	private:
 		unsigned int m_Id;

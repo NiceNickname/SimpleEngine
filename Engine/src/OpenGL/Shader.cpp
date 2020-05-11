@@ -180,6 +180,11 @@ namespace Engine
 	}
 
 
+	void Shader::SetUniformIntArray(const std::string& name, int size, int* value)
+	{
+		glUniform1iv(GetUniform(name), size, value);
+	}
+
 	void Shader::SetUniform1f(const std::string& name, float value)
 	{
 		glUniform1f(GetUniform(name), value);

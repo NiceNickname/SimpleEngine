@@ -24,4 +24,3 @@
 #include "Core/App.h"
 #include "Core/OrthographicCamera.h"
 
-#include "EntryPoint.h"

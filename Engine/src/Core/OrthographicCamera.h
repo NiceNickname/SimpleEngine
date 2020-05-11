@@ -12,6 +12,9 @@ namespace Engine {
 		~OrthographicCamera() {}
 
 		void SetProjection(float left, float right, float bottom, float top, float near, float far);
+		const glm::mat4& GetProjection() { return m_Projection; }
+
+		const glm::mat4& GetView() { return m_View; }
 		
 		void SetPosition(const glm::vec3& position);
 		const glm::vec3& GetPosition() { return m_Position; }
