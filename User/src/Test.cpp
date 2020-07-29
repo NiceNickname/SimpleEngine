@@ -26,7 +26,9 @@ public:
 			0, 1, 2, 2, 3, 0
 		};
 
-		auto vertexbuffer = std::make_shared<Engine::OpenGLVertexBuffer>(vertices, sizeof(vertices));
+		std::shared_ptr<Engine::VertexBuffer> vertexbuffer;
+		vertexbuffer.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
+		//auto vertexbuffer = std::make_shared<Engine::VertexBuffer>(vertices, sizeof(vertices));
 		auto indexbuffer = std::make_shared<Engine::OpenGLIndexBuffer>(indices, sizeof(indices));
 
 		m_Camera = std::make_shared<Engine::OrthographicCamera>(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);

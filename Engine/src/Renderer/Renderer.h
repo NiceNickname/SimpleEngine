@@ -7,8 +7,6 @@ struct GLFWwindow;
 
 namespace Engine {
 
-	
-
 	class Renderer
 	{
 	public:
@@ -23,9 +21,10 @@ namespace Engine {
 		static void ShutDown();
 		static void Draw();
 		static void SetApi(API api, GLFWwindow* window);
-
+		inline static API GetApi() { return m_ApiName; }
 	private:
 		static std::unique_ptr<RenderingAPI> m_Api;
+		static API m_ApiName;
 	};
 
 }

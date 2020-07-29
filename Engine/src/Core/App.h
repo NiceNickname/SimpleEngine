@@ -25,8 +25,6 @@ namespace Engine
 	protected:
 		bool m_Running = true;
 		std::unique_ptr<Window> m_Window;
-
-
 	};
 }
 

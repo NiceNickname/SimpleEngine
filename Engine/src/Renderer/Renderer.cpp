@@ -10,6 +10,7 @@
 namespace Engine {
 
 	std::unique_ptr<RenderingAPI> Renderer::m_Api;
+	Renderer::API Renderer::m_ApiName = Renderer::API::NONE;
 
 	static const unsigned int MaxTextures = 10;
 	static const unsigned int MaxQuadCount = 1000;
@@ -152,6 +153,7 @@ namespace Engine {
 
 	void Renderer::SetApi(API api, GLFWwindow* window)
 	{
+		m_ApiName = api;
 		if (api == API::NONE)
 			std::cout << "Cannot set API to NONE\n";
 		else if (api == API::OPENGL)
