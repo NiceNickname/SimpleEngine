@@ -65,6 +65,15 @@ public:
 
 	void Update() override
 	{
+		if (Engine::Input::IsKeyDown(GLFW_KEY_RIGHT))
+			CameraPosition.x += 0.01f;
+		if (Engine::Input::IsKeyDown(GLFW_KEY_LEFT))
+			CameraPosition.x -= 0.01f;
+		if (Engine::Input::IsKeyDown(GLFW_KEY_UP))
+			CameraPosition.y += 0.01f;
+		if (Engine::Input::IsKeyDown(GLFW_KEY_DOWN))
+			CameraPosition.y -= 0.01f;
+
 		m_Camera->SetPosition(CameraPosition);
 
 		m_Shader->Bind();
@@ -72,11 +81,6 @@ public:
 
 		m_BatchShader->Bind();
 		m_BatchShader->SetUniformMat4f("view", m_Camera->GetView());
-
-		if (Engine::Input::IsKeyDown(GLFW_KEY_SPACE))
-			std::cout << "Space pressed" << std::endl;
-
-
 		
 	}
 
