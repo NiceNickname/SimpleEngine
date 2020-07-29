@@ -18,6 +18,7 @@
 
 #include "Renderer/VertexBufferLayout.h"
 #include "Renderer/VertexBuffer.h"
+#include "Renderer/IndexBuffer.h"
 #include "OpenGL/OpenGLShader.h"
 #include "OpenGL/VertexArray.h"
 #include "OpenGL/OpenGLVertexBuffer.h"

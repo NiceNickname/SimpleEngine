@@ -1320,6 +1320,7 @@
     <ClInclude Include="src\Renderer\RenderingAPI.h" />
     <ClInclude Include="src\OpenGL\OpenGLRenderingApi.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Renderer\IndexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -1363,5 +1364,6 @@
     </ClCompile>
     <ClCompile Include="src\OpenGL\OpenGLRenderingApi.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
   </ItemGroup>
 </Project>

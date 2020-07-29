@@ -108,6 +108,7 @@
     <ClInclude Include="src\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\OpenGL\VertexArray.h" />
     <ClInclude Include="src\OpenGL\OpenGLVertexBuffer.h" />
+    <ClInclude Include="src\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\RenderingAPI.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Renderer\VertexBufferLayout.h" />
@@ -535,6 +536,7 @@
     <ClCompile Include="src\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\OpenGL\VertexArray.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLVertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />

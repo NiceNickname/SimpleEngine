@@ -28,8 +28,9 @@ public:
 
 		std::shared_ptr<Engine::VertexBuffer> vertexbuffer;
 		vertexbuffer.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
-		//auto vertexbuffer = std::make_shared<Engine::VertexBuffer>(vertices, sizeof(vertices));
-		auto indexbuffer = std::make_shared<Engine::OpenGLIndexBuffer>(indices, sizeof(indices));
+		
+		std::shared_ptr<Engine::IndexBuffer> indexbuffer;
+		indexbuffer.reset(Engine::IndexBuffer::Create(indices, sizeof(indices)));
 
 		m_Camera = std::make_shared<Engine::OrthographicCamera>(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
 		m_Camera->SetPosition(CameraPosition);

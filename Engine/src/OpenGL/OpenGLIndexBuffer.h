@@ -1,19 +1,18 @@
 #pragma once
-
+#include "Renderer/IndexBuffer.h"
 
 namespace Engine
 {
-	class OpenGLIndexBuffer
+	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
 		OpenGLIndexBuffer(unsigned int* data, unsigned int size);
 		~OpenGLIndexBuffer();
-		void SetData(unsigned int* data, unsigned int size);
-		void Bind();
-		void Unbind();
-		inline int GetCount() const { return m_Count; }
+		virtual void SetData(unsigned int* data, unsigned int size) override;
+		virtual void Bind() override;
+		virtual void Unbind() override;
+		virtual inline int GetCount() const override { return m_Count; } 
 	private:
-		unsigned int m_Id, m_Count;
-
+		unsigned int m_Id;
 	};
 }

@@ -32,7 +32,7 @@ namespace Engine
 
 	}
 
-	void VertexArray::SetIB(const std::shared_ptr<OpenGLIndexBuffer>& ib)
+	void VertexArray::SetIB(const std::shared_ptr<IndexBuffer>& ib)
 	{
 		glBindVertexArray(m_Id);
 		m_Ibo = ib;
