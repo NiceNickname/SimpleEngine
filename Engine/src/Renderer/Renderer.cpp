@@ -2,11 +2,14 @@
 
 #include "Renderer.h"
 
-#include "OpenGL/IndexBuffer.h"
-#include "OpenGL/VertexBuffer.h"
+#include "OpenGL/OpenGLIndexBuffer.h"
+#include "OpenGL/OpenGLVertexBuffer.h"
 #include "OpenGL/VertexArray.h"
+#include "OpenGL/OpenGLRenderingApi.h"
 
 namespace Engine {
+
+	std::unique_ptr<RenderingAPI> Renderer::m_Api;
 
 	static const unsigned int MaxTextures = 10;
 	static const unsigned int MaxQuadCount = 1000;
@@ -147,7 +150,21 @@ namespace Engine {
 
 	}
 
-	void Renderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)
+	void Renderer::SetApi(API api, GLFWwindow* window)
+	{
+		if (api == API::NONE)
+			std::cout << "Cannot set API to NONE\n";
+		else if (api == API::OPENGL)
+		{
+			if (m_Api.get() != nullptr)
+				m_Api->ShutDown();
+			m_Api = std::make_unique<OpenGLRenderingApi>(window);
+		}
+		else if (api == API::DX11)
+			std::cout << "DX11 currently is not supported\n";
+	}
+
+	void Renderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<OpenGLTexture>& texture)
 	{
 		if (s_Data.IndexCount >= MaxIndexCount || s_Data.TextureSlotIndex > 9)
 		{

@@ -3,11 +3,11 @@
 
 namespace Engine
 {
-	class IndexBuffer
+	class OpenGLIndexBuffer
 	{
 	public:
-		IndexBuffer(unsigned int* data, unsigned int size);
-		~IndexBuffer();
+		OpenGLIndexBuffer(unsigned int* data, unsigned int size);
+		~OpenGLIndexBuffer();
 		void SetData(unsigned int* data, unsigned int size);
 		void Bind();
 		void Unbind();

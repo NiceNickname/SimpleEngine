@@ -1,10 +1,10 @@
 #include "pch.h"
 
-#include "Texture.h"
+#include "OpenGLTexture.h"
 
 namespace Engine
 {
-	Texture::Texture(const std::string& path)
+	OpenGLTexture::OpenGLTexture(const std::string& path)
 	{
 		stbi_set_flip_vertically_on_load(1);
 		stbi_uc* data = nullptr;
@@ -26,12 +26,12 @@ namespace Engine
 	
 	}
 	
-	Texture::~Texture()
+	OpenGLTexture::~OpenGLTexture()
 	{
 		glDeleteTextures(1, &m_Id);
 	}
 	
-	void Texture::Bind(unsigned int slot)
+	void OpenGLTexture::Bind(unsigned int slot)
 	{
 		glActiveTexture(GL_TEXTURE0 + slot);
 	

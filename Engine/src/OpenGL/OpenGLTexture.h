@@ -5,11 +5,11 @@
 
 namespace Engine
 {
-	class Texture
+	class OpenGLTexture
 	{
 	public:
-		Texture(const std::string& path);
-		~Texture();
+		OpenGLTexture(const std::string& path);
+		~OpenGLTexture();
 		void Bind(unsigned int slot);
 		inline unsigned int GetId() { return m_Id; }
 

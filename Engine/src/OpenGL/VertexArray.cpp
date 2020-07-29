@@ -15,7 +15,7 @@ namespace Engine
 		glDeleteVertexArrays(1, &m_Id);
 	}
 
-	void VertexArray::SetVB(const std::shared_ptr<VertexBuffer>& vb)
+	void VertexArray::SetVB(const std::shared_ptr<OpenGLVertexBuffer>& vb)
 	{
 		glBindVertexArray(m_Id);
 		m_Vbo = vb;
@@ -32,7 +32,7 @@ namespace Engine
 
 	}
 
-	void VertexArray::SetIB(const std::shared_ptr<IndexBuffer>& ib)
+	void VertexArray::SetIB(const std::shared_ptr<OpenGLIndexBuffer>& ib)
 	{
 		glBindVertexArray(m_Id);
 		m_Ibo = ib;

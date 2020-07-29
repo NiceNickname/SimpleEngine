@@ -1,11 +1,11 @@
 #include "pch.h"
 
-#include "IndexBuffer.h"
+#include "OpenGLIndexBuffer.h"
 #include <GL/glew.h>
 
 namespace Engine
 {
-	IndexBuffer::IndexBuffer(unsigned int* data, unsigned int size)
+	OpenGLIndexBuffer::OpenGLIndexBuffer(unsigned int* data, unsigned int size)
 	{
 		glGenBuffers(1, &m_Id);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
@@ -13,24 +13,24 @@ namespace Engine
 		m_Count = size / sizeof(unsigned int);
 	}
 
-	IndexBuffer::~IndexBuffer()
+	OpenGLIndexBuffer::~OpenGLIndexBuffer()
 	{
 		glDeleteBuffers(1, &m_Id);
 	}
 
-	void IndexBuffer::SetData(unsigned int* data, unsigned int size)
+	void OpenGLIndexBuffer::SetData(unsigned int* data, unsigned int size)
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 		m_Count = size / sizeof(unsigned int);
 	}
 
-	void IndexBuffer::Bind()
+	void OpenGLIndexBuffer::Bind()
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
 	}
 
-	void IndexBuffer::Unbind()
+	void OpenGLIndexBuffer::Unbind()
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}

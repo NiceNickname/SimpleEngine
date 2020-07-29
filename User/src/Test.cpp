@@ -6,9 +6,9 @@ class Game : public Engine::App
 {
 public:
 	std::shared_ptr<Engine::VertexArray> m_VAO;
-	std::shared_ptr<Engine::Shader> m_Shader;
-	std::shared_ptr<Engine::Shader> m_BatchShader;
-	std::shared_ptr<Engine::Texture> m_Texture;
+	std::shared_ptr<Engine::OpenGLShader> m_Shader;
+	std::shared_ptr<Engine::OpenGLShader> m_BatchShader;
+	std::shared_ptr<Engine::OpenGLTexture> m_Texture;
 	std::shared_ptr<Engine::OrthographicCamera> m_Camera;
 
 	glm::vec3 CameraPosition = { 0.0f, 0.0f, 0.0f };
@@ -26,8 +26,8 @@ public:
 			0, 1, 2, 2, 3, 0
 		};
 
-		auto vertexbuffer = std::make_shared<Engine::VertexBuffer>(vertices, sizeof(vertices));
-		auto indexbuffer = std::make_shared<Engine::IndexBuffer>(indices, sizeof(indices));
+		auto vertexbuffer = std::make_shared<Engine::OpenGLVertexBuffer>(vertices, sizeof(vertices));
+		auto indexbuffer = std::make_shared<Engine::OpenGLIndexBuffer>(indices, sizeof(indices));
 
 		m_Camera = std::make_shared<Engine::OrthographicCamera>(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
 		m_Camera->SetPosition(CameraPosition);
@@ -41,14 +41,14 @@ public:
 		m_VAO->SetVB(vertexbuffer);
 		m_VAO->SetIB(indexbuffer);
 
-		m_Shader = std::make_shared<Engine::Shader>("res/shaders/shader.vert", "res/shaders/shader.fragm");
+		m_Shader = std::make_shared<Engine::OpenGLShader>("res/shaders/shader.vert", "res/shaders/shader.fragm");
 		m_Shader->Bind();
 		m_Shader->SetUniform1i("tex", 1);
 		m_Shader->SetUniformMat4f("view", m_Camera->GetView());
 
-		m_Texture = std::make_shared<Engine::Texture>("res/textures/checkerboard.jpg");
+		m_Texture = std::make_shared<Engine::OpenGLTexture>("res/textures/checkerboard.jpg");
 
-		m_BatchShader = std::make_shared<Engine::Shader>("res/shaders/BatchShader.vert", "res/shaders/BatchShader.fragm");
+		m_BatchShader = std::make_shared<Engine::OpenGLShader>("res/shaders/BatchShader.vert", "res/shaders/BatchShader.fragm");
 		m_BatchShader->Bind();
 		m_BatchShader->SetUniformMat4f("view", m_Camera->GetView());
 
@@ -73,6 +73,9 @@ public:
 			CameraPosition.y += 0.01f;
 		if (Engine::Input::IsKeyDown(GLFW_KEY_DOWN))
 			CameraPosition.y -= 0.01f;
+
+		if (Engine::Input::IsKeyDown(GLFW_KEY_SPACE))
+			Engine::Renderer::SetApi(Engine::Renderer::API::OPENGL, GetWindowPtr());
 
 		m_Camera->SetPosition(CameraPosition);
 

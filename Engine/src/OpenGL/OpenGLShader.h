@@ -6,11 +6,11 @@
 
 namespace Engine
 {
-	class Shader
+	class OpenGLShader
 	{
 	public:
-		Shader(const std::string& vertexPath, const std::string& fragmentPath);
-		~Shader();
+		OpenGLShader(const std::string& vertexPath, const std::string& fragmentPath);
+		~OpenGLShader();
 		void Bind();
 		void Unbind();
 		std::string fromFile(const std::string& path);

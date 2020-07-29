@@ -17,6 +17,5 @@ namespace Engine
 
 	private:
 		GLFWwindow* m_Window;
-		bool m_ShowDemo = true;
 	};
 }

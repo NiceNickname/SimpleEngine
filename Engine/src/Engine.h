@@ -15,12 +15,12 @@
 
 #include "Input/Input.h"
 
-#include "OpenGL/Shader.h"
+#include "Renderer/VertexBufferLayout.h"
+#include "OpenGL/OpenGLShader.h"
 #include "OpenGL/VertexArray.h"
-#include "OpenGL/VertexBuffer.h"
-#include "OpenGL/IndexBuffer.h"
-#include "OpenGL/VertexBufferLayout.h"
-#include "OpenGL/Texture.h"
+#include "OpenGL/OpenGLVertexBuffer.h"
+#include "OpenGL/OpenGLIndexBuffer.h"
+#include "OpenGL/OpenGLTexture.h"
 
 #include "Window/Window.h"
 #include "Core/App.h"

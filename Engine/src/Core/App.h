@@ -20,6 +20,7 @@ namespace Engine
 		virtual void Update() {}
 		virtual void Render() {}
 		virtual void ImGuiRender() {}
+		inline GLFWwindow* GetWindowPtr() { return m_Window->GetPointer(); }
 
 	protected:
 		bool m_Running = true;

@@ -1,40 +1,40 @@
 #include "pch.h"
 
-#include "VertexBuffer.h"
+#include "OpenGLVertexBuffer.h"
 #include <GL/glew.h>
 
 
 namespace Engine
 {
-	VertexBuffer::VertexBuffer(float* data, unsigned int size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* data, unsigned int size)
 	{
 		glGenBuffers(1, &m_Id);
 		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 
-	VertexBuffer::~VertexBuffer()
+	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
 		glDeleteBuffers(1, &m_Id);
 	}
 
-	void VertexBuffer::SetData(float* data, unsigned int size)
+	void OpenGLVertexBuffer::SetData(float* data, unsigned int size)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 
-	void VertexBuffer::SetLayout(const VertexBufferLayout& layout)
+	void OpenGLVertexBuffer::SetLayout(const VertexBufferLayout& layout)
 	{
 		m_Layout = layout;
 	}
 
-	void VertexBuffer::Bind()
+	void OpenGLVertexBuffer::Bind()
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
 	}
 
-	void VertexBuffer::Unbind()
+	void OpenGLVertexBuffer::Unbind()
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}

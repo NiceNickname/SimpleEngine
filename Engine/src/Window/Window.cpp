@@ -8,6 +8,7 @@
 #include "imgui.h"
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
+#include "Renderer/Renderer.h"
 
 namespace Engine
 {
@@ -44,37 +45,11 @@ namespace Engine
 		/* Make the window's context current */
 		glfwMakeContextCurrent(m_Window);
 
-		if (glewInit() != GLEW_OK)
-			std::cout << "glew not initialized" << std::endl;
-
-		glEnable(GL_DEPTH_TEST);
+		glfwSwapInterval(1);
 		
 		glfwSetKeyCallback(m_Window, Input::KeyCallBack);
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		glfwSwapInterval(1);
-
-		// Setup Dear ImGui context
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-
-		ImGui::StyleColorsDark();
-		ImGuiStyle& style = ImGui::GetStyle();
-
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			style.WindowRounding = 0.0f;
-			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
-		}
-
-		ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
-		ImGui_ImplOpenGL3_Init("#version 410");
+		Renderer::SetApi(Renderer::API::OPENGL, m_Window);
 	}
 
 	void Window::Update()
