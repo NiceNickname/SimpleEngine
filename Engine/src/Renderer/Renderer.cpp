@@ -166,7 +166,7 @@ namespace Engine {
 			std::cout << "DX11 currently is not supported\n";
 	}
 
-	void Renderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<OpenGLTexture>& texture)
+	void Renderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)
 	{
 		if (s_Data.IndexCount >= MaxIndexCount || s_Data.TextureSlotIndex > 9)
 		{

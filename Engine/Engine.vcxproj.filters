@@ -1322,6 +1322,7 @@
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
+    <ClInclude Include="src\Renderer\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -1367,5 +1368,6 @@
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Renderer\Texture.cpp" />
   </ItemGroup>
 </Project>

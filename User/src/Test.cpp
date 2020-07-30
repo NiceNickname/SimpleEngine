@@ -8,7 +8,7 @@ public:
 	std::shared_ptr<Engine::VertexArray> m_VAO;
 	std::shared_ptr<Engine::Shader> m_Shader;
 	std::shared_ptr<Engine::Shader> m_BatchShader;
-	std::shared_ptr<Engine::OpenGLTexture> m_Texture;
+	std::shared_ptr<Engine::Texture> m_Texture;
 	std::shared_ptr<Engine::OrthographicCamera> m_Camera;
 
 	glm::vec3 CameraPosition = { 0.0f, 0.0f, 0.0f };
@@ -50,7 +50,8 @@ public:
 		m_Shader->SetUniform1i("tex", 1);
 		m_Shader->SetUniformMat4f("view", m_Camera->GetView());
 
-		m_Texture = std::make_shared<Engine::OpenGLTexture>("res/textures/checkerboard.jpg");
+		m_Texture.reset(Engine::Texture::Create("res/textures/checkerboard.jpg"));
+		//m_Texture = std::make_shared<Engine::OpenGLTexture>("res/textures/checkerboard.jpg");
 
 		m_BatchShader = std::make_shared<Engine::OpenGLShader>("res/shaders/BatchShader.vert", "res/shaders/BatchShader.fragm");
 		m_BatchShader->Bind();

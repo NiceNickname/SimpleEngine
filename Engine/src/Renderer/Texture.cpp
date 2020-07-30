@@ -1,17 +1,19 @@
 #include "pch.h"
-#include <glm/glm.hpp>
-#include "Shader.h"
+
+#include "Texture.h"
 #include "Renderer.h"
-#include "OpenGL/OpenGLShader.h"
+#include "OpenGL/OpenGLTexture.h"
 
 namespace Engine {
 
-	Engine::Shader* Shader::Create(const std::string& vertexPath, const std::string& fragmentPath)
+
+
+	Engine::Texture* Texture::Create(const std::string& path)
 	{
 		if (Renderer::GetApi() == Renderer::API::NONE)
 			std::cout << "None rendering API is set\n";
 		else if (Renderer::GetApi() == Renderer::API::OPENGL)
-			return new OpenGLShader(vertexPath, fragmentPath);
+			return new OpenGLTexture(path);
 		else if (Renderer::GetApi() == Renderer::API::DX11)
 			std::cout << "DX11 currently is not supported\n";
 	}

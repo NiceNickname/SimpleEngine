@@ -37,5 +37,11 @@ namespace Engine
 	
 		glBindTexture(GL_TEXTURE_2D, m_Id);
 	}
+
+	void OpenGLTexture::Unbind()
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
 }
 
