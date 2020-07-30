@@ -2,7 +2,7 @@
 #include "RenderingAPI.h"
 #include "Texture.h"
 #include "glm/glm.hpp"
-#include <memory>
+
 struct GLFWwindow;
 
 namespace Engine {
@@ -15,6 +15,7 @@ namespace Engine {
 		static void Init();
 		static void Begin();
 		static void End();
+		static void DrawQuad(const glm::vec3& position, unsigned int indexcount);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture);
 		static void Flush();
@@ -22,6 +23,11 @@ namespace Engine {
 		static void Draw();
 		static void SetApi(API api, GLFWwindow* window);
 		inline static API GetApi() { return m_ApiName; }
+	private:
+		static void DrawQuadOpenGL(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
+		static void DrawQuadOpenGL(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture);
+		static void DrawQuadDX11(const glm::vec3& position, unsigned int indexcount);
+
 	private:
 		static std::unique_ptr<RenderingAPI> m_Api;
 		static API m_ApiName;

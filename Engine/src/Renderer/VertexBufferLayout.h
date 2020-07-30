@@ -3,7 +3,8 @@
 #include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
+#include "Renderer/Renderer.h"
+#include "DX11/DX11RenderingApi.h"
 namespace Engine
 {
 	enum class DATATYPE
@@ -52,14 +53,29 @@ namespace Engine
 
 		unsigned int GetType()
 		{
-			switch (type)
+			if (Renderer::GetApi() == Renderer::API::OPENGL)
 			{
-			case DATATYPE::INT1:		return GL_INT;
-			case DATATYPE::FLOAT1:		return GL_FLOAT;
-			case DATATYPE::FLOAT2:		return GL_FLOAT;
-			case DATATYPE::FLOAT3:		return GL_FLOAT;
-			case DATATYPE::MAT4:		return GL_FLOAT;
+				switch (type)
+				{
+				case DATATYPE::INT1:		return GL_INT;
+				case DATATYPE::FLOAT1:		return GL_FLOAT;
+				case DATATYPE::FLOAT2:		return GL_FLOAT;
+				case DATATYPE::FLOAT3:		return GL_FLOAT;
+				case DATATYPE::MAT4:		return GL_FLOAT;
+				}
 			}
+			else if (Renderer::GetApi() == Renderer::API::DX11)
+			{
+				switch (type)
+				{
+				case DATATYPE::INT1:		return DXGI_FORMAT_R32_SINT;
+				case DATATYPE::FLOAT1:		return DXGI_FORMAT_R32_FLOAT;
+				case DATATYPE::FLOAT2:		return DXGI_FORMAT_R32G32_FLOAT;
+				case DATATYPE::FLOAT3:		return DXGI_FORMAT_R32G32B32_FLOAT;
+				case DATATYPE::MAT4:		return 0;
+				}
+			}
+			
 
 			return 0;
 		}

@@ -7,6 +7,9 @@
     <Filter Include="src\Core">
       <UniqueIdentifier>{A5D31CCF-91A0-77DA-BAB9-6582A6E5AC68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\DX11">
+      <UniqueIdentifier>{9AF51CCF-86C2-77DA-AFDB-65829B07AD68}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\ImGui">
       <UniqueIdentifier>{170E22B3-8378-D629-CCB6-87CF3860B47E}</UniqueIdentifier>
     </Filter>
@@ -54,6 +57,18 @@
     <ClInclude Include="src\Core\OrthographicCamera.h">
       <Filter>src\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\DX11\DX11IndexBuffer.h">
+      <Filter>src\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX11\DX11RenderingApi.h">
+      <Filter>src\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX11\DX11Shader.h">
+      <Filter>src\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX11\DX11VertexBuffer.h">
+      <Filter>src\DX11</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -63,10 +78,43 @@
     <ClInclude Include="src\Input\Input.h">
       <Filter>src\Input</Filter>
     </ClInclude>
+    <ClInclude Include="src\OpenGL\OpenGLIndexBuffer.h">
+      <Filter>src\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\OpenGLRenderingApi.h">
+      <Filter>src\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\OpenGLShader.h">
+      <Filter>src\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\OpenGLTexture.h">
+      <Filter>src\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\OpenGLVertexBuffer.h">
+      <Filter>src\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\OpenGL\VertexArray.h">
       <Filter>src\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\IndexBuffer.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\Renderer.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\RenderingAPI.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Shader.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Texture.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\VertexBuffer.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\VertexBufferLayout.h">
       <Filter>src\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\Window.h">
@@ -1197,6 +1245,12 @@
     <ClInclude Include="vendor\glm\glm\gtx\string_cast.inl">
       <Filter>vendor\glm\glm\gtx</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\glm\glm\gtx\texture.hpp">
+      <Filter>vendor\glm\glm\gtx</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\gtx\texture.inl">
+      <Filter>vendor\glm\glm\gtx</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\glm\glm\gtx\transform.hpp">
       <Filter>vendor\glm\glm\gtx</Filter>
     </ClInclude>
@@ -1296,33 +1350,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\OpenGL\OpenGLIndexBuffer.h">
-      <Filter>src\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OpenGL\OpenGLShader.h">
-      <Filter>src\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OpenGL\OpenGLTexture.h">
-      <Filter>src\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\glm\gtx\texture.inl">
-      <Filter>vendor\glm\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\glm\gtx\texture.hpp">
-      <Filter>vendor\glm\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OpenGL\OpenGLVertexBuffer.h">
-      <Filter>src\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\VertexBufferLayout.h">
-      <Filter>src\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\RenderingAPI.h" />
-    <ClInclude Include="src\OpenGL\OpenGLRenderingApi.h" />
-    <ClInclude Include="src\Renderer\VertexBuffer.h" />
-    <ClInclude Include="src\Renderer\IndexBuffer.h" />
-    <ClInclude Include="src\Renderer\Shader.h" />
-    <ClInclude Include="src\Renderer\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -1331,28 +1358,28 @@
     <ClCompile Include="src\Core\OrthographicCamera.cpp">
       <Filter>src\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\DX11\DX11IndexBuffer.cpp">
+      <Filter>src\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX11\DX11RenderingApi.cpp">
+      <Filter>src\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX11\DX11Shader.cpp">
+      <Filter>src\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX11\DX11VertexBuffer.cpp">
+      <Filter>src\DX11</Filter>
+    </ClCompile>
     <ClCompile Include="src\ImGui\ImGuiBuild.cpp">
       <Filter>src\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Input\Input.cpp">
       <Filter>src\Input</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenGL\VertexArray.cpp">
+    <ClCompile Include="src\OpenGL\OpenGLIndexBuffer.cpp">
       <Filter>src\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Renderer.cpp">
-      <Filter>src\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\Window.cpp">
-      <Filter>src\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pch.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\stb_image\stb_image.cpp">
-      <Filter>vendor\stb_image</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OpenGL\OpenGLIndexBuffer.cpp">
+    <ClCompile Include="src\OpenGL\OpenGLRenderingApi.cpp">
       <Filter>src\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\OpenGLShader.cpp">
@@ -1364,10 +1391,32 @@
     <ClCompile Include="src\OpenGL\OpenGLVertexBuffer.cpp">
       <Filter>src\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenGL\OpenGLRenderingApi.cpp" />
-    <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
-    <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
-    <ClCompile Include="src\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Renderer\Texture.cpp" />
+    <ClCompile Include="src\OpenGL\VertexArray.cpp">
+      <Filter>src\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\IndexBuffer.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Renderer.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Shader.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Texture.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\VertexBuffer.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\Window.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\stb_image\stb_image.cpp">
+      <Filter>vendor\stb_image</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

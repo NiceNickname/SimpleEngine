@@ -21,6 +21,12 @@
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
+
+#include "DX11/DX11RenderingApi.h"
+#include "DX11/DX11Shader.h"
+#include "DX11/DX11VertexBuffer.h"
+#include "DX11/DX11IndexBuffer.h"
+
 #include "OpenGL/OpenGLShader.h"
 #include "OpenGL/VertexArray.h"
 #include "OpenGL/OpenGLVertexBuffer.h"

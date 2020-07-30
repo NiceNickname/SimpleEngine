@@ -12,6 +12,7 @@ namespace Engine {
 	std::unique_ptr<RenderingAPI> Renderer::m_Api;
 	Renderer::API Renderer::m_ApiName = Renderer::API::NONE;
 
+
 	static const unsigned int MaxTextures = 10;
 	static const unsigned int MaxQuadCount = 1000;
 	static const unsigned int MaxVertexCount = MaxQuadCount * 4;
@@ -135,6 +136,37 @@ namespace Engine {
 		glBufferSubData(GL_ARRAY_BUFFER, 0, size, s_Data.QuadBuffer);
 	}
 
+	void Renderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
+	{
+		if (m_ApiName == API::NONE)
+			std::cout << "None rendering API is set\n";
+		else if (m_ApiName == API::OPENGL)
+			DrawQuadOpenGL(position, size, color);
+		else if (m_ApiName == API::DX11)
+			std::cout << "DX11 currently is not supported\n";
+	}
+
+	void Renderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)
+	{
+		if (m_ApiName == API::NONE)
+			std::cout << "None rendering API is set\n";
+		else if (m_ApiName == API::OPENGL)
+			DrawQuadOpenGL(position, size, texture);
+		else if (m_ApiName == API::DX11)
+			std::cout << "DX11 currently is not supported\n";
+	}
+
+
+	void Renderer::DrawQuad(const glm::vec3& position, unsigned int indexcount)
+	{
+		DrawQuadDX11(position, indexcount);
+	}
+
+	void Renderer::Flush()
+	{
+		// TODO: drawcall
+	}
+
 	void Renderer::Draw()
 	{
 		for (unsigned int i = 0; i < MaxTextures; i++)
@@ -166,7 +198,7 @@ namespace Engine {
 			std::cout << "DX11 currently is not supported\n";
 	}
 
-	void Renderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)
+	void Renderer::DrawQuadOpenGL(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)
 	{
 		if (s_Data.IndexCount >= MaxIndexCount || s_Data.TextureSlotIndex > 9)
 		{
@@ -219,7 +251,7 @@ namespace Engine {
 		s_Data.IndexCount += 6;
 	}
 
-	void Renderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
+	void Renderer::DrawQuadOpenGL(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
 		if (s_Data.IndexCount >= MaxIndexCount)
 		{
@@ -255,6 +287,14 @@ namespace Engine {
 		s_Data.QuadBufferPtr++;
 
 		s_Data.IndexCount += 6;
+	}
+
+	void Renderer::DrawQuadDX11(const glm::vec3& position, unsigned int indexcount)
+	{
+		DX11RenderingApi::GetContext()->DrawIndexed(indexcount, 0, 0);
+
+		// switch the back buffer and the front buffer
+		DX11RenderingApi::GetSwapChain()->Present(1, 0);
 	}
 
 }

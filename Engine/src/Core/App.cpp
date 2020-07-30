@@ -5,6 +5,8 @@
 #include "imgui.h"
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
+#include "Renderer/Renderer.h"
+#include "DX11/DX11RenderingApi.h"
 
 namespace Engine
 {
@@ -16,7 +18,11 @@ namespace Engine
 		{
 			Update();
 
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			if (Renderer::GetApi() == Renderer::API::OPENGL)
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			else if (Renderer::GetApi() == Renderer::API::DX11)
+				DX11RenderingApi::Clear();
+			
 			
 			Render();
 			ImGuiBegin();

@@ -32,13 +32,19 @@ project "Engine"
 
    defines { "GLEW_STATIC" }
 
+   libdirs
+   {
+      "%{prj.name}/vendor/DX11/Lib/x64"
+   }
+
    includedirs 
    { "%{prj.name}/vendor/GLFW/include", 
       "%{prj.name}/vendor/GLEW/include", 
       "%{prj.name}/vendor/stb_image",
       "%{prj.name}/vendor/imgui",
       "%{prj.name}/vendor/glm",
-      "%{prj.name}/src" 
+      "%{prj.name}/src",
+      "%{prj.name}/vendor/DX11/Include" 
    }
    
    
@@ -84,6 +90,13 @@ project "User"
 		"%{prj.name}/src/**.cpp"
 	}
 
+
+   libdirs
+   {
+      "%{prj.name}/vendor/DX11/Lib/x64"
+   }
+
+   
 	includedirs
 	{
 		"Engine/vendor/GLEW/include",
@@ -91,7 +104,8 @@ project "User"
       "Engine/vendor/stb_image",
       "Engine/vendor/imgui",
       "Engine/vendor/glm",
-		"Engine/src"
+      "Engine/src",
+      "Engine/vendor/DX11/Include"
 	}
 
 	links

@@ -1,7 +1,6 @@
 #pragma once
-#include "Renderer/RenderingAPI.h"
 #include <Gl/glew.h>
-#include <GLFW/glfw3.h>
+#include "Renderer/RenderingAPI.h"
 
 namespace Engine
 {
