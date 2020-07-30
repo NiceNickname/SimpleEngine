@@ -34,11 +34,12 @@ namespace Engine {
 	void DX11VertexBuffer::Bind()
 	{
 
-		UINT stride = m_LayoutDesc.Stride;
+		DX11RenderingApi::GetContext()->IASetInputLayout(m_Layout);
+
+		UINT stride = sizeof(float) * 3;
 		UINT offset = 0;
 		DX11RenderingApi::GetContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-		DX11RenderingApi::GetContext()->IASetInputLayout(m_Layout);
 	}
 
 	void DX11VertexBuffer::Unbind()
@@ -63,14 +64,16 @@ namespace Engine {
 			ied[i] = {layout.Elements[i].name, 0, layout.Elements[i].GetType(), 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0};
 		}*/
 
-		UINT stride = sizeof(float) * 3;
-		UINT offset = 0;
-		DX11RenderingApi::GetContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
+		
 
 		DX11RenderingApi::GetDevice()->CreateInputLayout(ied, sizeof(ied) / sizeof(D3D11_INPUT_ELEMENT_DESC), 
 			DX11RenderingApi::GetVSCode()->GetBufferPointer(), DX11RenderingApi::GetVSCode()->GetBufferSize(), &m_Layout);
 
 		DX11RenderingApi::GetContext()->IASetInputLayout(m_Layout);
+
+		UINT stride = sizeof(float) * 3;
+		UINT offset = 0;
+		DX11RenderingApi::GetContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
 		
 	}

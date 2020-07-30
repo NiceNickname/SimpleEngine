@@ -10,6 +10,16 @@
 
 namespace Engine {
 
+	DX11RenderingApi::DX11RenderingApi(GLFWwindow* window)
+	{
+		Init(window);
+	}
+
+	DX11RenderingApi::~DX11RenderingApi()
+	{
+
+	}
+
 	void DX11RenderingApi::Clear()
 	{
 		// clear the back buffer to a deep blue
@@ -77,8 +87,6 @@ namespace Engine {
 		m_Device->CreateRenderTargetView(pBackBuffer, NULL, &m_BackBuffer);
 		pBackBuffer->Release();
 
-
-
 		// viewport (mapping NDC to pixel coordinates)
 		D3D11_VIEWPORT viewport;
 
@@ -94,6 +102,7 @@ namespace Engine {
 		m_Context->RSSetViewports(1, &viewport);
 
 		InitStates();
+
 
 		D3D11_TEXTURE2D_DESC texd;
 
@@ -122,6 +131,9 @@ namespace Engine {
 		pDepthBuffer->Release();
 
 		m_Context->OMSetRenderTargets(1, &m_BackBuffer, m_Zbuffer);
+		m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		
 	}
 
 	void DX11RenderingApi::InitStates()

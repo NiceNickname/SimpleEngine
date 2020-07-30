@@ -3,6 +3,7 @@
 #include "Shader.h"
 #include "Renderer.h"
 #include "OpenGL/OpenGLShader.h"
+#include "DX11/DX11Shader.h"
 
 namespace Engine {
 
@@ -13,7 +14,7 @@ namespace Engine {
 		else if (Renderer::GetApi() == Renderer::API::OPENGL)
 			return new OpenGLShader(vertexPath, fragmentPath);
 		else if (Renderer::GetApi() == Renderer::API::DX11)
-			std::cout << "DX11 currently is not supported\n";
+			return new DX11Shader(vertexPath, fragmentPath);
 	}
 
 }

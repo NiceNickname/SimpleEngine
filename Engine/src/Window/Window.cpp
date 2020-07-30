@@ -18,10 +18,10 @@ namespace Engine
 	}
 
 	Window::~Window()
-	{
+	{/*
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();
+		ImGui::DestroyContext();*/
 
 		glfwDestroyWindow(m_Window);
 		glfwTerminate();
@@ -49,7 +49,7 @@ namespace Engine
 		
 		glfwSetKeyCallback(m_Window, Input::KeyCallBack);
 
-		Renderer::SetApi(Renderer::API::OPENGL, m_Window);
+		Renderer::SetApi(Renderer::API::DX11, m_Window);
 	}
 
 	void Window::Update()

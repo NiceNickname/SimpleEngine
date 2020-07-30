@@ -20,15 +20,19 @@ public:
 
 		unsigned int indices[] = {
 			0, 1, 2,
-			2, 3, 1
+			2, 3, 0
 		};
 
-		m_Shader.reset(Engine::Shader::Create("Shaders.shader", "Shaders.shader"));
+		m_Shader.reset(Engine::Shader::Create("res/shaders/Shaders.shader", "res/shaders/Shaders.shader"));
 		Engine::VertexBufferLayout layout = { {"POSITION", Engine::DATATYPE::FLOAT3 } };
 
 		m_VB.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
+		m_VB->SetLayout(layout);
 		m_IB.reset(Engine::IndexBuffer::Create(indices, sizeof(indices)));
 
+		m_Shader->Bind();
+		m_VB->Bind();
+		m_IB->Bind();
 
 	}
 
@@ -39,7 +43,7 @@ public:
 
 	void Render() override
 	{
-		Engine::Renderer::DrawQuad({0.0f, 0.0f, 0.0f}, m_IB->GetCount());
+		Engine::Renderer::DrawQuad(m_IB->GetCount());
 	}
 
 	void ImGuiRender() override
@@ -53,5 +57,9 @@ public:
 
 };
 
+Engine::App* CreateApp()
+{
+	return new DX11Game();
+}
 
 

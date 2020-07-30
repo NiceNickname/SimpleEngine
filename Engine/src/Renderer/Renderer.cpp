@@ -115,12 +115,15 @@ namespace Engine {
 
 	void Renderer::ShutDown()
 	{
-		glDeleteBuffers(1, &s_Data.QuadVB);
-		glDeleteBuffers(1, &s_Data.QuadIB);
-		glDeleteVertexArrays(1, &s_Data.QuadVA);
+		if (m_ApiName == API::OPENGL)
+		{
+			glDeleteBuffers(1, &s_Data.QuadVB);
+			glDeleteBuffers(1, &s_Data.QuadIB);
+			glDeleteVertexArrays(1, &s_Data.QuadVA);
 
-		glDeleteTextures(1, &s_Data.WhiteTexture);
+			glDeleteTextures(1, &s_Data.WhiteTexture);
 
+		}
 		delete[] s_Data.QuadBuffer;
 	}
 
@@ -157,9 +160,9 @@ namespace Engine {
 	}
 
 
-	void Renderer::DrawQuad(const glm::vec3& position, unsigned int indexcount)
+	void Renderer::DrawQuad(unsigned int indexcount)
 	{
-		DrawQuadDX11(position, indexcount);
+		DrawQuadDX11(indexcount);
 	}
 
 	void Renderer::Flush()
@@ -195,7 +198,11 @@ namespace Engine {
 			m_Api = std::make_unique<OpenGLRenderingApi>(window);
 		}
 		else if (api == API::DX11)
-			std::cout << "DX11 currently is not supported\n";
+		{
+			if (m_Api.get() != nullptr)
+				m_Api->ShutDown();
+			m_Api = std::make_unique<DX11RenderingApi>(window);
+		}
 	}
 
 	void Renderer::DrawQuadOpenGL(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)
@@ -289,8 +296,10 @@ namespace Engine {
 		s_Data.IndexCount += 6;
 	}
 
-	void Renderer::DrawQuadDX11(const glm::vec3& position, unsigned int indexcount)
+	void Renderer::DrawQuadDX11(unsigned int indexcount)
 	{
+		
+
 		DX11RenderingApi::GetContext()->DrawIndexed(indexcount, 0, 0);
 
 		// switch the back buffer and the front buffer

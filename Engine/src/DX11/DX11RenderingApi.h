@@ -16,11 +16,17 @@ namespace Engine {
 	{
 
 	public:
+		DX11RenderingApi(GLFWwindow* window);
+		~DX11RenderingApi();
 		inline static ID3D11Device* GetDevice() { return m_Device; }
 		inline static ID3D11DeviceContext* GetContext() { return m_Context; }
 		inline static IDXGISwapChain* GetSwapChain() { return m_SwapChain; }
+
 		inline static ID3D10Blob* GetVSCode() { return m_VSCode; }
+		inline static void SetVSCode(ID3D10Blob* vscode) { m_VSCode = vscode; }
+
 		inline static ID3D10Blob* GetPSCode() { return m_PSCode; }
+		inline static void SetPSCode(ID3D10Blob* pscode) { m_PSCode = pscode; }
 		static void Clear();
 
 		virtual void Init(GLFWwindow* window) override;

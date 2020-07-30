@@ -2,6 +2,7 @@
 #include "IndexBuffer.h"
 #include "Renderer.h"
 #include "OpenGL/OpenGLIndexBuffer.h"
+#include "DX11/DX11IndexBuffer.h"
 
 namespace Engine {
 
@@ -13,7 +14,7 @@ namespace Engine {
 		else if (Renderer::GetApi() == Renderer::API::OPENGL)
 			return new OpenGLIndexBuffer(data, size);
 		else if (Renderer::GetApi() == Renderer::API::DX11)
-			std::cout << "DX11 currently is not supported\n";
+			return new DX11IndexBuffer(data, size);
 	}
 
 }

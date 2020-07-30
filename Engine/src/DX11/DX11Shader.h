@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer/Shader.h"
+#include "DX11/DX11RenderingApi.h"
 
 namespace Engine {
 

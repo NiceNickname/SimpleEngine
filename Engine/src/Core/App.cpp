@@ -25,9 +25,14 @@ namespace Engine
 			
 			
 			Render();
-			ImGuiBegin();
-			ImGuiRender();
-			ImGuiEnd();
+
+			if (Renderer::GetApi() == Renderer::API::OPENGL)
+			{
+				ImGuiBegin();
+				ImGuiRender();
+				ImGuiEnd();
+			}
+			
 
 			m_Window->Update();
 

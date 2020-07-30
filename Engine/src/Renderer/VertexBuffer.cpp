@@ -2,6 +2,7 @@
 #include "VertexBuffer.h"
 #include "Renderer.h"
 #include "OpenGL/OpenGLVertexBuffer.h"
+#include "DX11/DX11VertexBuffer.h"
 
 namespace Engine {
 
@@ -12,7 +13,7 @@ namespace Engine {
 		else if (Renderer::GetApi() == Renderer::API::OPENGL)
 			return new OpenGLVertexBuffer(data, size);
 		else if (Renderer::GetApi() == Renderer::API::DX11)
-			std::cout << "DX11 currently is not supported\n";
+			return new DX11VertexBuffer(data, size);
 	}
 
 }
