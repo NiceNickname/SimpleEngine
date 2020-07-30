@@ -110,6 +110,7 @@
     <ClInclude Include="src\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\RenderingAPI.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Renderer\VertexBufferLayout.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
@@ -538,6 +539,7 @@
     <ClCompile Include="src\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\pch.cpp">

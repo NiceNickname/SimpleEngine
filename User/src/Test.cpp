@@ -6,8 +6,8 @@ class Game : public Engine::App
 {
 public:
 	std::shared_ptr<Engine::VertexArray> m_VAO;
-	std::shared_ptr<Engine::OpenGLShader> m_Shader;
-	std::shared_ptr<Engine::OpenGLShader> m_BatchShader;
+	std::shared_ptr<Engine::Shader> m_Shader;
+	std::shared_ptr<Engine::Shader> m_BatchShader;
 	std::shared_ptr<Engine::OpenGLTexture> m_Texture;
 	std::shared_ptr<Engine::OrthographicCamera> m_Camera;
 
@@ -44,7 +44,8 @@ public:
 		m_VAO->SetVB(vertexbuffer);
 		m_VAO->SetIB(indexbuffer);
 
-		m_Shader = std::make_shared<Engine::OpenGLShader>("res/shaders/shader.vert", "res/shaders/shader.fragm");
+		m_Shader.reset(Engine::Shader::Create("res/shaders/shader.vert", "res/shaders/shader.fragm"));
+		//m_Shader = std::make_shared<Engine::OpenGLShader>("res/shaders/shader.vert", "res/shaders/shader.fragm");
 		m_Shader->Bind();
 		m_Shader->SetUniform1i("tex", 1);
 		m_Shader->SetUniformMat4f("view", m_Camera->GetView());
