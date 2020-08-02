@@ -5,6 +5,7 @@
 #include "DX11RenderingApi.h"
 #include <GLFW/glfw3.h>
 #include "GLFW/glfw3native.h"
+
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
 
@@ -37,6 +38,8 @@ namespace Engine {
 
 	void DX11RenderingApi::ShutDown()
 	{
+		m_SwapChain->SetFullscreenState(FALSE, NULL);
+
 		m_VSCode->Release();
 		m_PSCode->Release();
 		m_Zbuffer->Release();
@@ -47,6 +50,11 @@ namespace Engine {
 		m_SwapChain->Release();
 		m_Context->Release();
 		m_Device->Release();
+	}
+
+	void DX11RenderingApi::SwapBuffers(unsigned int SyncInterval, unsigned int Flags)
+	{
+		m_SwapChain->Present((UINT)SyncInterval, (UINT)Flags);
 	}
 
 	void DX11RenderingApi::InitD3D(GLFWwindow* window)

@@ -303,7 +303,8 @@ namespace Engine {
 		DX11RenderingApi::GetContext()->DrawIndexed(indexcount, 0, 0);
 
 		// switch the back buffer and the front buffer
-		DX11RenderingApi::GetSwapChain()->Present(1, 0);
+		//DX11RenderingApi::GetSwapChain()->Present(1, 0);
+		
 	}
 
 }

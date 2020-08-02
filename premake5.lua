@@ -1,6 +1,6 @@
-workspace "Engine"
+   workspace "Engine"
    configurations { "Debug", "Release" }
-   platforms { "Win64"}
+   platforms { "Win64", "Win32"}
    startproject "User"
 
    include "Engine/vendor/GLEW"
@@ -20,6 +20,8 @@ project "Engine"
    targetdir "%{prj.name}/out/bin/%{cfg.buildcfg}-%{cfg.architecture}"
    objdir "%{prj.name}/out/obj/%{cfg.buildcfg}-%{cfg.architecture}"
 
+   characterset ("MBCS")
+
    files 
    { 
       "%{prj.name}/src/**.h", 
@@ -32,13 +34,9 @@ project "Engine"
 
    defines { "GLEW_STATIC" }
 
-   libdirs
-   {
-      "%{prj.name}/vendor/DX11/Lib/x64"
-   }
-
    includedirs 
-   { "%{prj.name}/vendor/GLFW/include", 
+   { 
+      "%{prj.name}/vendor/GLFW/include", 
       "%{prj.name}/vendor/GLEW/include", 
       "%{prj.name}/vendor/stb_image",
       "%{prj.name}/vendor/imgui",
@@ -54,12 +52,25 @@ project "Engine"
         "GLFW",
         "GLEW",
         "ImGui"
-
    }
+
+   filter "platforms:Win32"
+      system "Windows"
+      architecture "x86"
+      
+      libdirs
+      {
+         "%{prj.name}/vendor/DX11/Lib/x86"
+      }
 
    filter "platforms:Win64"
       system "Windows"
       architecture "x86_64"
+
+      libdirs
+      {
+         "%{prj.name}/vendor/DX11/Lib/x64"
+      }
 
    filter "system:windows"
 		systemversion "latest"
@@ -71,7 +82,6 @@ project "Engine"
    filter "configurations:Release"
       defines { "NDEBUG" }
       optimize "On"
-
 
 
 project "User"
@@ -90,13 +100,6 @@ project "User"
 		"%{prj.name}/src/**.cpp"
 	}
 
-
-   libdirs
-   {
-      "%{prj.name}/vendor/DX11/Lib/x64"
-   }
-
-   
 	includedirs
 	{
 		"Engine/vendor/GLEW/include",
@@ -113,9 +116,23 @@ project "User"
 		"Engine"
 	}
 
+   filter "platforms:Win32"
+      system "Windows"
+      architecture "x86"
+
+      libdirs
+      {
+         "Engine/vendor/DX11/Lib/x86"
+      }
+
    filter "platforms:Win64"
       system "Windows"
       architecture "x86_64"
+
+      libdirs
+      {
+         "Engine/vendor/DX11/Lib/x64"
+      }
 
    filter "system:windows"
 		systemversion "latest"
@@ -127,4 +144,6 @@ project "User"
    filter "configurations:Release"
       defines { "NDEBUG" }
       optimize "On"
+
+
       

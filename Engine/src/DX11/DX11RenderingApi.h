@@ -32,6 +32,10 @@ namespace Engine {
 		virtual void Init(GLFWwindow* window) override;
 		virtual void ShutDown() override;
 
+		static void SwapBuffers(unsigned int SyncInterval, unsigned int Flags);
+
+		
+
 	private:
 		void InitD3D(GLFWwindow* window);
 		void InitStates();

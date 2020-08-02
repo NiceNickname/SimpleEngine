@@ -9,6 +9,7 @@
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
 #include "Renderer/Renderer.h"
+#include "DX11/DX11RenderingApi.h"
 
 namespace Engine
 {
@@ -57,6 +58,9 @@ namespace Engine
 		/* Poll for and process events */
 		glfwPollEvents();
 
-		glfwSwapBuffers(m_Window);
+		if (Renderer::GetApi() == Renderer::API::DX11)
+			DX11RenderingApi::SwapBuffers(1, 0);
+		else if (Renderer::GetApi() == Renderer::API::OPENGL)
+			glfwSwapBuffers(m_Window);
 	}
 }
