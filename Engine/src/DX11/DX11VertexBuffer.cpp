@@ -36,7 +36,7 @@ namespace Engine {
 
 		DX11RenderingApi::GetContext()->IASetInputLayout(m_Layout);
 
-		UINT stride = sizeof(float) * 3;
+		UINT stride = (UINT)m_LayoutDesc.Stride;
 		UINT offset = 0;
 		DX11RenderingApi::GetContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
@@ -52,26 +52,32 @@ namespace Engine {
 
 	}
 
+	// TODO: pass compiled VShader code
 	void DX11VertexBuffer::SetLayout(const VertexBufferLayout& layout)
 	{
-		D3D11_INPUT_ELEMENT_DESC ied[] = {
-			{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
-		};
-		/*m_LayoutDesc = layout;
+		m_LayoutDesc = layout;
 
-		for (int i = 0; i < layout.Elements.size())
+		std::vector<D3D11_INPUT_ELEMENT_DESC> ied;
+		ied.resize(m_LayoutDesc.Elements.size());
+
+		/*D3D11_INPUT_ELEMENT_DESC ied[] = {
+			{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
+		};*/
+
+
+		for (unsigned int i = 0; i < m_LayoutDesc.Elements.size(); i++)
 		{
-			ied[i] = {layout.Elements[i].name, 0, layout.Elements[i].GetType(), 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0};
-		}*/
+			ied[i] = { m_LayoutDesc.Elements[i].name.c_str(), 0, (DXGI_FORMAT)m_LayoutDesc.Elements[i].GetType(), 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+		}
 
 		
 
-		DX11RenderingApi::GetDevice()->CreateInputLayout(ied, sizeof(ied) / sizeof(D3D11_INPUT_ELEMENT_DESC), 
+		DX11RenderingApi::GetDevice()->CreateInputLayout(ied.data(), ied.size(), 
 			DX11RenderingApi::GetVSCode()->GetBufferPointer(), DX11RenderingApi::GetVSCode()->GetBufferSize(), &m_Layout);
 
 		DX11RenderingApi::GetContext()->IASetInputLayout(m_Layout);
 
-		UINT stride = sizeof(float) * 3;
+		UINT stride = (UINT)m_LayoutDesc.Stride;
 		UINT offset = 0;
 		DX11RenderingApi::GetContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 

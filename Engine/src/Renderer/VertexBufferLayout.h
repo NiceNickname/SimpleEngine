@@ -51,7 +51,7 @@ namespace Engine
 			return 0;
 		}
 
-		unsigned int GetType()
+		unsigned int GetType() const
 		{
 			if (Renderer::GetApi() == Renderer::API::OPENGL)
 			{

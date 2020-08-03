@@ -21,7 +21,7 @@ namespace Engine {
 
 	}
 
-	void DX11RenderingApi::Clear()
+	void DX11RenderingApi::ClearBuffer()
 	{
 		// clear the back buffer to a deep blue
 		m_Context->ClearRenderTargetView(m_BackBuffer, D3DXCOLOR(0.0f, 0.2f, 0.4f, 1.0f));

@@ -9,6 +9,7 @@ namespace Engine
 	public:
 		OpenGLRenderingApi(GLFWwindow* window);
 		~OpenGLRenderingApi();
+
 		virtual void Init(GLFWwindow* window) override;
 		virtual void ShutDown() override;
 	};

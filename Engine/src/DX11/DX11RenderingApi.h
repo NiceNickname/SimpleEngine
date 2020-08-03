@@ -12,12 +12,15 @@
 
 namespace Engine {
 
+	// TODO: move compiled shader code to shader class
+
 	class DX11RenderingApi  : public RenderingAPI 
 	{
 
 	public:
 		DX11RenderingApi(GLFWwindow* window);
 		~DX11RenderingApi();
+
 		inline static ID3D11Device* GetDevice() { return m_Device; }
 		inline static ID3D11DeviceContext* GetContext() { return m_Context; }
 		inline static IDXGISwapChain* GetSwapChain() { return m_SwapChain; }
@@ -27,7 +30,8 @@ namespace Engine {
 
 		inline static ID3D10Blob* GetPSCode() { return m_PSCode; }
 		inline static void SetPSCode(ID3D10Blob* pscode) { m_PSCode = pscode; }
-		static void Clear();
+
+		static void ClearBuffer();
 
 		virtual void Init(GLFWwindow* window) override;
 		virtual void ShutDown() override;

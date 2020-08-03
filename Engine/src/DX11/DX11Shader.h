@@ -4,6 +4,8 @@
 
 namespace Engine {
 
+	// TODO: save compiled VShader code
+	// and add constant buffers support
 	class DX11Shader : public Shader
 	{
 	public:

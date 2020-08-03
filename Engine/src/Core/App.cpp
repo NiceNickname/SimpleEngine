@@ -21,7 +21,7 @@ namespace Engine
 			if (Renderer::GetApi() == Renderer::API::OPENGL)
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			else if (Renderer::GetApi() == Renderer::API::DX11)
-				DX11RenderingApi::Clear();
+				DX11RenderingApi::ClearBuffer();
 			
 			
 			Render();

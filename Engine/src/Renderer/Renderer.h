@@ -7,6 +7,10 @@ struct GLFWwindow;
 
 namespace Engine {
 
+	// TODO: move compiled shader code to shader class
+	// refactor DrawQuadDX11 function
+	// implement Flush function for OpenGL
+
 	class Renderer
 	{
 	public:
@@ -24,8 +28,11 @@ namespace Engine {
 		static void SetApi(API api, GLFWwindow* window);
 		inline static API GetApi() { return m_ApiName; }
 	private:
+		//OPENGL functions
 		static void DrawQuadOpenGL(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
 		static void DrawQuadOpenGL(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture);
+		
+		// DIRECTX11 functions
 		static void DrawQuadDX11(unsigned int indexcount);
 
 	private:
