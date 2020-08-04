@@ -2,13 +2,9 @@
 #include "Renderer/RenderingAPI.h"
 
 #include <d3d11.h>
-#include <d3dx11.h>
-#include <d3dx10.h>
+#include <d3dcompiler.h>
 
 
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "d3dx11.lib")
-#pragma comment(lib, "d3dx10.lib")
 
 namespace Engine {
 
@@ -24,12 +20,6 @@ namespace Engine {
 		inline static ID3D11Device* GetDevice() { return m_Device; }
 		inline static ID3D11DeviceContext* GetContext() { return m_Context; }
 		inline static IDXGISwapChain* GetSwapChain() { return m_SwapChain; }
-
-		inline static ID3D10Blob* GetVSCode() { return m_VSCode; }
-		inline static void SetVSCode(ID3D10Blob* vscode) { m_VSCode = vscode; }
-
-		inline static ID3D10Blob* GetPSCode() { return m_PSCode; }
-		inline static void SetPSCode(ID3D10Blob* pscode) { m_PSCode = pscode; }
 
 		static void ClearBuffer();
 
@@ -53,8 +43,6 @@ namespace Engine {
 		static ID3D11SamplerState* m_SS;
 		static ID3D11BlendState* m_BS;
 		static ID3D11DepthStencilView* m_Zbuffer;
-		static ID3D10Blob* m_VSCode;
-		static ID3D10Blob* m_PSCode;
 	};
 
 	

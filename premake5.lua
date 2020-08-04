@@ -41,8 +41,7 @@ project "Engine"
       "%{prj.name}/vendor/stb_image",
       "%{prj.name}/vendor/imgui",
       "%{prj.name}/vendor/glm",
-      "%{prj.name}/src",
-      "%{prj.name}/vendor/DX11/Include" 
+      "%{prj.name}/src"
    }
    
    
@@ -57,20 +56,13 @@ project "Engine"
    filter "platforms:Win32"
       system "Windows"
       architecture "x86"
-      
-      libdirs
-      {
-         "%{prj.name}/vendor/DX11/Lib/x86"
-      }
+
 
    filter "platforms:Win64"
       system "Windows"
       architecture "x86_64"
 
-      libdirs
-      {
-         "%{prj.name}/vendor/DX11/Lib/x64"
-      }
+
 
    filter "system:windows"
 		systemversion "latest"
@@ -107,8 +99,7 @@ project "User"
       "Engine/vendor/stb_image",
       "Engine/vendor/imgui",
       "Engine/vendor/glm",
-      "Engine/src",
-      "Engine/vendor/DX11/Include"
+      "Engine/src"
 	}
 
 	links
@@ -120,19 +111,10 @@ project "User"
       system "Windows"
       architecture "x86"
 
-      libdirs
-      {
-         "Engine/vendor/DX11/Lib/x86"
-      }
 
    filter "platforms:Win64"
       system "Windows"
       architecture "x86_64"
-
-      libdirs
-      {
-         "Engine/vendor/DX11/Lib/x64"
-      }
 
    filter "system:windows"
 		systemversion "latest"

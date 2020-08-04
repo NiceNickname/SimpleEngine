@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "DX11VertexBuffer.h"
 
+
 namespace Engine {
 
 
@@ -60,10 +61,6 @@ namespace Engine {
 		std::vector<D3D11_INPUT_ELEMENT_DESC> ied;
 		ied.resize(m_LayoutDesc.Elements.size());
 
-		/*D3D11_INPUT_ELEMENT_DESC ied[] = {
-			{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
-		};*/
-
 
 		for (unsigned int i = 0; i < m_LayoutDesc.Elements.size(); i++)
 		{
@@ -73,7 +70,7 @@ namespace Engine {
 		
 
 		DX11RenderingApi::GetDevice()->CreateInputLayout(ied.data(), ied.size(), 
-			DX11RenderingApi::GetVSCode()->GetBufferPointer(), DX11RenderingApi::GetVSCode()->GetBufferSize(), &m_Layout);
+			m_VSCode->GetBufferPointer(), m_VSCode->GetBufferSize(), &m_Layout);
 
 		DX11RenderingApi::GetContext()->IASetInputLayout(m_Layout);
 
@@ -82,6 +79,11 @@ namespace Engine {
 		DX11RenderingApi::GetContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
 		
+	}
+
+	void DX11VertexBuffer::SetShader(const std::shared_ptr<Shader>& shader)
+	{
+		m_VSCode = std::static_pointer_cast<DX11Shader>(shader)->GetVSCode();
 	}
 
 }

@@ -9,6 +9,9 @@
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
 
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "D3DCompiler.lib")
+
 namespace Engine {
 
 	DX11RenderingApi::DX11RenderingApi(GLFWwindow* window)
@@ -23,8 +26,9 @@ namespace Engine {
 
 	void DX11RenderingApi::ClearBuffer()
 	{
+		float color[] = { 0.0f, 0.2f, 0.4f, 1.0f };
 		// clear the back buffer to a deep blue
-		m_Context->ClearRenderTargetView(m_BackBuffer, D3DXCOLOR(0.0f, 0.2f, 0.4f, 1.0f));
+		m_Context->ClearRenderTargetView(m_BackBuffer, color);
 
 		// clear the depth buffer
 		m_Context->ClearDepthStencilView(m_Zbuffer, D3D11_CLEAR_DEPTH, 1.0f, 0);
@@ -40,8 +44,6 @@ namespace Engine {
 	{
 		m_SwapChain->SetFullscreenState(FALSE, NULL);
 
-		m_VSCode->Release();
-		m_PSCode->Release();
 		m_Zbuffer->Release();
 		m_BS->Release();
 		m_SS->Release();
@@ -213,10 +215,6 @@ namespace Engine {
 	ID3D11BlendState* DX11RenderingApi::m_BS;
 
 	ID3D11DepthStencilView* DX11RenderingApi::m_Zbuffer;
-
-	ID3D10Blob* DX11RenderingApi::m_VSCode;
-
-	ID3D10Blob* DX11RenderingApi::m_PSCode;
 
 }
 

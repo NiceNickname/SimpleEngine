@@ -1,22 +1,30 @@
 #include "pch.h"
-#include "DX11RenderingApi.h"
 #include "DX11Shader.h"
+
 
 namespace Engine {
 
 
+
 	DX11Shader::DX11Shader(const std::string& VertexPath, const std::string& PixelPath)
 	{
-		ID3D10Blob* VS;
-		ID3D10Blob* PS;
-		D3DX10CompileFromFile(VertexPath.c_str(), 0, 0, "VShader", "vs_4_0", 0, 0, 0, &VS, 0, 0);
-		D3DX10CompileFromFile(PixelPath.c_str(), 0, 0, "PShader", "ps_4_0", 0, 0, 0, &PS, 0, 0);
+		// converting into WideString because D3DReadFileToBlob needs a WideString
+		size_t strSize = strlen(VertexPath.c_str()) + 1;
+		std::wstring WideVertexPath(strSize, L'#');
+		mbstowcs(&WideVertexPath[0], VertexPath.c_str(), strSize);
 
-		DX11RenderingApi::GetDevice()->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &m_VertexShader);
-		DX11RenderingApi::GetDevice()->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &m_PixelShader);
+		D3DReadFileToBlob(WideVertexPath.c_str(), &m_VSCode);
 
-		DX11RenderingApi::SetVSCode(VS);
-		DX11RenderingApi::SetPSCode(PS);
+		strSize = strlen(PixelPath.c_str()) + 1;
+		std::wstring WidePixelPath(strSize, L'#');
+		mbstowcs(&WidePixelPath[0], PixelPath.c_str(), strSize);
+
+		D3DReadFileToBlob(WidePixelPath.c_str(), &m_PSCode);
+		
+
+		DX11RenderingApi::GetDevice()->CreateVertexShader(m_VSCode->GetBufferPointer(), m_VSCode->GetBufferSize(), NULL, &m_VertexShader);
+		DX11RenderingApi::GetDevice()->CreatePixelShader(m_PSCode->GetBufferPointer(), m_PSCode->GetBufferSize(), NULL, &m_PixelShader);
+
 
 		DX11RenderingApi::GetContext()->VSSetShader(m_VertexShader, 0, 0);
 		DX11RenderingApi::GetContext()->PSSetShader(m_PixelShader, 0, 0);
@@ -24,6 +32,8 @@ namespace Engine {
 
 	DX11Shader::~DX11Shader()
 	{
+		m_VSCode->Release();
+		m_PSCode->Release();
 		m_VertexShader->Release();
 		m_PixelShader->Release();
 	}

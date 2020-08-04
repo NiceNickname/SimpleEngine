@@ -23,10 +23,11 @@ public:
 			2, 3, 0
 		};
 
-		m_Shader.reset(Engine::Shader::Create("res/shaders/Shaders.shader", "res/shaders/Shaders.shader"));
+		m_Shader.reset(Engine::Shader::Create("res/shaders/VertexShader.cso", "res/shaders/PixelShader.cso"));
 		Engine::VertexBufferLayout layout = { {"POSITION", Engine::DATATYPE::FLOAT3 } };
 
 		m_VB.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
+		m_VB->SetShader(m_Shader);
 		m_VB->SetLayout(layout);
 		m_IB.reset(Engine::IndexBuffer::Create(indices, sizeof(indices)));
 

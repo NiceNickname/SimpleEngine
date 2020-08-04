@@ -1,5 +1,6 @@
 #pragma once
 #include "VertexBufferLayout.h"
+#include "Shader.h"
 
 namespace Engine
 {
@@ -12,6 +13,7 @@ namespace Engine
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 		virtual void SetData(float* data, unsigned int size) = 0;
+		virtual void SetShader(const std::shared_ptr<Shader>& shader) {} ;
 		virtual VertexBufferLayout GetLayout() = 0;
 	};
 }
