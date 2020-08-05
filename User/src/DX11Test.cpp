@@ -58,9 +58,9 @@ public:
 
 };
 
-Engine::App* CreateApp()
-{
-	return new DX11Game();
-}
+//Engine::App* CreateApp()
+//{
+//	return new DX11Game();
+//}
 
 

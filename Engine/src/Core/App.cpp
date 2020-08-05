@@ -1,7 +1,6 @@
 #include "pch.h"
 
 #include "App.h"
-
 #include "imgui.h"
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
@@ -36,7 +35,7 @@ namespace Engine
 
 			m_Window->Update();
 
-			if (glfwWindowShouldClose(m_Window->GetPointer()))
+			if (m_Window->ShouldClose())
 				m_Running = false;
 		}
 	}
@@ -55,8 +54,8 @@ namespace Engine
 
 		// Rendering
 		ImGui::Render();
-		int display_w, display_h;
-		glfwGetFramebufferSize(m_Window->GetPointer(), &display_w, &display_h);
+		int display_w = 0, display_h = 0;
+		m_Window->GetFrameBufferSize(&display_w, &display_h);
 		glViewport(0, 0, display_w, display_h);
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

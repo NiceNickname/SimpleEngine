@@ -1,5 +1,5 @@
 #include "pch.h"
-
+#include "Window/GlfwWindow.h"
 #include "Renderer.h"
 
 #include "OpenGL/OpenGLIndexBuffer.h"
@@ -186,7 +186,7 @@ namespace Engine {
 
 	}
 
-	void Renderer::SetApi(API api, GLFWwindow* window)
+	void Renderer::SetApi(API api, std::unique_ptr<Window>& window)
 	{
 		m_ApiName = api;
 		if (api == API::NONE)
@@ -195,13 +195,15 @@ namespace Engine {
 		{
 			if (m_Api.get() != nullptr)
 				m_Api->ShutDown();
-			m_Api = std::make_unique<OpenGLRenderingApi>(window);
+			window.reset(Window::Create(WindowType::GLFW));
+			m_Api = std::make_unique<OpenGLRenderingApi>(static_cast<GlfwWindow*>(window.get())->GetPointer());
 		}
 		else if (api == API::DX11)
 		{
-			if (m_Api.get() != nullptr)
+			/*if (m_Api.get() != nullptr)
 				m_Api->ShutDown();
-			m_Api = std::make_unique<DX11RenderingApi>(window);
+			window.reset(Window::Create(api));
+			m_Api = std::make_unique<DX11RenderingApi>(window);*/
 		}
 	}
 

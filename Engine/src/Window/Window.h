@@ -1,22 +1,23 @@
 #pragma once
-#include <Gl/glew.h>
-#include <GLFW/glfw3.h>
 
 
+namespace Engine {
 
-namespace Engine
-{
+	enum class WindowType
+	{
+		WIN32 = 0, GLFW
+	};
+
 	class Window
 	{
 	public:
-		Window();
-		~Window();
-		void Init();
-		void Update();
-		inline GLFWwindow* GetPointer() { return m_Window; }
+		virtual void Init() = 0;
+		virtual void Update() = 0;
 
-	private:
-		GLFWwindow* m_Window;
+		static Window* Create(WindowType type);
 
+		virtual bool ShouldClose() = 0;
+		virtual void GetFrameBufferSize(int* width, int* height) = 0;
 	};
+
 }

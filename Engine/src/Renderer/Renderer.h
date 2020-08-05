@@ -2,8 +2,7 @@
 #include "RenderingAPI.h"
 #include "Texture.h"
 #include "glm/glm.hpp"
-
-struct GLFWwindow;
+#include "Window/Window.h"
 
 namespace Engine {
 
@@ -25,7 +24,7 @@ namespace Engine {
 		static void Flush();
 		static void ShutDown();
 		static void Draw();
-		static void SetApi(API api, GLFWwindow* window);
+		static void SetApi(API api, std::unique_ptr<Window>& window);
 		inline static API GetApi() { return m_ApiName; }
 	private:
 		//OPENGL functions

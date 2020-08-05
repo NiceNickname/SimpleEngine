@@ -1,14 +1,14 @@
 #pragma once
-#include <memory>
-#include "Window/Window.h"
 
+#include "Window/GlfwWindow.h"
+#include "Renderer/Renderer.h"
 
 namespace Engine
 {
 	class App
 	{
 	public:
-		App() { m_Window = std::make_unique<Engine::Window>(); }
+		App() { Renderer::SetApi(m_Api, m_Window); }
 		virtual ~App() {}
 
 		void Run();
@@ -20,11 +20,12 @@ namespace Engine
 		virtual void Update() {}
 		virtual void Render() {}
 		virtual void ImGuiRender() {}
-		inline GLFWwindow* GetWindowPtr() { return m_Window->GetPointer(); }
+		//inline GLFWwindow* GetWindowPtr() { return m_Window->GetPointer(); }
 
 	protected:
 		bool m_Running = true;
 		std::unique_ptr<Window> m_Window;
+		Renderer::API m_Api = Renderer::API::OPENGL;
 	};
 }
 

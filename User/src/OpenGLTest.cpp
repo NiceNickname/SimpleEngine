@@ -80,7 +80,7 @@ public:
 			CameraPosition.y -= 0.01f;
 
 		if (Engine::Input::IsKeyDown(GLFW_KEY_SPACE))
-			Engine::Renderer::SetApi(Engine::Renderer::API::OPENGL, GetWindowPtr());
+			Engine::Renderer::SetApi(Engine::Renderer::API::OPENGL, m_Window);
 
 		m_Camera->SetPosition(CameraPosition);
 
@@ -132,7 +132,7 @@ public:
 };
 
 
-//Engine::App* CreateApp()
-//{
-//	return new OpenGLGame();
-//}
+Engine::App* CreateApp()
+{
+	return new OpenGLGame();
+}
