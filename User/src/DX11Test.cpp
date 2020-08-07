@@ -7,6 +7,8 @@ public:
 	std::shared_ptr<Engine::IndexBuffer> m_IB;
 	std::shared_ptr<Engine::Shader> m_Shader;
 
+	bool ShowDemo = true;
+
 	glm::vec3 CameraPosition = { 0.0f, 0.0f, 0.0f };
 
 	void Start() override
@@ -49,7 +51,9 @@ public:
 
 	void ImGuiRender() override
 	{
-
+		ImGui::Begin("Hello world!");
+		ImGui::Text("huita");
+		ImGui::End();
 	}
 	~DX11Game()
 	{
@@ -58,9 +62,9 @@ public:
 
 };
 
-//Engine::App* CreateApp()
-//{
-//	return new DX11Game();
-//}
+Engine::App* CreateApp()
+{
+	return new DX11Game();
+}
 
 

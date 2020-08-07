@@ -127,6 +127,11 @@ namespace Engine {
 		delete[] s_Data.QuadBuffer;
 	}
 
+	void Renderer::SwapBuffers()
+	{
+		m_Api->SwapBuffers();
+	}
+
 	void Renderer::Begin()
 	{
 		s_Data.QuadBufferPtr = s_Data.QuadBuffer;
@@ -195,16 +200,21 @@ namespace Engine {
 		{
 			if (m_Api.get() != nullptr)
 				m_Api->ShutDown();
-			window.reset(Window::Create(WindowType::GLFW));
-			m_Api = std::make_unique<OpenGLRenderingApi>(static_cast<GlfwWindow*>(window.get())->GetPointer());
+			window.reset(Window::Create(Window::Type::GLFW));
+			m_Api.reset(RenderingAPI::Create(window));
 		}
 		else if (api == API::DX11)
 		{
-			/*if (m_Api.get() != nullptr)
+			if (m_Api.get() != nullptr)
 				m_Api->ShutDown();
-			window.reset(Window::Create(api));
-			m_Api = std::make_unique<DX11RenderingApi>(window);*/
+			window.reset(Window::Create(Window::Type::WIN32WINDOW));
+			m_Api.reset(RenderingAPI::Create(window));
 		}
+	}
+
+	void Renderer::Prepare()
+	{
+		m_Api->Render();
 	}
 
 	void Renderer::DrawQuadOpenGL(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)

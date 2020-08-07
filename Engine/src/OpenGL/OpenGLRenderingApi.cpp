@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "OpenGLRenderingApi.h"
+#include "Window/GlfwWindow.h"
 
 #include "imgui.h"
 #include "examples/imgui_impl_glfw.h"
@@ -7,18 +8,8 @@
 
 namespace Engine {
 
-	OpenGLRenderingApi::OpenGLRenderingApi(GLFWwindow* window)
+	OpenGLRenderingApi::OpenGLRenderingApi(const std::unique_ptr<Window>& window)
 	{
-		Init(window);
-	}
-
-	OpenGLRenderingApi::~OpenGLRenderingApi()
-	{
-	}
-
-	void OpenGLRenderingApi::Init(GLFWwindow* window)
-	{
-
 		if (glewInit() != GLEW_OK)
 			std::cout << "glew not initialized" << std::endl;
 
@@ -28,7 +19,7 @@ namespace Engine {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		
+
 
 		// Setup Dear ImGui context
 		IMGUI_CHECKVERSION();
@@ -47,8 +38,14 @@ namespace Engine {
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 
-		ImGui_ImplGlfw_InitForOpenGL(window, true);
+		m_Window = static_cast<GlfwWindow*>(window.get())->GetPointer();
+		ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
+	}
+
+	OpenGLRenderingApi::~OpenGLRenderingApi()
+	{
+		ShutDown();
 	}
 
 	void OpenGLRenderingApi::ShutDown()
@@ -56,6 +53,11 @@ namespace Engine {
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
+	}
+
+	void OpenGLRenderingApi::SwapBuffers()
+	{
+		glfwSwapBuffers(m_Window);
 	}
 
 }

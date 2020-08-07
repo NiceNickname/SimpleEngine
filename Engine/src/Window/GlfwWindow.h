@@ -13,7 +13,7 @@ namespace Engine
 	public:
 		GlfwWindow();
 		~GlfwWindow();
-		virtual void Init() override;
+
 		virtual void Update() override;
 		virtual bool ShouldClose() override;
 

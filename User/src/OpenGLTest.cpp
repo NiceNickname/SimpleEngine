@@ -132,7 +132,7 @@ public:
 };
 
 
-Engine::App* CreateApp()
-{
-	return new OpenGLGame();
-}
+//Engine::App* CreateApp()
+//{
+//	return new OpenGLGame();
+//}

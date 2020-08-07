@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer/RenderingAPI.h"
+#include "Window/Win32Window.h"
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -14,24 +15,24 @@ namespace Engine {
 	{
 
 	public:
-		DX11RenderingApi(GLFWwindow* window);
+		DX11RenderingApi(const std::unique_ptr<Window>& window);
 		~DX11RenderingApi();
 
 		inline static ID3D11Device* GetDevice() { return m_Device; }
 		inline static ID3D11DeviceContext* GetContext() { return m_Context; }
 		inline static IDXGISwapChain* GetSwapChain() { return m_SwapChain; }
-
+		inline static ID3D11RenderTargetView* GetBackBuffer() { return m_BackBuffer;  }
 		static void ClearBuffer();
+		virtual void Render() override;
 
-		virtual void Init(GLFWwindow* window) override;
 		virtual void ShutDown() override;
 
-		static void SwapBuffers(unsigned int SyncInterval, unsigned int Flags);
+		virtual void SwapBuffers() override;
 
 		
 
 	private:
-		void InitD3D(GLFWwindow* window);
+		void InitD3D(HWND hwnd);
 		void InitStates();
 	
 	private:
@@ -42,7 +43,8 @@ namespace Engine {
 		static ID3D11RasterizerState* m_RS;
 		static ID3D11SamplerState* m_SS;
 		static ID3D11BlendState* m_BS;
-		static ID3D11DepthStencilView* m_Zbuffer;
+
+		static HWND hwnd;
 	};
 
 	

@@ -1,27 +1,64 @@
 #include "pch.h"
 
-#define GLFW_EXPOSE_NATIVE_WIN32
-#include <GL/glew.h>
 #include "DX11RenderingApi.h"
-#include <GLFW/glfw3.h>
-#include "GLFW/glfw3native.h"
 
-#define SCREEN_WIDTH 1920
-#define SCREEN_HEIGHT 1080
+#include "imgui.h"
+#include "examples/imgui_impl_win32.h"
+#include "examples/imgui_impl_dx11.h"
+
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 800
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
 
 namespace Engine {
 
-	DX11RenderingApi::DX11RenderingApi(GLFWwindow* window)
+	DX11RenderingApi::DX11RenderingApi(const std::unique_ptr<Window>& window)
 	{
-		Init(window);
+
+		hwnd = static_cast<Win32Window*>(window.get())->GetHwnd();
+		InitD3D(hwnd);
+
+		// Show the window
+		::ShowWindow(hwnd, SW_SHOWDEFAULT);
+		::UpdateWindow(hwnd);
+
+		// Setup Dear ImGui context
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+		//io.ConfigViewportsNoAutoMerge = true;
+		//io.ConfigViewportsNoTaskBarIcon = true;
+		//io.ConfigViewportsNoDefaultParent = true;
+		//io.ConfigDockingAlwaysTabBar = true;
+		//io.ConfigDockingTransparentPayload = true;
+
+
+	// Setup Dear ImGui style
+		ImGui::StyleColorsDark();
+		//ImGui::StyleColorsClassic();
+
+		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+		ImGuiStyle& style = ImGui::GetStyle();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			style.WindowRounding = 0.0f;
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		}
+
+		// Setup Platform/Renderer bindings
+		ImGui_ImplWin32_Init(hwnd);
+		ImGui_ImplDX11_Init(m_Device, m_Context);
 	}
 
 	DX11RenderingApi::~DX11RenderingApi()
 	{
-
+		ShutDown();
 	}
 
 	void DX11RenderingApi::ClearBuffer()
@@ -29,22 +66,22 @@ namespace Engine {
 		float color[] = { 0.0f, 0.2f, 0.4f, 1.0f };
 		// clear the back buffer to a deep blue
 		m_Context->ClearRenderTargetView(m_BackBuffer, color);
-
-		// clear the depth buffer
-		m_Context->ClearDepthStencilView(m_Zbuffer, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	}
 	
 
-	void DX11RenderingApi::Init(GLFWwindow* window)
+
+	void DX11RenderingApi::Render()
 	{
-		InitD3D(window);
+		m_Context->OMSetRenderTargets(1, &m_BackBuffer, NULL);
+		ClearBuffer();
 	}
 
 	void DX11RenderingApi::ShutDown()
 	{
 		m_SwapChain->SetFullscreenState(FALSE, NULL);
 
-		m_Zbuffer->Release();
+		ImGui_ImplDX11_Shutdown();
+
 		m_BS->Release();
 		m_SS->Release();
 		m_BS->Release();
@@ -54,41 +91,37 @@ namespace Engine {
 		m_Device->Release();
 	}
 
-	void DX11RenderingApi::SwapBuffers(unsigned int SyncInterval, unsigned int Flags)
+	void DX11RenderingApi::SwapBuffers()
 	{
-		m_SwapChain->Present((UINT)SyncInterval, (UINT)Flags);
+		m_SwapChain->Present(1, 0);
 	}
 
-	void DX11RenderingApi::InitD3D(GLFWwindow* window)
+	void DX11RenderingApi::InitD3D(HWND hwnd)
 	{
-		DXGI_SWAP_CHAIN_DESC scd;
+		// Setup swap chain
+		DXGI_SWAP_CHAIN_DESC sd;
+		ZeroMemory(&sd, sizeof(sd));
+		sd.BufferCount = 2;
+		sd.BufferDesc.Width = 0;
+		sd.BufferDesc.Height = 0;
+		sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		sd.BufferDesc.RefreshRate.Numerator = 60;
+		sd.BufferDesc.RefreshRate.Denominator = 1;
+		sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+		sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+		sd.OutputWindow = hwnd;
+		sd.SampleDesc.Count = 1;
+		sd.SampleDesc.Quality = 0;
+		sd.Windowed = TRUE;
+		sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-		ZeroMemory(&scd, sizeof(DXGI_SWAP_CHAIN_DESC));
+		UINT createDeviceFlags = 0;
+		//createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+		D3D_FEATURE_LEVEL featureLevel;
+		const D3D_FEATURE_LEVEL featureLevelArray[2] = { D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_10_0, };
+		D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags,
+			featureLevelArray, 2, D3D11_SDK_VERSION, &sd, &m_SwapChain, &m_Device, &featureLevel, &m_Context);
 
-		scd.BufferCount = 1;
-		scd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-		scd.BufferDesc.Width = SCREEN_WIDTH;
-		scd.BufferDesc.Height = SCREEN_HEIGHT;
-		scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		scd.OutputWindow = glfwGetWin32Window(window);
-		scd.SampleDesc.Count = 4;
-		scd.Windowed = TRUE;
-		scd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
-
-		D3D11CreateDeviceAndSwapChain(
-			NULL,
-			D3D_DRIVER_TYPE_HARDWARE,
-			NULL,
-			D3D11_CREATE_DEVICE_DEBUG,
-			NULL,
-			NULL,
-			D3D11_SDK_VERSION,
-			&scd,
-			&m_SwapChain,
-			&m_Device,
-			NULL,
-			&m_Context
-		);
 
 		// set backbuffer as render target
 		ID3D11Texture2D* pBackBuffer;
@@ -104,43 +137,14 @@ namespace Engine {
 
 		viewport.TopLeftX = 0;
 		viewport.TopLeftY = 0;
-		viewport.Width = SCREEN_WIDTH;
-		viewport.Height = SCREEN_HEIGHT;
-		viewport.MinDepth = 0;
-		viewport.MaxDepth = 1;
+		viewport.Width = 1280;
+		viewport.Height = 800;
 
 		m_Context->RSSetViewports(1, &viewport);
 
 		InitStates();
 
-
-		D3D11_TEXTURE2D_DESC texd;
-
-		ZeroMemory(&texd, sizeof(D3D11_TEXTURE2D_DESC));
-
-		texd.Width = SCREEN_WIDTH;
-		texd.Height = SCREEN_HEIGHT;
-		texd.ArraySize = 1;
-		texd.Format = DXGI_FORMAT_D32_FLOAT;
-		texd.MipLevels = 1;
-		texd.SampleDesc.Count = 4;
-		texd.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-
-		ID3D11Texture2D* pDepthBuffer;
-		m_Device->CreateTexture2D(&texd, NULL, &pDepthBuffer);
-
-		D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
-
-		ZeroMemory(&dsvd, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
-
-		dsvd.Format = DXGI_FORMAT_D32_FLOAT;
-		dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
-
-		m_Device->CreateDepthStencilView(pDepthBuffer, &dsvd, &m_Zbuffer);
-
-		pDepthBuffer->Release();
-
-		m_Context->OMSetRenderTargets(1, &m_BackBuffer, m_Zbuffer);
+		m_Context->OMSetRenderTargets(1, &m_BackBuffer, NULL);
 		m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		
@@ -214,7 +218,7 @@ namespace Engine {
 
 	ID3D11BlendState* DX11RenderingApi::m_BS;
 
-	ID3D11DepthStencilView* DX11RenderingApi::m_Zbuffer;
+	HWND DX11RenderingApi::hwnd;
 
 }
 

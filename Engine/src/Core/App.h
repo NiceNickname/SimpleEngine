@@ -20,12 +20,11 @@ namespace Engine
 		virtual void Update() {}
 		virtual void Render() {}
 		virtual void ImGuiRender() {}
-		//inline GLFWwindow* GetWindowPtr() { return m_Window->GetPointer(); }
 
 	protected:
 		bool m_Running = true;
 		std::unique_ptr<Window> m_Window;
-		Renderer::API m_Api = Renderer::API::OPENGL;
+		Renderer::API m_Api = Renderer::API::DX11;
 	};
 }
 

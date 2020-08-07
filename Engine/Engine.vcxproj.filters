@@ -1269,6 +1269,7 @@
     <ClInclude Include="src\Window\GlfwWindow.h">
       <Filter>src\Window</Filter>
     </ClInclude>
+    <ClInclude Include="src\Window\Win32Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -1288,9 +1289,6 @@
     </ClCompile>
     <ClCompile Include="src\DX11\DX11VertexBuffer.cpp">
       <Filter>src\DX11</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ImGui\ImGuiBuild.cpp">
-      <Filter>src\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Input\Input.cpp">
       <Filter>src\Input</Filter>
@@ -1338,5 +1336,11 @@
       <Filter>src\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\Window\Window.cpp" />
+    <ClCompile Include="src\Window\Win32Window.cpp" />
+    <ClCompile Include="src\Renderer\RenderingAPI.cpp" />
+    <ClCompile Include="src\ImGui\ImGuiBuildOpenGL.cpp">
+      <Filter>src\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGui\ImGuiBuildDX11.cpp" />
   </ItemGroup>
 </Project>

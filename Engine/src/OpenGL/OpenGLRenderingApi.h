@@ -1,5 +1,9 @@
 #pragma once
 #include <Gl/glew.h>
+
+
+#include "GLFW/glfw3.h"
+
 #include "Renderer/RenderingAPI.h"
 
 namespace Engine
@@ -7,10 +11,13 @@ namespace Engine
 	class OpenGLRenderingApi : public RenderingAPI
 	{
 	public:
-		OpenGLRenderingApi(GLFWwindow* window);
+		OpenGLRenderingApi(const std::unique_ptr<Window>& window);
 		~OpenGLRenderingApi();
 
-		virtual void Init(GLFWwindow* window) override;
 		virtual void ShutDown() override;
+		virtual void SwapBuffers() override;
+
+	private:
+		GLFWwindow* m_Window;
 	};
 }

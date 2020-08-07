@@ -15,21 +15,6 @@ namespace Engine
 {
 	GlfwWindow::GlfwWindow()
 	{
-		Init();
-	}
-
-	GlfwWindow::~GlfwWindow()
-	{/*
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();*/
-
-		glfwDestroyWindow(m_Window);
-		glfwTerminate();
-	}
-
-	void GlfwWindow::Init()
-	{
 		/* Initialize the library */
 		if (!glfwInit())
 			return;
@@ -49,7 +34,12 @@ namespace Engine
 		glfwSwapInterval(1);
 
 		glfwSetKeyCallback(m_Window, Input::KeyCallBack);
+	}
 
+	GlfwWindow::~GlfwWindow()
+	{
+		glfwDestroyWindow(m_Window);
+		glfwTerminate();
 	}
 
 	void GlfwWindow::Update()
@@ -57,10 +47,6 @@ namespace Engine
 		/* Poll for and process events */
 		glfwPollEvents();
 
-		if (Renderer::GetApi() == Renderer::API::DX11)
-			DX11RenderingApi::SwapBuffers(1, 0);
-		else if (Renderer::GetApi() == Renderer::API::OPENGL)
-			glfwSwapBuffers(m_Window);
 	}
 
 	bool GlfwWindow::ShouldClose()
