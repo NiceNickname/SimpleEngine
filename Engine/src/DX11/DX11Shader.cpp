@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "DX11Shader.h"
-
+#include "Renderer/Renderer.h"
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Engine {
 
@@ -28,6 +29,8 @@ namespace Engine {
 
 		DX11RenderingApi::GetContext()->VSSetShader(m_VertexShader, 0, 0);
 		DX11RenderingApi::GetContext()->PSSetShader(m_PixelShader, 0, 0);
+
+		
 	}
 
 	DX11Shader::~DX11Shader()
@@ -42,6 +45,15 @@ namespace Engine {
 	{
 		DX11RenderingApi::GetContext()->VSSetShader(m_VertexShader, 0, 0);
 		DX11RenderingApi::GetContext()->PSSetShader(m_PixelShader, 0, 0);
+
+		Renderer::SetVSByteCode(m_VSCode);
+
+		for (std::pair<std::string, DX11ConstantBuffer*> element : m_Cbuffers)
+		{
+			if (element.second != nullptr)
+				element.second->Bind();
+		}
+
 	}
 
 	void DX11Shader::Unbind()
@@ -52,6 +64,15 @@ namespace Engine {
 	std::string DX11Shader::fromFile(const std::string& path)
 	{
 		return "Don't use this function with DX11\n";
+	}
+
+	void DX11Shader::SetUniformMat4f(const std::string& name, const glm::mat4& value)
+	{
+		if (m_Cbuffers.find(name) == m_Cbuffers.end())
+			m_Cbuffers.insert(std::make_pair(name, new DX11ConstantBuffer(sizeof(float) * 16)));
+		
+			m_Cbuffers[name]->Update((const void*)glm::value_ptr(value));
+
 	}
 
 }

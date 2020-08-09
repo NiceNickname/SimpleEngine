@@ -5,11 +5,11 @@
 class DX11Game : public Engine::App
 {
 public:
-	std::shared_ptr<Engine::VertexBuffer> m_VB;
-	std::shared_ptr<Engine::IndexBuffer> m_IB;
 	std::shared_ptr<Engine::Shader> m_Shader;
-	
+	std::shared_ptr<Engine::OrthographicCamera> m_Camera;
 
+	glm::vec3 CameraPosition = { 0.0f, 0.0f, 0.0f };
+	
 	bool ShowDemo = true;
 
 	void ChooseApi() override
@@ -31,28 +31,33 @@ public:
 			2, 3, 0
 		};
 
+
+		Engine::VertexBufferLayout layout = { {"POSITION", Engine::DATATYPE::FLOAT3 }, {"COLOR", Engine::DATATYPE::FLOAT4} };
+
+		m_Camera = std::make_shared<Engine::OrthographicCamera>(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
+		m_Camera->SetPosition(CameraPosition);
+
+
 		m_Shader.reset(Engine::Shader::Create("res/shaders/VertexShader.cso", "res/shaders/PixelShader.cso"));
-		Engine::VertexBufferLayout layout = { {"POSITION", Engine::DATATYPE::FLOAT3 } };
-
-		m_VB.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
-		m_VB->SetShader(m_Shader);
-		m_VB->SetLayout(layout);
-		m_IB.reset(Engine::IndexBuffer::Create(indices, sizeof(indices)));
-
 		m_Shader->Bind();
-		m_VB->Bind();
-		m_IB->Bind();
+
+		// TODO: move this to app class
+		Engine::Renderer::Init();
 
 	}
 
 	void Update() override
 	{
-
+		m_Shader->SetUniformMat4f("view", m_Camera->GetView());
 	}
 
 	void Render() override
 	{
-		Engine::Renderer::DrawQuad();
+		Engine::Renderer::Begin();
+		Engine::Renderer::DrawQuad({ -0.5f, -0.5f, 0.0f }, { 1.0f, 1.0f }, {1.0f, 0.0f, 0.0f, 1.0f});
+		Engine::Renderer::End();
+
+		Engine::Renderer::Draw();
 	}
 
 	void ImGuiRender() override
@@ -63,7 +68,6 @@ public:
 	
 	~DX11Game()
 	{
-		Engine::Renderer::ShutDown();
 	}
 
 };

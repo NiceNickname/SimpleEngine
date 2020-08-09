@@ -27,6 +27,7 @@ namespace Engine {
 		static void ClearBuffer();
 		static void Draw();
 		static void SetApi(API api, std::unique_ptr<Window>& window);
+		static void SetVSByteCode(ID3DBlob* VShaderByteCode);
 		
 		// this function is for additional operations before actual rendering each frame (e.g. setting render target for dx11)
 		static void Prepare();

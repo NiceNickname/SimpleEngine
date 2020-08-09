@@ -195,6 +195,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\DX11\DX11ConstantBuffer.h" />
     <ClInclude Include="src\Window\GlfwWindow.h" />
     <ClInclude Include="src\Core\App.h" />
     <ClInclude Include="src\Core\OrthographicCamera.h" />
@@ -604,6 +605,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\DX11\DX11ConstantBuffer.cpp" />
     <ClCompile Include="src\ImGui\ImGuiBuildDX11.cpp" />
     <ClCompile Include="src\Renderer\RenderingAPI.cpp" />
     <ClCompile Include="src\Window\GlfwWindow.cpp" />

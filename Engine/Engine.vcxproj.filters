@@ -1270,6 +1270,7 @@
       <Filter>src\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\Win32Window.h" />
+    <ClInclude Include="src\DX11\DX11ConstantBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -1342,5 +1343,6 @@
       <Filter>src\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\ImGui\ImGuiBuildDX11.cpp" />
+    <ClCompile Include="src\DX11\DX11ConstantBuffer.cpp" />
   </ItemGroup>
 </Project>

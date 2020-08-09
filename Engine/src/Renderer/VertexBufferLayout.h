@@ -10,7 +10,7 @@ namespace Engine
 {
 	enum class DATATYPE
 	{
-		FLOAT1 = 0, FLOAT2, FLOAT3, INT1, MAT4
+		FLOAT1 = 0, FLOAT2, FLOAT3, FLOAT4, INT1, MAT4
 	};
 	struct LayoutElement
 	{
@@ -73,6 +73,7 @@ namespace Engine
 				case DATATYPE::FLOAT1:		return DXGI_FORMAT_R32_FLOAT;
 				case DATATYPE::FLOAT2:		return DXGI_FORMAT_R32G32_FLOAT;
 				case DATATYPE::FLOAT3:		return DXGI_FORMAT_R32G32B32_FLOAT;
+				case DATATYPE::FLOAT4:	    return DXGI_FORMAT_R32G32B32A32_FLOAT;
 				case DATATYPE::MAT4:		return 0;
 				}
 			}
