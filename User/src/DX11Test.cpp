@@ -1,18 +1,24 @@
 #include "Engine.h"
 
+#define TEST 1
+
 class DX11Game : public Engine::App
 {
 public:
 	std::shared_ptr<Engine::VertexBuffer> m_VB;
 	std::shared_ptr<Engine::IndexBuffer> m_IB;
 	std::shared_ptr<Engine::Shader> m_Shader;
+	
 
 	bool ShowDemo = true;
 
-	glm::vec3 CameraPosition = { 0.0f, 0.0f, 0.0f };
-
+	void ChooseApi() override
+	{
+		m_Api = Engine::Renderer::API::DX11;
+	}
 	void Start() override
 	{
+
 		float vertices[] = {
 			-0.5f, -0.5f, 0.0f,
 			-0.5f, 0.5f, 0.0f,
@@ -46,15 +52,15 @@ public:
 
 	void Render() override
 	{
-		Engine::Renderer::DrawQuad(m_IB->GetCount());
+		Engine::Renderer::DrawQuad();
 	}
 
 	void ImGuiRender() override
 	{
-		ImGui::Begin("Hello world!");
-		ImGui::Text("huita");
-		ImGui::End();
+		if (ShowDemo)
+			ImGui::ShowDemoWindow(&ShowDemo);
 	}
+	
 	~DX11Game()
 	{
 		Engine::Renderer::ShutDown();
@@ -62,9 +68,11 @@ public:
 
 };
 
+#if TEST
 Engine::App* CreateApp()
 {
 	return new DX11Game();
 }
+#endif
 
 

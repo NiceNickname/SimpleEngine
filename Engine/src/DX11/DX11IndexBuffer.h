@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderer/IndexBuffer.h"
-#include "DX11/DX11RenderingApi.h"
+#include "DX11RenderingApi.h"
+
 namespace Engine {
 
 	class DX11IndexBuffer : public IndexBuffer

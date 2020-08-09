@@ -34,6 +34,9 @@
 #include "OpenGL/OpenGLTexture.h"
 
 #include "Window/Window.h"
+#include "Window/GlfwWindow.h"
+#include "Window/Win32Window.h"
+
 #include "Core/App.h"
 #include "Core/OrthographicCamera.h"
 #include "Renderer/Renderer.h"

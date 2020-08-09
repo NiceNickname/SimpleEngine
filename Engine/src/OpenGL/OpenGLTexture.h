@@ -1,7 +1,6 @@
 #pragma once
 #include <GL/glew.h>
 #include <stb_image.h>
-#include <string>
 #include "Renderer/Texture.h"
 
 namespace Engine

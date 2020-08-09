@@ -8,12 +8,12 @@ namespace Engine {
 
 	
 
-	Window* Window::Create(Type type)
+	Window* Window::Create(const std::string& name, int width, int height, Type type)
 	{
 		if (type == Type::GLFW)
-			return new GlfwWindow();
+			return new GlfwWindow(name, width, height);
 		else if (type == Type::WIN32WINDOW)
-			return new Win32Window();
+			return new Win32Window(name, width, height);
 	}
 
 

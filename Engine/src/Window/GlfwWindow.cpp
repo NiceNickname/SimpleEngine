@@ -2,25 +2,28 @@
 
 #include "GlfwWindow.h"
 #include "Input/Input.h"
-#include <iostream>
 
 
 #include "imgui.h"
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
+
 #include "Renderer/Renderer.h"
-#include "DX11/DX11RenderingApi.h"
 
 namespace Engine
 {
-	GlfwWindow::GlfwWindow()
+	GlfwWindow::GlfwWindow(const std::string& name, int width, int height)
 	{
+		m_Name = name;
+		m_Width = width;
+		m_Height = height;
+
 		/* Initialize the library */
 		if (!glfwInit())
 			return;
 
 		/* Create a windowed mode window and its OpenGL context */
-		m_Window = glfwCreateWindow(1280, 720, "Engine", NULL, NULL);
+		m_Window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
 		if (!m_Window)
 		{
 			glfwTerminate();
@@ -46,7 +49,6 @@ namespace Engine
 	{
 		/* Poll for and process events */
 		glfwPollEvents();
-
 	}
 
 	bool GlfwWindow::ShouldClose()

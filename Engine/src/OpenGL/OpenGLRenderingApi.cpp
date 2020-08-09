@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "OpenGLRenderingApi.h"
 #include "Window/GlfwWindow.h"
+#include "OpenGLRenderingApi.h"
 
 #include "imgui.h"
 #include "examples/imgui_impl_glfw.h"
@@ -58,6 +58,11 @@ namespace Engine {
 	void OpenGLRenderingApi::SwapBuffers()
 	{
 		glfwSwapBuffers(m_Window);
+	}
+
+	void OpenGLRenderingApi::ClearBuffer()
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 }

@@ -2,6 +2,8 @@
 
 #include "EntryPoint.h"
 
+#define TEST 0
+
 class OpenGLGame : public Engine::App
 {
 public:
@@ -13,8 +15,14 @@ public:
 
 	glm::vec3 CameraPosition = { 0.0f, 0.0f, 0.0f };
 
+	void ChooseApi() override
+	{
+		m_Api = Engine::Renderer::API::OPENGL;
+	}
+
 	virtual void Start() override
 	{
+
 		float vertices[] = {
 			-10.0f, -10.0f, 0.0f, 0.0f, 0.0f,
 			-10.0f,  -5.0f, 0.0f, 0.0f, 1.0f,
@@ -127,12 +135,13 @@ public:
 
 	~OpenGLGame()
 	{
-		Engine::Renderer::ShutDown();
 	}
 };
 
 
-//Engine::App* CreateApp()
-//{
-//	return new OpenGLGame();
-//}
+#if TEST
+Engine::App* CreateApp()
+{
+	return new OpenGLGame();
+}
+#endif

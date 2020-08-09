@@ -6,8 +6,11 @@
 #include "examples/imgui_impl_win32.h"
 #include "examples/imgui_impl_dx11.h"
 
+// TODO: Get render caps
+// return z-buffer
+
 #define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 800
+#define SCREEN_HEIGHT 720
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
@@ -70,7 +73,7 @@ namespace Engine {
 	
 
 
-	void DX11RenderingApi::Render()
+	void DX11RenderingApi::Prepare()
 	{
 		m_Context->OMSetRenderTargets(1, &m_BackBuffer, NULL);
 		ClearBuffer();
@@ -137,14 +140,13 @@ namespace Engine {
 
 		viewport.TopLeftX = 0;
 		viewport.TopLeftY = 0;
-		viewport.Width = 1280;
-		viewport.Height = 800;
+		viewport.Width = SCREEN_WIDTH;
+		viewport.Height = SCREEN_HEIGHT;
 
 		m_Context->RSSetViewports(1, &viewport);
 
 		InitStates();
 
-		m_Context->OMSetRenderTargets(1, &m_BackBuffer, NULL);
 		m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		

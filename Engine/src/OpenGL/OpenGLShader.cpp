@@ -3,7 +3,6 @@
 #include "OpenGLShader.h"
 #include <fstream>
 #include <vector>
-#include <iostream>
 #include "glm/gtc/type_ptr.hpp"
 
 

@@ -11,7 +11,7 @@ namespace Engine
 	class GlfwWindow : public Window
 	{
 	public:
-		GlfwWindow();
+		GlfwWindow(const std::string& name, int width, int height);
 		~GlfwWindow();
 
 		virtual void Update() override;

@@ -4,7 +4,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Renderer/Renderer.h"
-#include "DX11/DX11RenderingApi.h"
+#include <d3d11.h>
+
 namespace Engine
 {
 	enum class DATATYPE

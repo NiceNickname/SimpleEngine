@@ -18,14 +18,19 @@ namespace Engine {
 	// Forward declare message handler from imgui_impl_win32.cpp
 	LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-	Win32Window::Win32Window()
+	Win32Window::Win32Window(const std::string& name, int width, int height)
 	{
+		m_Name = name;
+		m_Width = width;
+		m_Height = height;
+
+
 		ImGui_ImplWin32_EnableDpiAwareness();
 
 		// Create application window
 		wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, "ImGui Example", NULL };
 		RegisterClassEx(&wc);
-		hwnd = CreateWindow(wc.lpszClassName, "Dear ImGui DirectX11 Example", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+		hwnd = CreateWindow(wc.lpszClassName, name.c_str(), WS_OVERLAPPEDWINDOW, 100, 100, width, height, NULL, NULL, wc.hInstance, NULL);
 	}
 
 	Win32Window::~Win32Window()

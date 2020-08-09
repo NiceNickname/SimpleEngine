@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "App.h"
+
 #include "imgui.h"
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
@@ -9,24 +10,27 @@
 #include "examples/imgui_impl_dx11.h"
 
 #include "Renderer/Renderer.h"
-#include "DX11/DX11RenderingApi.h"
+#include "Window/GlfwWindow.h"
 
 namespace Engine
 {
 	void App::Run()
 	{
+		ChooseApi();
+
+		// window creation and chosen API initialization
+		Renderer::SetApi(m_Api, m_Window);
+
+
 		Start();
 
 		while (m_Running)
 		{
 			Update();
 
-			if (Renderer::GetApi() == Renderer::API::OPENGL)
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			else if (Renderer::GetApi() == Renderer::API::DX11)
-				DX11RenderingApi::ClearBuffer();
+			Renderer::ClearBuffer();
 			
-			
+			// this function is for additional operations before actual rendering each frame (e.g. setting render target for dx11)
 			Renderer::Prepare();
 
 			Render();
@@ -42,6 +46,8 @@ namespace Engine
 			if (m_Window->ShouldClose())
 				m_Running = false;
 		}
+
+		ShutDown();
 	}
 
 	void App::ImGuiBegin()
@@ -90,10 +96,6 @@ namespace Engine
 		{
 			// Rendering
 			ImGui::Render();
-			/*ID3D11RenderTargetView* backbuffer = DX11RenderingApi::GetBackBuffer();
-			DX11RenderingApi::GetContext()->OMSetRenderTargets(1, &backbuffer, NULL);
-			float color[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-			DX11RenderingApi::GetContext()->ClearRenderTargetView(backbuffer, (float*)&color);*/
 			ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 			// Update and Render additional Platform Windows
@@ -106,4 +108,10 @@ namespace Engine
 		}
 		
 	}
+
+	void App::ShutDown()
+	{
+		Renderer::ShutDown();
+	}
+
 }

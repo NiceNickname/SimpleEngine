@@ -115,6 +115,9 @@ namespace Engine {
 
 	void Renderer::ShutDown()
 	{
+		if (m_Api.get() != nullptr)
+			m_Api.reset();
+
 		if (m_ApiName == API::OPENGL)
 		{
 			glDeleteBuffers(1, &s_Data.QuadVB);
@@ -124,12 +127,18 @@ namespace Engine {
 			glDeleteTextures(1, &s_Data.WhiteTexture);
 
 		}
+
 		delete[] s_Data.QuadBuffer;
 	}
 
 	void Renderer::SwapBuffers()
 	{
 		m_Api->SwapBuffers();
+	}
+
+	void Renderer::ClearBuffer()
+	{
+		m_Api->ClearBuffer();
 	}
 
 	void Renderer::Begin()
@@ -165,9 +174,9 @@ namespace Engine {
 	}
 
 
-	void Renderer::DrawQuad(unsigned int indexcount)
+	void Renderer::DrawQuad()
 	{
-		DrawQuadDX11(indexcount);
+		DrawQuadDX11();
 	}
 
 	void Renderer::Flush()
@@ -199,22 +208,22 @@ namespace Engine {
 		else if (api == API::OPENGL)
 		{
 			if (m_Api.get() != nullptr)
-				m_Api->ShutDown();
-			window.reset(Window::Create(Window::Type::GLFW));
+				m_Api.reset();
+			window.reset(Window::Create("Engine", 1280, 720, Window::Type::GLFW));
 			m_Api.reset(RenderingAPI::Create(window));
 		}
 		else if (api == API::DX11)
 		{
 			if (m_Api.get() != nullptr)
-				m_Api->ShutDown();
-			window.reset(Window::Create(Window::Type::WIN32WINDOW));
+				m_Api.reset();
+			window.reset(Window::Create("Engine", 1280, 720, Window::Type::WIN32WINDOW));
 			m_Api.reset(RenderingAPI::Create(window));
 		}
 	}
 
 	void Renderer::Prepare()
 	{
-		m_Api->Render();
+		m_Api->Prepare();
 	}
 
 	void Renderer::DrawQuadOpenGL(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)
@@ -308,15 +317,14 @@ namespace Engine {
 		s_Data.IndexCount += 6;
 	}
 
-	void Renderer::DrawQuadDX11(unsigned int indexcount)
+	void Renderer::DrawQuadDX11()
 	{
-		
+		DX11RenderingApi::GetContext()->DrawIndexed(6, 0, 0);	
+	}
 
-		DX11RenderingApi::GetContext()->DrawIndexed(indexcount, 0, 0);
+	void Renderer::DrawQuadDX11(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
+	{
 
-		// switch the back buffer and the front buffer
-		//DX11RenderingApi::GetSwapChain()->Present(1, 0);
-		
 	}
 
 }

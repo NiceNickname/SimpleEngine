@@ -16,6 +16,7 @@ namespace Engine
 
 		virtual void ShutDown() override;
 		virtual void SwapBuffers() override;
+		virtual void ClearBuffer() override;
 
 	private:
 		GLFWwindow* m_Window;

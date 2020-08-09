@@ -9,7 +9,7 @@ namespace Engine {
 	{
 
 	public:
-		Win32Window();
+		Win32Window(const std::string& name, int width, int height);
 		~Win32Window();
 
 		virtual void Update() override;

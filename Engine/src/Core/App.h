@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Window/GlfwWindow.h"
 #include "Renderer/Renderer.h"
 
 namespace Engine
@@ -8,23 +7,26 @@ namespace Engine
 	class App
 	{
 	public:
-		App() { Renderer::SetApi(m_Api, m_Window); }
-		virtual ~App() {}
+		App() = default;
+		virtual ~App() = default;
 
 		void Run();
 		void ImGuiBegin();
 		void ImGuiEnd();
+		void ShutDown();
 
 	protected:
 		virtual void Start() {}
 		virtual void Update() {}
 		virtual void Render() {}
 		virtual void ImGuiRender() {}
+		virtual void ChooseApi() {}
+		
 
 	protected:
 		bool m_Running = true;
 		std::unique_ptr<Window> m_Window;
-		Renderer::API m_Api = Renderer::API::DX11;
+		Renderer::API m_Api = Renderer::API::NONE;
 	};
 }
 

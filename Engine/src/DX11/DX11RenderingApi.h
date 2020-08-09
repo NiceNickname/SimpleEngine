@@ -22,8 +22,10 @@ namespace Engine {
 		inline static ID3D11DeviceContext* GetContext() { return m_Context; }
 		inline static IDXGISwapChain* GetSwapChain() { return m_SwapChain; }
 		inline static ID3D11RenderTargetView* GetBackBuffer() { return m_BackBuffer;  }
-		static void ClearBuffer();
-		virtual void Render() override;
+		virtual void ClearBuffer() override;
+		
+		// setting render target each frame
+		virtual void Prepare() override;
 
 		virtual void ShutDown() override;
 
