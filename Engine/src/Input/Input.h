@@ -9,7 +9,10 @@ namespace Engine
 		static bool keys[];
 
 	public:
-		static void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods);
+		static void KeyCallBackGLFW(GLFWwindow* window, int key, int scancode, int action, int mods);
+		static void KeyDown(int keycode);
+		static void KeyUp(int keycode);
+
 		static bool IsKeyDown(int keycode);
 	};
 }

@@ -36,7 +36,7 @@ namespace Engine
 
 		glfwSwapInterval(1);
 
-		glfwSetKeyCallback(m_Window, Input::KeyCallBack);
+		glfwSetKeyCallback(m_Window, Input::KeyCallBackGLFW);
 	}
 
 	GlfwWindow::~GlfwWindow()

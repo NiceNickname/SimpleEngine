@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include <Windows.h>
 
 #define TEST 1
 
@@ -48,13 +49,29 @@ public:
 
 	void Update() override
 	{
+		if (Engine::Input::IsKeyDown(VK_RIGHT))
+			CameraPosition.x += 0.01f;
+		if (Engine::Input::IsKeyDown(VK_LEFT))
+			CameraPosition.x -= 0.01f;
+		if (Engine::Input::IsKeyDown(VK_UP))
+			CameraPosition.y += 0.01f;
+		if (Engine::Input::IsKeyDown(VK_DOWN))
+			CameraPosition.y -= 0.01f;
+
+		m_Camera->SetPosition(CameraPosition);
 		m_Shader->SetUniformMat4f("view", m_Camera->GetView());
 	}
 
 	void Render() override
 	{
 		Engine::Renderer::Begin();
-		Engine::Renderer::DrawQuad({ -0.5f, -0.5f, 0.0f }, { 1.0f, 1.0f }, {1.0f, 0.0f, 0.0f, 1.0f});
+		for (float x = 0.0f; x < 10.0f; x += 0.55f)
+		{
+			for (float y = 0.0f; y < 10.0f; y += 0.55f)
+			{
+				Engine::Renderer::DrawQuad({ x, y, 0.0f }, { 0.5f, 0.5f }, {1.0f, 0.0f, 0.0f, 1.0f});
+			}
+		}
 		Engine::Renderer::End();
 
 		Engine::Renderer::Draw();

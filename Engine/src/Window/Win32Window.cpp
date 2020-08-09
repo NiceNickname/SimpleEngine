@@ -6,9 +6,10 @@
 #include "imgui.h"
 #include "examples/imgui_impl_win32.h"
 
-#define DIRECTINPUT_VERSION 0x0800
-#include <dinput.h>
-#include <tchar.h>
+#include "Input/Input.h"
+//#define DIRECTINPUT_VERSION 0x0800
+//#include <dinput.h>
+//#include <tchar.h>
 
 	extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -81,6 +82,12 @@ namespace Engine {
 
 		switch (msg)
 		{
+		case WM_KEYDOWN:
+			Input::KeyDown((UINT)wParam);
+			break;
+		case WM_KEYUP:
+			Input::KeyUp((UINT)wParam);
+			break;
 		case WM_SYSCOMMAND:
 			if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
 				return 0;
