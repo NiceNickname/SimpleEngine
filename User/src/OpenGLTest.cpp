@@ -40,7 +40,7 @@ public:
 		std::shared_ptr<Engine::IndexBuffer> indexbuffer;
 		indexbuffer.reset(Engine::IndexBuffer::Create(indices, sizeof(indices)));
 
-		m_Camera = std::make_shared<Engine::OrthographicCamera>(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
+		m_Camera = std::make_shared<Engine::OrthographicCamera>(16.0f / 9.0f);
 		m_Camera->SetPosition(CameraPosition);
 
 		Engine::VertexBufferLayout layout = { {"positions", Engine::DATATYPE::FLOAT3 },

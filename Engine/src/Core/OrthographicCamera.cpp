@@ -1,17 +1,22 @@
 #include "pch.h"
 
 #include "OrthographicCamera.h"
+#include <algorithm>
+#include "Input/Input.h"
 
 
 namespace Engine {
 
-	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top, float near, float far)
+	OrthographicCamera::OrthographicCamera(float AspectRatio)
 	{
-		m_Projection = glm::ortho(left, right, bottom, top, near, far);
+		m_AspectRatio = AspectRatio;
+		m_Projection = glm::ortho(-AspectRatio, AspectRatio, -1.0f, 1.0f, -1.0f, 1.0f);
 	}
 
 	void OrthographicCamera::SetProjection(float left, float right, float bottom, float top, float near, float far)
 	{
+		m_AspectRatio = (right - left) / (top - bottom);
+
 		m_Projection = glm::ortho(left, right, bottom, top, near, far);
 	}
 
@@ -26,6 +31,18 @@ namespace Engine {
 	{
 		m_Rotation = rotation;
 		RecalculateView();
+	}
+
+	void OrthographicCamera::Zoom(float ZoomLevel)
+	{
+		if (ZoomLevel == 0)
+			return;
+
+		m_Zoom -= ZoomLevel * 0.001f;
+		m_Zoom = std::max(0.25f, m_Zoom);
+		Input::MouseScrolled(0);
+		
+		SetProjection(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, -1.0f, 1.0f);
 	}
 
 	void OrthographicCamera::RecalculateView()

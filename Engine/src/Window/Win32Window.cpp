@@ -92,6 +92,9 @@ namespace Engine {
 			if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
 				return 0;
 			break;
+		case WM_MOUSEWHEEL:
+			Input::MouseScrolled(GET_WHEEL_DELTA_WPARAM(wParam));
+			break;
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			return 0;

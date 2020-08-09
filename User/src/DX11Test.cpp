@@ -35,7 +35,7 @@ public:
 
 		Engine::VertexBufferLayout layout = { {"POSITION", Engine::DATATYPE::FLOAT3 }, {"COLOR", Engine::DATATYPE::FLOAT4} };
 
-		m_Camera = std::make_shared<Engine::OrthographicCamera>(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
+		m_Camera = std::make_shared<Engine::OrthographicCamera>(16.0f / 9.0f);
 		m_Camera->SetPosition(CameraPosition);
 
 
@@ -50,24 +50,25 @@ public:
 	void Update() override
 	{
 		if (Engine::Input::IsKeyDown(VK_RIGHT))
-			CameraPosition.x += 0.01f;
+			CameraPosition.x += m_Camera->GetSpeed();
 		if (Engine::Input::IsKeyDown(VK_LEFT))
-			CameraPosition.x -= 0.01f;
+			CameraPosition.x -= m_Camera->GetSpeed();
 		if (Engine::Input::IsKeyDown(VK_UP))
-			CameraPosition.y += 0.01f;
+			CameraPosition.y += m_Camera->GetSpeed();
 		if (Engine::Input::IsKeyDown(VK_DOWN))
-			CameraPosition.y -= 0.01f;
+			CameraPosition.y -= m_Camera->GetSpeed();
 
 		m_Camera->SetPosition(CameraPosition);
-		m_Shader->SetUniformMat4f("view", m_Camera->GetView());
+		m_Camera->Zoom(Engine::Input::GetMouseWheelOffset());
+		m_Shader->SetUniformMat4f("view", m_Camera->GetProjection() * m_Camera->GetView());
 	}
 
 	void Render() override
 	{
 		Engine::Renderer::Begin();
-		for (float x = 0.0f; x < 10.0f; x += 0.55f)
+		for (float x = 0.0f; x < 11.0f; x += 0.55f)
 		{
-			for (float y = 0.0f; y < 10.0f; y += 0.55f)
+			for (float y = 0.0f; y < 11.0f; y += 0.55f)
 			{
 				Engine::Renderer::DrawQuad({ x, y, 0.0f }, { 0.5f, 0.5f }, {1.0f, 0.0f, 0.0f, 1.0f});
 			}

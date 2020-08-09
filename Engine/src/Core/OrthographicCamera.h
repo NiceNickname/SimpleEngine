@@ -8,7 +8,7 @@ namespace Engine {
 	{
 	public:
 
-		OrthographicCamera(float left, float right, float bottom, float top, float near, float far);
+		OrthographicCamera(float AspectRatio);
 		~OrthographicCamera() {}
 
 		void SetProjection(float left, float right, float bottom, float top, float near, float far);
@@ -22,6 +22,11 @@ namespace Engine {
 		void SetRotation(float rotation);
 		float GetRotation() { return m_Rotation; }
 
+		float GetSpeed() { return m_TranslationSpeed; }
+		void SetSpeed(float speed) { m_TranslationSpeed = speed; }
+
+		void Zoom(float ZoomLevel);
+
 	private:
 		void RecalculateView();
 
@@ -30,6 +35,12 @@ namespace Engine {
 		glm::mat4 m_Projection;
 
 		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
+
+		float m_TranslationSpeed = 0.05f;
 		float m_Rotation = 0.0f;
+
+		float m_Zoom = 1.0f;
+
+		float m_AspectRatio = 16.0f / 9.0f;
 	};
 }
