@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include <Windows.h>
 
-#define TEST 1
+#define TEST 0
 
 class DX11Game : public Engine::App
 {

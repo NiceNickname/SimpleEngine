@@ -2,7 +2,7 @@
 
 #include "EntryPoint.h"
 
-#define TEST 0
+#define TEST 1
 
 class OpenGLGame : public Engine::App
 {
@@ -63,7 +63,7 @@ public:
 
 		m_BatchShader = std::make_shared<Engine::OpenGLShader>("res/shaders/BatchShader.vert", "res/shaders/BatchShader.fragm");
 		m_BatchShader->Bind();
-		m_BatchShader->SetUniformMat4f("view", m_Camera->GetView());
+		m_BatchShader->SetUniformMat4f("view", m_Camera->GetProjection() * m_Camera->GetView());
 
 		
 		int samplers[10];
@@ -79,24 +79,25 @@ public:
 	void Update() override
 	{
 		if (Engine::Input::IsKeyDown(GLFW_KEY_RIGHT))
-			CameraPosition.x += 0.01f;
+			CameraPosition.x += m_Camera->GetSpeed();
 		if (Engine::Input::IsKeyDown(GLFW_KEY_LEFT))
-			CameraPosition.x -= 0.01f;
+			CameraPosition.x -= m_Camera->GetSpeed();
 		if (Engine::Input::IsKeyDown(GLFW_KEY_UP))
-			CameraPosition.y += 0.01f;
+			CameraPosition.y += m_Camera->GetSpeed();
 		if (Engine::Input::IsKeyDown(GLFW_KEY_DOWN))
-			CameraPosition.y -= 0.01f;
+			CameraPosition.y -= m_Camera->GetSpeed();
 
 		if (Engine::Input::IsKeyDown(GLFW_KEY_SPACE))
 			Engine::Renderer::SetApi(Engine::Renderer::API::OPENGL, m_Window);
 
 		m_Camera->SetPosition(CameraPosition);
+		m_Camera->Zoom(Engine::Input::GetMouseWheelOffset());
 
 		m_Shader->Bind();
-		m_Shader->SetUniformMat4f("view", m_Camera->GetView());
+		m_Shader->SetUniformMat4f("view", m_Camera->GetProjection() * m_Camera->GetView());
 
 		m_BatchShader->Bind();
-		m_BatchShader->SetUniformMat4f("view", m_Camera->GetView());
+		m_BatchShader->SetUniformMat4f("view", m_Camera->GetProjection() *  m_Camera->GetView());
 		
 	}
 

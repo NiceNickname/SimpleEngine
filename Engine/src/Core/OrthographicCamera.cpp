@@ -38,10 +38,9 @@ namespace Engine {
 		if (ZoomLevel == 0)
 			return;
 
-		m_Zoom -= ZoomLevel * 0.001f;
+		m_Zoom -= ZoomLevel;
 		m_Zoom = std::max(0.25f, m_Zoom);
 		Input::MouseScrolled(0);
-		
 		SetProjection(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, -1.0f, 1.0f);
 	}
 
