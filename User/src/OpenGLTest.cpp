@@ -129,9 +129,6 @@ public:
 
 	void ImGuiRender() override
 	{
-		ImGui::Begin("Hello, World!");
-		ImGui::SliderFloat3("Camera Position", &CameraPosition.x, -10.0f, 10.0f);
-		ImGui::End();
 	}
 
 	~OpenGLGame()

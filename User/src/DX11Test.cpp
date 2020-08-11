@@ -11,7 +11,6 @@ public:
 
 	glm::vec3 CameraPosition = { 0.0f, 0.0f, 0.0f };
 	
-	bool ShowDemo = true;
 
 	void ChooseApi() override
 	{
@@ -66,13 +65,16 @@ public:
 	void Render() override
 	{
 		Engine::Renderer::Begin();
-		for (float x = 0.0f; x < 11.0f; x += 0.55f)
+
+		for (int i = 0; i < 5; i++)
 		{
-			for (float y = 0.0f; y < 11.0f; y += 0.55f)
+			for (int j = 0; j < 5; j++)
 			{
-				Engine::Renderer::DrawQuad({ x, y, 0.0f }, { 0.5f, 0.5f }, {1.0f, 0.0f, 0.0f, 1.0f});
+				glm::vec4 color = { 1.0f, 0.0f, 0.0f, 1.0f };
+				Engine::Renderer::DrawQuad({ j, i, 0.0f }, { 0.8f, 0.8f }, color);
 			}
 		}
+
 		Engine::Renderer::End();
 
 		Engine::Renderer::Draw();
@@ -80,8 +82,6 @@ public:
 
 	void ImGuiRender() override
 	{
-		if (ShowDemo)
-			ImGui::ShowDemoWindow(&ShowDemo);
 	}
 	
 	~DX11Game()

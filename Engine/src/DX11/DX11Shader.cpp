@@ -46,7 +46,6 @@ namespace Engine {
 		DX11RenderingApi::GetContext()->VSSetShader(m_VertexShader, 0, 0);
 		DX11RenderingApi::GetContext()->PSSetShader(m_PixelShader, 0, 0);
 
-		Renderer::SetVSByteCode(m_VSCode);
 
 		for (std::pair<std::string, DX11ConstantBuffer*> element : m_Cbuffers)
 		{
