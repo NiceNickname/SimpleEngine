@@ -2,7 +2,9 @@
 
 #include "Texture.h"
 #include "Renderer.h"
+#include <d3d11.h>
 #include "OpenGL/OpenGLTexture.h"
+#include "DX11/DX11Texture.h"
 
 namespace Engine {
 
@@ -15,7 +17,7 @@ namespace Engine {
 		else if (Renderer::GetApi() == Renderer::API::OPENGL)
 			return new OpenGLTexture(path);
 		else if (Renderer::GetApi() == Renderer::API::DX11)
-			std::cout << "DX11 currently is not supported\n";
+			return new DX11Texture(path);
 	}
 
 }

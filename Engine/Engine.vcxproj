@@ -197,6 +197,7 @@
   <ItemGroup>
     <ClInclude Include="src\DX11\DX11BatchRenderer.h" />
     <ClInclude Include="src\DX11\DX11ConstantBuffer.h" />
+    <ClInclude Include="src\DX11\DX11Texture.h" />
     <ClInclude Include="src\OpenGL\OpenGLBatchRenderer.h" />
     <ClInclude Include="src\Renderer\BatchRenderer.h" />
     <ClInclude Include="src\Window\GlfwWindow.h" />
@@ -610,6 +611,7 @@
   <ItemGroup>
     <ClCompile Include="src\DX11\DX11BatchRenderer.cpp" />
     <ClCompile Include="src\DX11\DX11ConstantBuffer.cpp" />
+    <ClCompile Include="src\DX11\DX11Texture.cpp" />
     <ClCompile Include="src\ImGui\ImGuiBuildDX11.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLBatchRenderer.cpp" />
     <ClCompile Include="src\Renderer\BatchRenderer.cpp" />

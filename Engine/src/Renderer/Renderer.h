@@ -31,7 +31,6 @@ namespace Engine {
 		static void Prepare();
 
 		inline static API GetApi() { return m_ApiName; }
-	private:
 
 	private:
 		static std::unique_ptr<RenderingAPI> m_Api;

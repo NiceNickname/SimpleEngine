@@ -1274,6 +1274,7 @@
     <ClInclude Include="src\Renderer\BatchRenderer.h" />
     <ClInclude Include="src\OpenGL\OpenGLBatchRenderer.h" />
     <ClInclude Include="src\DX11\DX11BatchRenderer.h" />
+    <ClInclude Include="src\DX11\DX11Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -1350,5 +1351,6 @@
     <ClCompile Include="src\OpenGL\OpenGLBatchRenderer.cpp" />
     <ClCompile Include="src\Renderer\BatchRenderer.cpp" />
     <ClCompile Include="src\DX11\DX11BatchRenderer.cpp" />
+    <ClCompile Include="src\DX11\DX11Texture.cpp" />
   </ItemGroup>
 </Project>
