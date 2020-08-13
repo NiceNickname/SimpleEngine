@@ -9,7 +9,7 @@
 #include "examples/imgui_impl_win32.h"
 #include "examples/imgui_impl_dx11.h"
 
-#include "Renderer/Renderer.h"
+#include "Renderer/Renderer2D.h"
 #include "Window/GlfwWindow.h"
 
 namespace Engine
@@ -19,7 +19,7 @@ namespace Engine
 		ChooseApi();
 
 		// window creation and chosen API initialization
-		Renderer::SetApi(m_Api, m_Window);
+		Renderer2D::SetApi(m_Api, m_Window);
 
 
 		Start();
@@ -28,10 +28,10 @@ namespace Engine
 		{
 			Update();
 
-			Renderer::ClearBuffer();
+			Renderer2D::ClearBuffer();
 			
 			// this function is for additional operations before actual rendering each frame (e.g. setting render target for dx11)
-			Renderer::Prepare();
+			Renderer2D::Prepare();
 
 			Render();
 			
@@ -41,7 +41,7 @@ namespace Engine
 			
 
 			m_Window->Update();
-			Renderer::SwapBuffers();
+			Renderer2D::SwapBuffers();
 
 			if (m_Window->ShouldClose())
 				m_Running = false;
@@ -53,13 +53,13 @@ namespace Engine
 	void App::ImGuiBegin()
 	{
 		// Start the Dear ImGui frame
-		if (m_Api == Renderer::API::OPENGL)
+		if (m_Api == Renderer2D::API::OPENGL)
 		{
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 		}
-		else if (m_Api == Renderer::API::DX11)
+		else if (m_Api == Renderer2D::API::DX11)
 		{
 			ImGui_ImplDX11_NewFrame();
 			ImGui_ImplWin32_NewFrame();
@@ -72,7 +72,7 @@ namespace Engine
 	{
 		ImGuiIO& io = ImGui::GetIO();
 
-		if (m_Api == Renderer::API::OPENGL)
+		if (m_Api == Renderer2D::API::OPENGL)
 		{
 			// Rendering
 			ImGui::Render();
@@ -92,7 +92,7 @@ namespace Engine
 				glfwMakeContextCurrent(backup_current_context);
 			}
 		}
-		else if (m_Api == Renderer::API::DX11)
+		else if (m_Api == Renderer2D::API::DX11)
 		{
 			// Rendering
 			ImGui::Render();
@@ -111,7 +111,7 @@ namespace Engine
 
 	void App::ShutDown()
 	{
-		Renderer::ShutDown();
+		Renderer2D::ShutDown();
 	}
 
 }

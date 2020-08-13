@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "DX11Shader.h"
-#include "Renderer/Renderer.h"
+#include "Renderer/Renderer2D.h"
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Engine {
@@ -47,10 +47,9 @@ namespace Engine {
 		DX11RenderingApi::GetContext()->PSSetShader(m_PixelShader, 0, 0);
 
 
-		for (std::pair<std::string, DX11ConstantBuffer*> element : m_Cbuffers)
+		for (int i = 0; i < m_Cbuffers.size(); i++)
 		{
-			if (element.second != nullptr)
-				element.second->Bind();
+			m_Cbuffers[i]->Bind(i);
 		}
 
 	}
@@ -62,16 +61,105 @@ namespace Engine {
 
 	std::string DX11Shader::fromFile(const std::string& path)
 	{
-		return "Don't use this function with DX11\n";
+		return "this function is not used in dx11\n";
+	}
+
+	int DX11Shader::GetUniform(const std::string& name)
+	{
+		for (int i = 0; i < m_Cbuffers.size(); i++)
+		{
+			if (name == m_Cbuffers[i]->GetName())
+				return i;
+		}
+		return -1;
+	}
+
+	void DX11Shader::SetUniform1i(const std::string& name, int value)
+	{
+		int index = GetUniform(name);
+
+		if (index == -1)
+			std::cout << "no such uniform\n";
+
+		m_Cbuffers[index]->Update((const void*)&value);
+	}
+
+	void DX11Shader::SetUniformIntArray(const std::string& name, int size, int* value)
+	{
+
+	}
+
+	void DX11Shader::SetUniform1f(const std::string& name, float value)
+	{
+		int index = GetUniform(name);
+
+		if (index == -1)
+			std::cout << "no such uniform\n";
+
+		m_Cbuffers[index]->Update((const void*)&value);
+	}
+
+	void DX11Shader::SetUniform2f(const std::string& name, const glm::vec2& value)
+	{
+		int index = GetUniform(name);
+
+		if (index == -1)
+			std::cout << "no such uniform\n";
+
+		m_Cbuffers[index]->Update((const void*)glm::value_ptr(value));
+	}
+
+	void DX11Shader::SetUniform3f(const std::string& name, const glm::vec3& value)
+	{
+		int index = GetUniform(name);
+
+		if (index == -1)
+			std::cout << "no such uniform\n";
+
+		m_Cbuffers[index]->Update((const void*)glm::value_ptr(value));
+	}
+
+	void DX11Shader::SetUniform4f(const std::string& name, const glm::vec4& value)
+	{
+		int index = GetUniform(name);
+
+		if (index == -1)
+			std::cout << "no such uniform\n";
+
+		m_Cbuffers[index]->Update((const void*)glm::value_ptr(value));
 	}
 
 	void DX11Shader::SetUniformMat4f(const std::string& name, const glm::mat4& value)
 	{
-		if (m_Cbuffers.find(name) == m_Cbuffers.end())
-			m_Cbuffers.insert(std::make_pair(name, new DX11ConstantBuffer(sizeof(float) * 16)));
-		
-			m_Cbuffers[name]->Update((const void*)glm::value_ptr(value));
+		int index = GetUniform(name);
 
+		if (index == -1)
+			std::cout << "no such uniform\n";
+		
+		m_Cbuffers[index]->Update((const void*)glm::value_ptr(value));
+
+	}
+
+	void DX11Shader::SetUniformLayout(UniformElement* layout, unsigned int count)
+	{
+		for (int i = 0; i < count; i++)
+		{
+			int UniformSize = 0;
+			if (layout[i].type == DATATYPE::FLOAT1)
+				UniformSize = sizeof(float);
+			else if (layout[i].type == DATATYPE::FLOAT2)
+				UniformSize = sizeof(float) * 2;
+			else if (layout[i].type == DATATYPE::FLOAT3)
+				UniformSize = sizeof(float) * 3;
+			else if (layout[i].type == DATATYPE::FLOAT4)
+				UniformSize = sizeof(float) * 4;
+			else if (layout[i].type == DATATYPE::MAT4)
+				UniformSize = sizeof(float) * 4 * 4;
+			else if (layout[i].type == DATATYPE::INT1)
+				UniformSize = sizeof(int);
+
+			m_Cbuffers.push_back(std::make_unique<DX11ConstantBuffer>(layout[i].name, UniformSize));
+		}
 	}
 
 }

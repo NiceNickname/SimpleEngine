@@ -99,9 +99,6 @@
     <ClInclude Include="src\Renderer\IndexBuffer.h">
       <Filter>src\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Renderer.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer\RenderingAPI.h">
       <Filter>src\Renderer</Filter>
     </ClInclude>
@@ -1275,6 +1272,10 @@
     <ClInclude Include="src\OpenGL\OpenGLBatchRenderer.h" />
     <ClInclude Include="src\DX11\DX11BatchRenderer.h" />
     <ClInclude Include="src\DX11\DX11Texture.h" />
+    <ClInclude Include="src\Renderer\Renderer2D.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\UniformElement.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -1319,9 +1320,6 @@
     <ClCompile Include="src\Renderer\IndexBuffer.cpp">
       <Filter>src\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Renderer.cpp">
-      <Filter>src\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Renderer\Shader.cpp">
       <Filter>src\Renderer</Filter>
     </ClCompile>
@@ -1352,5 +1350,8 @@
     <ClCompile Include="src\Renderer\BatchRenderer.cpp" />
     <ClCompile Include="src\DX11\DX11BatchRenderer.cpp" />
     <ClCompile Include="src\DX11\DX11Texture.cpp" />
+    <ClCompile Include="src\Renderer\Renderer2D.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

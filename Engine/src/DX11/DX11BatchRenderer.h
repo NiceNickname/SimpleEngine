@@ -2,7 +2,7 @@
 
 #include "DX11RenderingApi.h"
 #include "Renderer/BatchRenderer.h"
-#define MAX_TEXTURES 10
+#define MAX_TEXTURES 32
 
 namespace Engine {
 

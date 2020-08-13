@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Renderer/Renderer.h"
+#include "Renderer/Renderer2D.h"
 
 namespace Engine
 {
@@ -26,7 +26,7 @@ namespace Engine
 	protected:
 		bool m_Running = true;
 		std::unique_ptr<Window> m_Window;
-		Renderer::API m_Api = Renderer::API::NONE;
+		Renderer2D::API m_Api = Renderer2D::API::NONE;
 	};
 }
 

@@ -8,7 +8,7 @@
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
 
-#include "Renderer/Renderer.h"
+#include "Renderer/Renderer2D.h"
 
 namespace Engine
 {

@@ -191,15 +191,20 @@ namespace Engine
 		glUniform1f(GetUniform(name), value);
 	}
 
-	void OpenGLShader::SetUniform2f(const std::string& name, float x, float y)
+	void OpenGLShader::SetUniform2f(const std::string& name, const glm::vec2& value)
 	{
-		glUniform2f(GetUniform(name), x, y);
+		glUniform2f(GetUniform(name), value.x, value.y);
 
 	}
 
 	void OpenGLShader::SetUniform3f(const std::string& name, const glm::vec3& value)
 	{
 		glUniform3f(GetUniform(name), value.x, value.y, value.z);
+	}
+
+	void OpenGLShader::SetUniform4f(const std::string& name, const glm::vec4& value)
+	{
+		glUniform4f(GetUniform(name), value.x, value.y, value.z, value.w);
 	}
 
 	void OpenGLShader::SetUniformMat4f(const std::string& name, const glm::mat4& value)

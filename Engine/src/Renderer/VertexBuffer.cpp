@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "VertexBuffer.h"
-#include "Renderer.h"
+#include "Renderer2D.h"
 #include "OpenGL/OpenGLVertexBuffer.h"
 #include "DX11/DX11VertexBuffer.h"
 
@@ -8,11 +8,11 @@ namespace Engine {
 
 	VertexBuffer* VertexBuffer::Create(float* data, unsigned int size)
 	{
-		if (Renderer::GetApi() == Renderer::API::NONE)
+		if (Renderer2D::GetApi() == Renderer2D::API::NONE)
 			std::cout << "None API is set\n";
-		else if (Renderer::GetApi() == Renderer::API::OPENGL)
+		else if (Renderer2D::GetApi() == Renderer2D::API::OPENGL)
 			return new OpenGLVertexBuffer(data, size);
-		else if (Renderer::GetApi() == Renderer::API::DX11)
+		else if (Renderer2D::GetApi() == Renderer2D::API::DX11)
 			return new DX11VertexBuffer(data, size);
 	}
 

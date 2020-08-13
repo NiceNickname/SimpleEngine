@@ -2,7 +2,9 @@
 
 #include "EntryPoint.h"
 
-#define TEST 0
+#define TEST 1
+
+#define MAX_TEXTURES 32
 
 class OpenGLGame : public Engine::App
 {
@@ -17,7 +19,7 @@ public:
 
 	void ChooseApi() override
 	{
-		m_Api = Engine::Renderer::API::OPENGL;
+		m_Api = Engine::Renderer2D::API::OPENGL;
 	}
 
 	virtual void Start() override
@@ -56,7 +58,7 @@ public:
 		
 		m_Shader->Bind();
 		m_Shader->SetUniform1i("tex", 1);
-		m_Shader->SetUniformMat4f("view", m_Camera->GetView());
+		m_Shader->SetUniformMat4f("view", m_Camera->GetProjection() * m_Camera->GetView());
 
 		m_Texture.reset(Engine::Texture::Create("res/textures/checkerboard.jpg"));
 		
@@ -66,13 +68,13 @@ public:
 		m_BatchShader->SetUniformMat4f("view", m_Camera->GetProjection() * m_Camera->GetView());
 
 		
-		int samplers[10];
-		for (int i = 0; i < 10; i++)
+		int samplers[MAX_TEXTURES];
+		for (int i = 0; i < MAX_TEXTURES; i++)
 			samplers[i] = i;
 
 		m_BatchShader->SetUniformIntArray("u_Textures", sizeof(samplers), samplers);
 
-		Engine::Renderer::Init();
+		Engine::Renderer2D::Init();
 
 	}
 
@@ -88,7 +90,7 @@ public:
 			CameraPosition.y -= m_Camera->GetSpeed();
 
 		if (Engine::Input::IsKeyDown(GLFW_KEY_SPACE))
-			Engine::Renderer::SetApi(Engine::Renderer::API::OPENGL, m_Window);
+			Engine::Renderer2D::SetApi(Engine::Renderer2D::API::OPENGL, m_Window);
 
 		m_Camera->SetPosition(CameraPosition);
 		m_Camera->Zoom(Engine::Input::GetMouseWheelOffset());
@@ -105,21 +107,21 @@ public:
 	{
 		m_BatchShader->Bind();
 
-		Engine::Renderer::Begin();
+		Engine::Renderer2D::Begin();
 
 		for (int i = 0; i < 5; i++)
 		{
 			for (int j = 0; j < 5; j++)
 			{
 				glm::vec4 color = { 1.0f, 0.0f, 0.0f, 1.0f };
-				Engine::Renderer::DrawQuad({ j, i, 0.0f }, { 0.8f, 0.8f }, color);
-				Engine::Renderer::DrawQuad({ j + 5, i, 0.0f }, { 0.8f, 0.8f}, m_Texture);
+				Engine::Renderer2D::DrawQuad({ j, i, 0.0f }, { 0.8f, 0.8f }, color);
+				Engine::Renderer2D::DrawQuad({ j + 5, i, 0.0f }, { 0.8f, 0.8f}, m_Texture);
 			}
 		}
 
-		Engine::Renderer::End();
+		Engine::Renderer2D::End();
 
-		Engine::Renderer::Draw();
+		Engine::Renderer2D::Draw();
 
 		m_Shader->Bind();
 		m_Texture->Bind(1);
@@ -129,6 +131,11 @@ public:
 
 	void ImGuiRender() override
 	{
+		ImGui::Begin("Render stats");
+		ImGui::Text("Draw Calls: %d", Engine::Renderer2D::GetStats().DrawCallsCount);
+		ImGui::Text("Quads Count: %d", Engine::Renderer2D::GetStats().QuadsCount);
+		ImGui::Text("Quads Per Draw Call: %d", Engine::Renderer2D::GetStats().QuadPerDrawCall);
+		ImGui::End();
 	}
 
 	~OpenGLGame()

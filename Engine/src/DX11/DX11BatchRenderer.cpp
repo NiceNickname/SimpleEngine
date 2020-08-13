@@ -5,14 +5,16 @@
 
 namespace Engine {
 
-	static const unsigned int MaxTextures = 10;
-	static const unsigned int MaxQuadCount = 1000;
+	static const unsigned int MaxTextures = 32;
+	static const unsigned int MaxQuadCount = 10;
 	static const unsigned int MaxVertexCount = MaxQuadCount * 4;
 	static const unsigned int MaxIndexCount = MaxQuadCount * 6;
 
 
 	DX11BatchRenderer::DX11BatchRenderer()
 	{
+		m_Stats.QuadPerDrawCall = MaxQuadCount;
+
 		D3DReadFileToBlob(L"../User/res/shaders/VertexShader.cso", &m_Data.VSByteCode);
 
 		m_Data.QuadBuffer = new Vertex[MaxVertexCount];
@@ -135,7 +137,11 @@ namespace Engine {
 		{
 			End();
 			Draw();
+			unsigned int tmpdrawcalls = m_Stats.DrawCallsCount;
+			unsigned int tmpQuadCount = m_Stats.QuadsCount;
 			Begin();
+			m_Stats.DrawCallsCount = tmpdrawcalls;
+			m_Stats.QuadsCount = tmpQuadCount;
 		}
 
 		float TextureIndex = 0.0f;
@@ -169,11 +175,15 @@ namespace Engine {
 
 	void DX11BatchRenderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)
 	{
-		if (m_Data.IndexCount >= MaxIndexCount || m_Data.TextureSlotIndex > 9)
+		if (m_Data.IndexCount >= MaxIndexCount || m_Data.TextureSlotIndex > MaxTextures - 1)
 		{
 			End();
 			Draw();
+			unsigned int tmpdrawcalls = m_Stats.DrawCallsCount;
+			unsigned int tmpQuadCount = m_Stats.QuadsCount;
 			Begin();
+			m_Stats.DrawCallsCount = tmpdrawcalls;
+			m_Stats.QuadsCount = tmpQuadCount;
 		}
 
 		const glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -223,6 +233,8 @@ namespace Engine {
 	void DX11BatchRenderer::Begin()
 	{
 		m_Data.QuadBufferPtr = m_Data.QuadBuffer;
+		m_Stats.DrawCallsCount = 0;
+		m_Stats.QuadsCount = 0;
 	}
 
 	void DX11BatchRenderer::End()
@@ -248,6 +260,8 @@ namespace Engine {
 	void DX11BatchRenderer::Draw()
 	{
 		DX11RenderingApi::GetContext()->DrawIndexed(m_Data.IndexCount, 0, 0);
+		m_Stats.DrawCallsCount++;
+		m_Stats.QuadsCount += m_Data.IndexCount / 6;
 		m_Data.IndexCount = 0;
 	}
 

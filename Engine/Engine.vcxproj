@@ -200,6 +200,7 @@
     <ClInclude Include="src\DX11\DX11Texture.h" />
     <ClInclude Include="src\OpenGL\OpenGLBatchRenderer.h" />
     <ClInclude Include="src\Renderer\BatchRenderer.h" />
+    <ClInclude Include="src\Renderer\UniformElement.h" />
     <ClInclude Include="src\Window\GlfwWindow.h" />
     <ClInclude Include="src\Core\App.h" />
     <ClInclude Include="src\Core\OrthographicCamera.h" />
@@ -217,7 +218,7 @@
     <ClInclude Include="src\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\OpenGL\VertexArray.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
-    <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Renderer\RenderingAPI.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
@@ -632,7 +633,7 @@
     <ClCompile Include="src\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\OpenGL\VertexArray.cpp" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
-    <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />

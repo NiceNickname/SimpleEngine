@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include <Windows.h>
 
-#define TEST 1
+#define TEST 0
 
 class DX11Game : public Engine::App
 {
@@ -15,7 +15,7 @@ public:
 
 	void ChooseApi() override
 	{
-		m_Api = Engine::Renderer::API::DX11;
+		m_Api = Engine::Renderer2D::API::DX11;
 	}
 	void Start() override
 	{
@@ -43,9 +43,12 @@ public:
 		m_Shader.reset(Engine::Shader::Create("res/shaders/VertexShader.cso", "res/shaders/PixelShader.cso"));
 		m_Shader->Bind();
 
+		Engine::UniformElement layout[] = { {"view", Engine::DATATYPE::MAT4}  };
+
+		m_Shader->SetUniformLayout(layout, sizeof(layout) / sizeof(Engine::UniformElement));
 
 		// TODO: move this to app class
-		Engine::Renderer::Init();
+		Engine::Renderer2D::Init();
 
 	}
 
@@ -67,25 +70,30 @@ public:
 
 	void Render() override
 	{
-		Engine::Renderer::Begin();
+		Engine::Renderer2D::Begin();
 
 		for (int i = 0; i < 5; i++)
 		{
 			for (int j = 0; j < 5; j++)
 			{
 				glm::vec4 color = { 1.0f, 0.0f, 0.0f, 1.0f };
-				Engine::Renderer::DrawQuad({ j, i, 0.0f }, { 0.8f, 0.8f }, color);
-				Engine::Renderer::DrawQuad({ j + 5, i, 0.0f }, { 0.8f, 0.8f }, m_Texture);
+				Engine::Renderer2D::DrawQuad({ j, i, 0.0f }, { 0.8f, 0.8f }, color);
+				Engine::Renderer2D::DrawQuad({ j + 5, i, 0.0f }, { 0.8f, 0.8f }, m_Texture);
 			}
 		}
 
-		Engine::Renderer::End();
+		Engine::Renderer2D::End();
 
-		Engine::Renderer::Draw();
+		Engine::Renderer2D::Draw();
 	}
 
 	void ImGuiRender() override
 	{
+		ImGui::Begin("Render stats");
+		ImGui::Text("Draw Calls: %d", Engine::Renderer2D::GetStats().DrawCallsCount);
+		ImGui::Text("Quads Count: %d", Engine::Renderer2D::GetStats().QuadsCount);
+		ImGui::Text("Quads Per Draw Call: %d", Engine::Renderer2D::GetStats().QuadPerDrawCall);
+		ImGui::End();
 	}
 	
 	~DX11Game()

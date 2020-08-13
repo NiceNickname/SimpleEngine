@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAX_TEXTURES 10
+#define MAX_TEXTURES 32
 
 #include "Renderer/BatchRenderer.h"
 

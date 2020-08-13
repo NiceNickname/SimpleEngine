@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Window/GlfwWindow.h"
-#include "Renderer.h"
+#include "Renderer2D.h"
 
 #include "DX11/DX11RenderingApi.h"
 #include "OpenGL/OpenGLIndexBuffer.h"
@@ -12,63 +12,58 @@
 
 namespace Engine {
 
-	std::unique_ptr<RenderingAPI> Renderer::m_Api;
-	std::unique_ptr<BatchRenderer> Renderer::m_BatchRenderer;
-	Renderer::API Renderer::m_ApiName = Renderer::API::NONE;
+	std::unique_ptr<RenderingAPI> Renderer2D::m_Api;
+	std::unique_ptr<BatchRenderer> Renderer2D::m_BatchRenderer;
+	Renderer2D::API Renderer2D::m_ApiName = Renderer2D::API::NONE;
 
-	void Renderer::Init()
+	void Renderer2D::Init()
 	{
 	}
 
-	void Renderer::ShutDown()
+	void Renderer2D::ShutDown()
 	{
 		if (m_Api.get() != nullptr)
 			m_Api.reset();
 	}
 
-	void Renderer::SwapBuffers()
+	void Renderer2D::SwapBuffers()
 	{
 		m_Api->SwapBuffers();
 	}
 
-	void Renderer::ClearBuffer()
+	void Renderer2D::ClearBuffer()
 	{
 		m_Api->ClearBuffer();
 	}
 
-	void Renderer::Begin()
+	void Renderer2D::Begin()
 	{
 		m_BatchRenderer->Begin();
 	}
 
-	void Renderer::End()
+	void Renderer2D::End()
 	{
 		m_BatchRenderer->End();
 	}
 
-	void Renderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
 		m_BatchRenderer->DrawQuad(position, size, color);
 	}
 
-	void Renderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture)
 	{
 		m_BatchRenderer->DrawQuad(position, size, texture);
 	}
 
-	void Renderer::Draw()
+	void Renderer2D::Draw()
 	{
 		m_BatchRenderer->Draw();
 	}
 
-	void Renderer::Flush()
-	{
-		// TODO: drawcall
-	}
 
 
-
-	void Renderer::SetApi(API api, std::unique_ptr<Window>& window)
+	void Renderer2D::SetApi(API api, std::unique_ptr<Window>& window)
 	{
 		m_ApiName = api;
 		if (api == API::NONE)
@@ -92,7 +87,7 @@ namespace Engine {
 	}
 
 
-	void Renderer::Prepare()
+	void Renderer2D::Prepare()
 	{
 		m_Api->Prepare();
 	}

@@ -21,6 +21,7 @@
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
+#include "Renderer/UniformElement.h"
 
 #include "DX11/DX11RenderingApi.h"
 #include "DX11/DX11Shader.h"
@@ -39,5 +40,5 @@
 
 #include "Core/App.h"
 #include "Core/OrthographicCamera.h"
-#include "Renderer/Renderer.h"
+#include "Renderer/Renderer2D.h"
 

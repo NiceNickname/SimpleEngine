@@ -3,7 +3,7 @@
 #include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "Renderer/Renderer.h"
+#include "Renderer/Renderer2D.h"
 #include <d3d11.h>
 
 namespace Engine
@@ -54,7 +54,7 @@ namespace Engine
 
 		unsigned int GetType() const
 		{
-			if (Renderer::GetApi() == Renderer::API::OPENGL)
+			if (Renderer2D::GetApi() == Renderer2D::API::OPENGL)
 			{
 				switch (type)
 				{
@@ -65,7 +65,7 @@ namespace Engine
 				case DATATYPE::MAT4:		return GL_FLOAT;
 				}
 			}
-			else if (Renderer::GetApi() == Renderer::API::DX11)
+			else if (Renderer2D::GetApi() == Renderer2D::API::DX11)
 			{
 				switch (type)
 				{

@@ -6,7 +6,8 @@ namespace Engine {
 
 
 
-	DX11ConstantBuffer::DX11ConstantBuffer(unsigned int bytewidth)
+	DX11ConstantBuffer::DX11ConstantBuffer(const std::string& name, unsigned int bytewidth)
+		: m_Name(name)
 	{
 		D3D11_BUFFER_DESC bd;
 		ZeroMemory(&bd, sizeof(bd));
@@ -29,9 +30,9 @@ namespace Engine {
 		DX11RenderingApi::GetContext()->UpdateSubresource(m_Buffer, 0, 0, data, 0, 0);
 	}
 
-	void DX11ConstantBuffer::Bind()
+	void DX11ConstantBuffer::Bind(unsigned int slot)
 	{
-		DX11RenderingApi::GetContext()->VSSetConstantBuffers(0, 1, &m_Buffer);
+		DX11RenderingApi::GetContext()->VSSetConstantBuffers(slot, 1, &m_Buffer);
 	}
 
 }

@@ -7,10 +7,7 @@
 
 namespace Engine {
 
-	// TODO: refactor DrawQuadDX11 function
-	// implement Flush function
-
-	class Renderer
+	class Renderer2D
 	{
 	public:
 		enum class API { NONE = 0, OPENGL, DX11 };
@@ -20,8 +17,8 @@ namespace Engine {
 		static void End();
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture);
+		static BatchRenderer::stats GetStats() { return m_BatchRenderer->GetStats(); }
 		static void Draw();
-		static void Flush();
 		static void ShutDown();
 		static void SwapBuffers();
 		static void ClearBuffer();
