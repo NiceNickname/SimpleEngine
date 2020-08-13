@@ -7,9 +7,6 @@
 #include "examples/imgui_impl_win32.h"
 
 #include "Input/Input.h"
-//#define DIRECTINPUT_VERSION 0x0800
-//#include <dinput.h>
-//#include <tchar.h>
 
 	extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

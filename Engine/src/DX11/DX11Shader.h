@@ -3,8 +3,6 @@
 #include "DX11RenderingApi.h"
 #include "DX11ConstantBuffer.h"
 
-#include <unordered_map>
-
 
 
 namespace Engine {
@@ -22,7 +20,6 @@ namespace Engine {
 		ID3DBlob* GetPSCode() { return m_PSCode; }
 
 		virtual void SetUniform1i(const std::string& name, int value) override;
-		virtual void SetUniformIntArray(const std::string& name, int size, int* value) override;
 
 		virtual void SetUniform1f(const std::string& name, float value) override;
 		virtual void SetUniform2f(const std::string& name, const glm::vec2& value) override;

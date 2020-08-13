@@ -1,13 +1,5 @@
 #include "pch.h"
-#include "Window/GlfwWindow.h"
 #include "Renderer2D.h"
-
-#include "DX11/DX11RenderingApi.h"
-#include "OpenGL/OpenGLIndexBuffer.h"
-#include "OpenGL/OpenGLVertexBuffer.h"
-#include "OpenGL/VertexArray.h"
-#include "OpenGL/OpenGLRenderingApi.h"
-#include "DX11/DX11Shader.h"
 
 
 namespace Engine {
@@ -15,10 +7,6 @@ namespace Engine {
 	std::unique_ptr<RenderingAPI> Renderer2D::m_Api;
 	std::unique_ptr<BatchRenderer> Renderer2D::m_BatchRenderer;
 	Renderer2D::API Renderer2D::m_ApiName = Renderer2D::API::NONE;
-
-	void Renderer2D::Init()
-	{
-	}
 
 	void Renderer2D::ShutDown()
 	{

@@ -84,11 +84,6 @@ namespace Engine {
 		m_Cbuffers[index]->Update((const void*)&value);
 	}
 
-	void DX11Shader::SetUniformIntArray(const std::string& name, int size, int* value)
-	{
-
-	}
-
 	void DX11Shader::SetUniform1f(const std::string& name, float value)
 	{
 		int index = GetUniform(name);

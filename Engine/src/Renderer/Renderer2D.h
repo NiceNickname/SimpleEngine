@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Texture.h"
 #include "glm/glm.hpp"
 #include "Window/Window.h"
@@ -12,12 +13,11 @@ namespace Engine {
 	public:
 		enum class API { NONE = 0, OPENGL, DX11 };
 
-		static void Init();
 		static void Begin();
 		static void End();
+		// TODO: add functions taking transform
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const std::shared_ptr<Texture>& texture);
-		static BatchRenderer::stats GetStats() { return m_BatchRenderer->GetStats(); }
 		static void Draw();
 		static void ShutDown();
 		static void SwapBuffers();
@@ -28,6 +28,7 @@ namespace Engine {
 		static void Prepare();
 
 		inline static API GetApi() { return m_ApiName; }
+		inline static BatchRenderer::stats GetStats() { return m_BatchRenderer->GetStats(); }
 
 	private:
 		static std::unique_ptr<RenderingAPI> m_Api;
