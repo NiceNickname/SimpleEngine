@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 
-#define TEST 0
+#define TEST 1
 
 class DX11Game : public Engine::App
 {
@@ -90,6 +90,11 @@ public:
 		ImGui::Text("Quads Count: %d", Engine::Renderer2D::GetStats().QuadsCount);
 		ImGui::Text("Quads Per Draw Call: %d", Engine::Renderer2D::GetStats().QuadPerDrawCall);
 		ImGui::End();
+	}
+
+	void OnMouseScrolled(Engine::MouseScrolledEvent& e)
+	{
+		m_Camera->Zoom(e.m_YOffset);
 	}
 
 };

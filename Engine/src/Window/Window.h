@@ -27,6 +27,7 @@ namespace Engine {
 		
 		inline void SetWidth(unsigned int width) { m_Width = width; }
 		inline void SetHeight(unsigned int height) { m_Height = height; }
+		inline std::function<void(Event&)>& GetCallback() { return m_Callback; }
 
 	protected:
 		std::string m_Name;

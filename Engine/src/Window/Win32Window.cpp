@@ -1,12 +1,17 @@
 #include "pch.h"
 
 #include <Windows.h>
+#include "Core/App.h"
 #include "Win32Window.h"
 
 #include "imgui.h"
 #include "examples/imgui_impl_win32.h"
 
 #include "Input/Input.h"
+#include "Events/Event.h"
+#include "Events/ApplicationEvents.h"
+#include "Events/MouseEvents.h"
+#include "Events/KeyboardEvents.h"
 
 	extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -80,16 +85,32 @@ namespace Engine {
 		switch (msg)
 		{
 		case WM_KEYDOWN:
-			
+		{
+			KeyPressedEvent event(wParam, LOWORD(lParam));
+			App::Get()->GetWindow()->GetCallback()(event);
 			break;
+		}
 		case WM_KEYUP:
+		{
+			KeyReleasedEvent event(wParam);
+			App::Get()->GetWindow()->GetCallback()(event);
 			break;
+		}
+		case WM_CHAR:
+		{
+			KeyTypedEvent event(wParam);
+			App::Get()->GetWindow()->GetCallback()(event);
+			break;
+		}
+		case WM_MOUSEWHEEL:
+		{
+			MouseScrolledEvent event(0, GET_WHEEL_DELTA_WPARAM(wParam));
+			App::Get()->GetWindow()->GetCallback()(event);
+			break;
+		}
 		case WM_SYSCOMMAND:
 			if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
 				return 0;
-			break;
-		case WM_MOUSEWHEEL:
-			GET_WHEEL_DELTA_WPARAM(wParam);
 			break;
 		case WM_DESTROY:
 			PostQuitMessage(0);

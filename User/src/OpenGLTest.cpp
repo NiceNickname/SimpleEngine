@@ -2,7 +2,7 @@
 
 #include "EntryPoint.h"
 
-#define TEST 1
+#define TEST 0
 
 #define MAX_TEXTURES 32
 
