@@ -5,6 +5,8 @@
 #include "Window/Window.h"
 #include "RenderingAPI.h"
 #include "BatchRenderer.h"
+#include "Events/Event.h"
+#include <functional>
 
 namespace Engine {
 
@@ -22,7 +24,7 @@ namespace Engine {
 		static void ShutDown();
 		static void SwapBuffers();
 		static void ClearBuffer();
-		static void SetApi(API api, std::unique_ptr<Window>& window);
+		static void SetApi(API api, std::unique_ptr<Window>& window, std::function<void(Event&)> fn);
 		
 		// this function is for additional operations before actual rendering each frame (e.g. setting render target for dx11)
 		static void Prepare();

@@ -1,5 +1,5 @@
 #include "Engine.h"
-#include <Windows.h>
+
 
 #define TEST 0
 
@@ -47,9 +47,6 @@ public:
 
 		m_Shader->SetUniformLayout(layout, sizeof(layout) / sizeof(Engine::UniformElement));
 
-		// TODO: move this to app class
-		Engine::Renderer2D::Init();
-
 	}
 
 	void Update() override
@@ -64,7 +61,6 @@ public:
 			CameraPosition.y -= m_Camera->GetSpeed();
 
 		m_Camera->SetPosition(CameraPosition);
-		m_Camera->Zoom(Engine::Input::GetMouseWheelOffset());
 		m_Shader->SetUniformMat4f("view", m_Camera->GetProjection() * m_Camera->GetView());
 	}
 
@@ -94,10 +90,6 @@ public:
 		ImGui::Text("Quads Count: %d", Engine::Renderer2D::GetStats().QuadsCount);
 		ImGui::Text("Quads Per Draw Call: %d", Engine::Renderer2D::GetStats().QuadPerDrawCall);
 		ImGui::End();
-	}
-	
-	~DX11Game()
-	{
 	}
 
 };

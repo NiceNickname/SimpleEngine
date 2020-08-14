@@ -15,6 +15,10 @@
 
 #include "Input/Input.h"
 
+#include "Events/Event.h"
+#include "Events/ApplicationEvents.h"
+#include "Events/KeyboardEvents.h"
+#include "Events/MouseEvents.h"
 
 #include "Renderer/VertexBufferLayout.h"
 #include "Renderer/VertexBuffer.h"

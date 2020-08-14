@@ -9,6 +9,9 @@
 #include "examples/imgui_impl_opengl3.h"
 
 #include "Renderer/Renderer2D.h"
+#include "Events/ApplicationEvents.h"
+#include "Events/KeyboardEvents.h"
+#include "Events/MouseEvents.h"
 
 namespace Engine
 {
@@ -17,6 +20,8 @@ namespace Engine
 		m_Name = name;
 		m_Width = width;
 		m_Height = height;
+
+		
 
 		/* Initialize the library */
 		if (!glfwInit())
@@ -36,8 +41,92 @@ namespace Engine
 
 		glfwSwapInterval(1);
 
-		glfwSetKeyCallback(m_Window, Input::KeyCallBackGLFW);
-		glfwSetScrollCallback(m_Window, Input::ScrollCallBackGLFW);
+
+		glfwSetWindowUserPointer(m_Window, &m_Callback);
+
+		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		{
+			auto& callback = *(std::function<void(Event&)>*)glfwGetWindowUserPointer(window);
+			WindowResizedEvent event(width, height);
+			callback(event);
+			
+		});
+
+		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			auto& callback = *(std::function<void(Event&)>*)glfwGetWindowUserPointer(window);
+			
+			switch (action)
+			{
+			case GLFW_PRESS:
+			{
+				KeyPressedEvent event(key, 0);
+				callback(event);
+				break;
+			}
+
+			case GLFW_RELEASE:
+			{
+				KeyReleasedEvent event(key);
+				callback(event);
+				break;
+			}
+
+			case GLFW_REPEAT:
+			{
+				KeyPressedEvent event(key, 1);
+				callback(event);
+				break;
+			}
+			}
+		});
+
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int codepoint)
+		{
+			auto& callback = *(std::function<void(Event&)>*)glfwGetWindowUserPointer(window);
+			
+			KeyTypedEvent event(codepoint);
+			callback(event);
+
+		});
+
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xoffset, double yoffset)
+		{
+			auto& callback = *(std::function<void(Event&)>*)glfwGetWindowUserPointer(window);
+
+			MouseScrolledEvent event((float)xoffset, (float)yoffset);
+			callback(event);
+			
+		});
+
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double x, double y)
+		{
+			auto& callback = *(std::function<void(Event&)>*)glfwGetWindowUserPointer(window);
+
+			MouseMovedEvent event((float)x, (float)y);
+			callback(event);
+		});
+
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+		{
+			auto& callback = *(std::function<void(Event&)>*)glfwGetWindowUserPointer(window);
+
+			switch (action)
+			{
+				case GLFW_PRESS:
+					{
+						MouseButtonPressedEvent event(button);
+						callback(event);
+						break;
+					}
+				case GLFW_RELEASE:
+					{
+						MouseButtonReleasedEvent event(button);
+						callback(event);
+						break;
+					}
+			}
+		});
 	}
 
 	GlfwWindow::~GlfwWindow()

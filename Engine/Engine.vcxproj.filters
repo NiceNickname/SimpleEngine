@@ -1276,6 +1276,10 @@
       <Filter>src\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\UniformElement.h" />
+    <ClInclude Include="src\Events\Event.h" />
+    <ClInclude Include="src\Events\ApplicationEvents.h" />
+    <ClInclude Include="src\Events\MouseEvents.h" />
+    <ClInclude Include="src\Events\KeyboardEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -1353,5 +1357,7 @@
     <ClCompile Include="src\Renderer\Renderer2D.cpp">
       <Filter>src\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Input\Win32Input.cpp" />
+    <ClCompile Include="src\Input\GlfwInput.cpp" />
   </ItemGroup>
 </Project>

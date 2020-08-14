@@ -2,7 +2,7 @@
 
 #include "Input.h"
 
-
+#if 0
 namespace Engine
 {
 	bool Input::keys[65546];
@@ -39,3 +39,4 @@ namespace Engine
 		mouseWheelOffset = (float)delta * 0.001f;
 	}
 }
+#endif

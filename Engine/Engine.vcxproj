@@ -198,6 +198,10 @@
     <ClInclude Include="src\DX11\DX11BatchRenderer.h" />
     <ClInclude Include="src\DX11\DX11ConstantBuffer.h" />
     <ClInclude Include="src\DX11\DX11Texture.h" />
+    <ClInclude Include="src\Events\ApplicationEvents.h" />
+    <ClInclude Include="src\Events\Event.h" />
+    <ClInclude Include="src\Events\KeyboardEvents.h" />
+    <ClInclude Include="src\Events\MouseEvents.h" />
     <ClInclude Include="src\OpenGL\OpenGLBatchRenderer.h" />
     <ClInclude Include="src\Renderer\BatchRenderer.h" />
     <ClInclude Include="src\Renderer\UniformElement.h" />
@@ -614,6 +618,8 @@
     <ClCompile Include="src\DX11\DX11ConstantBuffer.cpp" />
     <ClCompile Include="src\DX11\DX11Texture.cpp" />
     <ClCompile Include="src\ImGui\ImGuiBuildDX11.cpp" />
+    <ClCompile Include="src\Input\GlfwInput.cpp" />
+    <ClCompile Include="src\Input\Win32Input.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLBatchRenderer.cpp" />
     <ClCompile Include="src\Renderer\BatchRenderer.cpp" />
     <ClCompile Include="src\Renderer\RenderingAPI.cpp" />

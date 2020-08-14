@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+#include "Events/Event.h"
 
 namespace Engine {
 
@@ -17,15 +19,21 @@ namespace Engine {
 		virtual void Update() = 0;
 		virtual bool ShouldClose() = 0;
 		virtual void GetFrameBufferSize(int* width, int* height) = 0;
+		inline void SetEventCallback(const std::function<void(Event&)>& callback) { m_Callback = callback; }
 
-		virtual const std::string& GetName() const { return m_Name; }
-		virtual int GetWidth() const { return m_Width; }
-		virtual int GetHeight() const { return m_Height; }
+		const std::string& GetName() const { return m_Name; }
+		int GetWidth() const { return m_Width; }
+		int GetHeight() const { return m_Height; }
+		
+		inline void SetWidth(unsigned int width) { m_Width = width; }
+		inline void SetHeight(unsigned int height) { m_Height = height; }
 
 	protected:
 		std::string m_Name;
 		int m_Width;
 		int m_Height;
+
+		std::function<void(Event&)> m_Callback;
 	};
 
 }

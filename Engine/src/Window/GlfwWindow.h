@@ -22,6 +22,7 @@ namespace Engine
 
 	private:
 		GLFWwindow* m_Window;
+		
 
 	};
 }

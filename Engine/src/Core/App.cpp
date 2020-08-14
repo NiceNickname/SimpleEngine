@@ -11,16 +11,20 @@
 
 #include "Renderer/Renderer2D.h"
 #include "Window/GlfwWindow.h"
+#include <functional>
+
+#define BIND_EVENT_FN(fn) std::bind(&App::##fn, this, std::placeholders::_1)
 
 namespace Engine
 {
+	App* App::s_Instance = nullptr;
+
 	void App::Run()
 	{
 		ChooseApi();
 
 		// window creation and chosen API initialization
-		Renderer2D::SetApi(m_Api, m_Window);
-
+		Renderer2D::SetApi(m_Api, m_Window, BIND_EVENT_FN(OnEvent));
 
 		Start();
 
@@ -112,6 +116,39 @@ namespace Engine
 	void App::ShutDown()
 	{
 		Renderer2D::ShutDown();
+	}
+
+	void App::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		
+		// application events handling
+		dispatcher.Dispatch<WindowResizedEvent>(BIND_EVENT_FN(OnWindowResize));
+		dispatcher.Dispatch<WindowClosedEvent>(BIND_EVENT_FN(OnWindowClose));
+
+		// keyboard events handling
+		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressed));
+		dispatcher.Dispatch<KeyReleasedEvent>(BIND_EVENT_FN(OnKeyReleased));
+		dispatcher.Dispatch<KeyTypedEvent>(BIND_EVENT_FN(OnKeyTyped));
+
+		// mouse events handling
+		dispatcher.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(OnMouseButtonPressed));
+		dispatcher.Dispatch<MouseButtonReleasedEvent>(BIND_EVENT_FN(OnMouseButtonReleased));
+		dispatcher.Dispatch<MouseMovedEvent>(BIND_EVENT_FN(OnMouseMoved));
+		dispatcher.Dispatch<MouseScrolledEvent>(BIND_EVENT_FN(OnMouseScrolled));
+
+	}
+
+
+	void App::OnWindowClose(WindowClosedEvent& e)
+	{
+		m_Running = false;
+	}
+
+	void App::OnWindowResize(WindowResizedEvent& e)
+	{
+		m_Window->SetWidth(e.m_Width);
+		m_Window->SetHeight(e.m_Height);
 	}
 
 }

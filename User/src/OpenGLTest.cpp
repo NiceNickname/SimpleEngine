@@ -74,8 +74,6 @@ public:
 
 		m_BatchShader->SetUniformIntArray("u_Textures", sizeof(samplers), samplers);
 
-		Engine::Renderer2D::Init();
-
 	}
 
 	void Update() override
@@ -89,11 +87,7 @@ public:
 		if (Engine::Input::IsKeyDown(GLFW_KEY_DOWN))
 			CameraPosition.y -= m_Camera->GetSpeed();
 
-		if (Engine::Input::IsKeyDown(GLFW_KEY_SPACE))
-			Engine::Renderer2D::SetApi(Engine::Renderer2D::API::OPENGL, m_Window);
-
 		m_Camera->SetPosition(CameraPosition);
-		m_Camera->Zoom(Engine::Input::GetMouseWheelOffset());
 
 		m_Shader->Bind();
 		m_Shader->SetUniformMat4f("view", m_Camera->GetProjection() * m_Camera->GetView());
@@ -138,8 +132,10 @@ public:
 		ImGui::End();
 	}
 
-	~OpenGLGame()
+
+	void OnMouseScrolled(Engine::MouseScrolledEvent& e) override
 	{
+		m_Camera->Zoom(e.m_YOffset);
 	}
 };
 

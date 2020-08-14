@@ -51,7 +51,7 @@ namespace Engine {
 
 
 
-	void Renderer2D::SetApi(API api, std::unique_ptr<Window>& window)
+	void Renderer2D::SetApi(API api, std::unique_ptr<Window>& window, std::function<void(Event&)> fn)
 	{
 		m_ApiName = api;
 		if (api == API::NONE)
@@ -61,6 +61,7 @@ namespace Engine {
 			if (m_Api.get() != nullptr)
 				m_Api.reset();
 			window.reset(Window::Create("Engine", 1280, 720, Window::Type::GLFW));
+			window->SetEventCallback(fn);
 			m_Api.reset(RenderingAPI::Create(window));
 			m_BatchRenderer.reset(BatchRenderer::Create());
 		}
@@ -69,6 +70,7 @@ namespace Engine {
 			if (m_Api.get() != nullptr)
 				m_Api.reset();
 			window.reset(Window::Create("Engine", 1280, 720, Window::Type::WIN32WINDOW));
+			window->SetEventCallback(fn);
 			m_Api.reset(RenderingAPI::Create(window));
 			m_BatchRenderer.reset(BatchRenderer::Create());
 		}
