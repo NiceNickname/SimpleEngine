@@ -6,12 +6,7 @@
 #include "examples/imgui_impl_win32.h"
 #include "examples/imgui_impl_dx11.h"
 
-// TODO: Get render caps
-// return z-buffer
-
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
-
+#pragma comment(lib, "DXGI.lib")
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
 
@@ -64,18 +59,21 @@ namespace Engine {
 		ShutDown();
 	}
 
+	// TODO: take color as a parameter
 	void DX11RenderingApi::ClearBuffer()
 	{
 		float color[] = { 0.0f, 0.2f, 0.4f, 1.0f };
 		// clear the back buffer to a deep blue
 		m_Context->ClearRenderTargetView(m_BackBuffer, color);
+
+		m_Context->ClearDepthStencilView(m_ZBuffer, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	}
 	
 
 
 	void DX11RenderingApi::Prepare()
 	{
-		m_Context->OMSetRenderTargets(1, &m_BackBuffer, NULL);
+		m_Context->OMSetRenderTargets(1, &m_BackBuffer, m_ZBuffer);
 		ClearBuffer();
 	}
 
@@ -92,6 +90,7 @@ namespace Engine {
 		m_SwapChain->Release();
 		m_Context->Release();
 		m_Device->Release();
+		m_ZBuffer->Release();
 	}
 
 	void DX11RenderingApi::SwapBuffers()
@@ -101,15 +100,52 @@ namespace Engine {
 
 	void DX11RenderingApi::InitD3D(HWND hwnd)
 	{
+		RECT ScreenSize;
+		HWND desktop = GetDesktopWindow();
+		GetWindowRect(desktop, &ScreenSize);
+
+		ScreenWidth = ScreenSize.right - ScreenSize.left;
+		ScreenHeight = ScreenSize.bottom - ScreenSize.top;
+
+		IDXGIFactory* factory;
+		IDXGIAdapter* adapter;
+		IDXGIOutput* adapterOutput;
+		unsigned int displatModesCount;
+
+		CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&factory);
+		factory->EnumAdapters(0, &adapter);
+		adapter->EnumOutputs(0, &adapterOutput);
+		adapterOutput->GetDisplayModeList(DXGI_FORMAT_B8G8R8X8_UNORM, DXGI_ENUM_MODES_INTERLACED, &displatModesCount, NULL);
+		auto* displayModeList = new DXGI_MODE_DESC[displatModesCount];
+		adapterOutput->GetDisplayModeList(DXGI_FORMAT_B8G8R8X8_UNORM, DXGI_ENUM_MODES_INTERLACED, &displatModesCount, displayModeList);
+
+		for (int i = 0; i < displatModesCount; i++)
+		{
+			if (displayModeList[i].Width == ScreenWidth)
+			{
+				if (displayModeList[i].Height == ScreenHeight)
+				{
+					Numerator = displayModeList[i].RefreshRate.Numerator;
+					Denominator = displayModeList[i].RefreshRate.Denominator;
+				}
+			}
+		}
+
+		adapterOutput->Release();
+		adapter->Release();
+		factory->Release();
+		delete[] displayModeList;
+
+
 		// Setup swap chain
 		DXGI_SWAP_CHAIN_DESC sd;
 		ZeroMemory(&sd, sizeof(sd));
 		sd.BufferCount = 2;
-		sd.BufferDesc.Width = 0;
-		sd.BufferDesc.Height = 0;
+		sd.BufferDesc.Width = ScreenWidth;
+		sd.BufferDesc.Height = ScreenHeight;
+		sd.BufferDesc.RefreshRate.Denominator = Denominator;
+		sd.BufferDesc.RefreshRate.Numerator = Numerator;
 		sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-		sd.BufferDesc.RefreshRate.Numerator = 60;
-		sd.BufferDesc.RefreshRate.Denominator = 1;
 		sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 		sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		sd.OutputWindow = hwnd;
@@ -140,10 +176,37 @@ namespace Engine {
 
 		viewport.TopLeftX = 0;
 		viewport.TopLeftY = 0;
-		viewport.Width = SCREEN_WIDTH;
-		viewport.Height = SCREEN_HEIGHT;
+		viewport.Width = ScreenWidth;
+		viewport.Height = ScreenHeight;
+		viewport.MinDepth = 0;
+		viewport.MaxDepth = 1;
 
 		m_Context->RSSetViewports(1, &viewport);
+
+		D3D11_TEXTURE2D_DESC texd;
+		ZeroMemory(&texd, sizeof(texd));
+
+		texd.Width = ScreenWidth;
+		texd.Height = ScreenHeight;
+		texd.ArraySize = 1;
+		texd.MipLevels = 1;
+		texd.SampleDesc.Count = 1;
+		texd.Format = DXGI_FORMAT_D32_FLOAT;
+		texd.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+
+		ID3D11Texture2D* pDepthBuffer;
+		m_Device->CreateTexture2D(&texd, NULL, &pDepthBuffer);
+
+		
+
+		D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
+		ZeroMemory(&dsvd, sizeof(dsvd));
+
+		dsvd.Format = DXGI_FORMAT_D32_FLOAT;
+		dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
+
+		m_Device->CreateDepthStencilView(pDepthBuffer, &dsvd, &m_ZBuffer);
+		pDepthBuffer->Release();
 
 		InitStates();
 
@@ -220,7 +283,18 @@ namespace Engine {
 
 	ID3D11BlendState* DX11RenderingApi::m_BS;
 
+	ID3D11DepthStencilView* DX11RenderingApi::m_ZBuffer;
+
 	HWND DX11RenderingApi::hwnd;
+
+	unsigned int DX11RenderingApi::ScreenWidth;
+
+	unsigned int DX11RenderingApi::ScreenHeight;
+
+	unsigned int DX11RenderingApi::Denominator;
+	
+	unsigned int DX11RenderingApi::Numerator;
+
 
 }
 

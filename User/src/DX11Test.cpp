@@ -3,6 +3,7 @@
 
 class DX11Game : public Engine::App
 {
+
 public:
 	std::shared_ptr<Engine::Shader> m_Shader;
 	std::shared_ptr<Engine::OrthographicCamera> m_Camera;
@@ -17,18 +18,6 @@ public:
 	}
 	void Start() override
 	{
-
-		float vertices[] = {
-			-0.5f, -0.5f, 0.0f,
-			-0.5f, 0.5f, 0.0f,
-			 0.5f, 0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f
-		};
-
-		unsigned int indices[] = {
-			0, 1, 2,
-			2, 3, 0
-		};
 
 
 		m_Texture.reset(Engine::Texture::Create("res/textures/checkerboard.jpg"));

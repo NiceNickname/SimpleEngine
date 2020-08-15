@@ -45,8 +45,12 @@ namespace Engine {
 		static ID3D11RasterizerState* m_RS;
 		static ID3D11SamplerState* m_SS;
 		static ID3D11BlendState* m_BS;
-
+		static ID3D11DepthStencilView* m_ZBuffer;
 		static HWND hwnd;
+		static unsigned int ScreenWidth;
+		static unsigned int ScreenHeight;
+		static unsigned int Numerator;
+		static unsigned int Denominator;
 	};
 
 	
