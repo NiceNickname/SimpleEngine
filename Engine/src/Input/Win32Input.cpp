@@ -1,20 +1,23 @@
 #include "pch.h"
+
+
 #include "Input.h"
 #include <Windows.h>
 
 namespace Engine {
 
-	bool Input::IsKeyDown(int keycode)
+	bool Input::IsKeyDownWin32(int keycode)
 	{
-		return GetKeyState(keycode) & 0x80;
+		SHORT result = GetKeyState(keycode);
+		return result & 0x8000;
 	}
 
-	bool Input::IsMouseButtonPressed(int button)
+	bool Input::IsMouseButtonPressedWin32(int button)
 	{
-		return GetKeyState(button) & 0x80;
+		return GetKeyState(button) & 0x8000;
 	}
 
-	std::pair<float, float>  Input::MousePosition()
+	std::pair<float, float>  Input::MousePositionWin32()
 	{
 		LPPOINT pos;
 		GetCursorPos(pos);

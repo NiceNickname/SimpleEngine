@@ -1280,6 +1280,7 @@
     <ClInclude Include="src\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Events\MouseEvents.h" />
     <ClInclude Include="src\Events\KeyboardEvents.h" />
+    <ClInclude Include="src\Input\KeyCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -1299,9 +1300,6 @@
     </ClCompile>
     <ClCompile Include="src\DX11\DX11VertexBuffer.cpp">
       <Filter>src\DX11</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Input\Input.cpp">
-      <Filter>src\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\OpenGLIndexBuffer.cpp">
       <Filter>src\OpenGL</Filter>
@@ -1359,5 +1357,6 @@
     </ClCompile>
     <ClCompile Include="src\Input\Win32Input.cpp" />
     <ClCompile Include="src\Input\GlfwInput.cpp" />
+    <ClCompile Include="src\Input\Input.cpp" />
   </ItemGroup>
 </Project>

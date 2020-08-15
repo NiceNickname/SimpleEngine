@@ -202,6 +202,7 @@
     <ClInclude Include="src\Events\Event.h" />
     <ClInclude Include="src\Events\KeyboardEvents.h" />
     <ClInclude Include="src\Events\MouseEvents.h" />
+    <ClInclude Include="src\Input\KeyCodes.h" />
     <ClInclude Include="src\OpenGL\OpenGLBatchRenderer.h" />
     <ClInclude Include="src\Renderer\BatchRenderer.h" />
     <ClInclude Include="src\Renderer\UniformElement.h" />
@@ -619,6 +620,7 @@
     <ClCompile Include="src\DX11\DX11Texture.cpp" />
     <ClCompile Include="src\ImGui\ImGuiBuildDX11.cpp" />
     <ClCompile Include="src\Input\GlfwInput.cpp" />
+    <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Input\Win32Input.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLBatchRenderer.cpp" />
     <ClCompile Include="src\Renderer\BatchRenderer.cpp" />
@@ -631,7 +633,6 @@
     <ClCompile Include="src\DX11\DX11Shader.cpp" />
     <ClCompile Include="src\DX11\DX11VertexBuffer.cpp" />
     <ClCompile Include="src\ImGui\ImGuiBuildOpenGL.cpp" />
-    <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLRenderingApi.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLShader.cpp" />

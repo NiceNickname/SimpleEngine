@@ -4,18 +4,16 @@
 #include "Window/GlfwWindow.h"
 #include "Input.h"
 
-
 namespace Engine {
 
-
-	bool Input::IsKeyDown(int keycode)
+	bool Input::IsKeyDownGlfw(int keycode)
 	{
 		auto& window = static_cast<GlfwWindow&>(*(App::Get()->GetWindow().get()));
 		auto state = glfwGetKey(static_cast<GLFWwindow*>(window.GetPointer()), keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool Input::IsMouseButtonPressed(int button)
+	bool Input::IsMouseButtonPressedGlfw(int button)
 	{
 		auto& window = static_cast<GlfwWindow&>(*(App::Get()->GetWindow().get()));
 
@@ -23,7 +21,7 @@ namespace Engine {
 		return state == GLFW_PRESS;
 	}
 
-	std::pair<float, float> Input::MousePosition()
+	std::pair<float, float> Input::MousePostionGlfw()
 	{
 		auto& window = static_cast<GlfwWindow&>(*(App::Get()->GetWindow().get()));
 
@@ -33,5 +31,4 @@ namespace Engine {
 		return std::make_pair((float)x, (float)y);
 	}
 
-	
 }

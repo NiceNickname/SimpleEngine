@@ -1,42 +1,36 @@
 #include "pch.h"
 
 #include "Input.h"
+#include "Renderer/Renderer2D.h"
 
-#if 0
-namespace Engine
-{
-	bool Input::keys[65546];
-	float Input::mouseWheelOffset = 0.0f;
+namespace Engine {
 
 
-	void Input::KeyCallBackGLFW(GLFWwindow* window, int key, int scancode, int action, int mods)
-	{
-		keys[key] = action != GLFW_RELEASE;
-	}
 
-	void Input::ScrollCallBackGLFW(GLFWwindow* window, double xoffset, double yoffset)
-	{
-		mouseWheelOffset = yoffset * 0.25f;
-	}
-
-	void Input::KeyDown(int keycode)
-	{
-		keys[keycode] = true;
-	}
-
-	void Input::KeyUp(int keycode)
-	{
-		keys[keycode] = false;
-	}
 
 	bool Input::IsKeyDown(int keycode)
 	{
-		return keys[keycode];
+		if (Renderer2D::GetApi() == Renderer2D::API::DX11)
+			return IsKeyDownWin32(keycode);
+		else if (Renderer2D::GetApi() == Renderer2D::API::OPENGL)
+			return IsKeyDownGlfw(keycode);
 	}
 
-	void Input::MouseScrolled(int delta)
+	bool Input::IsMouseButtonPressed(int button)
 	{
-		mouseWheelOffset = (float)delta * 0.001f;
+		if (Renderer2D::GetApi() == Renderer2D::API::DX11)
+			return IsMouseButtonPressedWin32(button);
+		else if (Renderer2D::GetApi() == Renderer2D::API::OPENGL)
+			return IsMouseButtonPressedGlfw(button);
 	}
+
+	std::pair<float, float> Input::MousePosition()
+	{
+		if (Renderer2D::GetApi() == Renderer2D::API::DX11)
+			return MousePositionWin32();
+		else if (Renderer2D::GetApi() == Renderer2D::API::OPENGL)
+			return MousePositionWin32();
+	}
+
+
 }
-#endif

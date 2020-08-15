@@ -1,8 +1,6 @@
 #include "Engine.h"
 
 
-#define TEST 1
-
 class DX11Game : public Engine::App
 {
 public:
@@ -51,13 +49,13 @@ public:
 
 	void Update() override
 	{
-		if (Engine::Input::IsKeyDown(VK_RIGHT))
+		if (Engine::Input::IsKeyDown(ENGINE_KEY_RIGHT))
 			CameraPosition.x += m_Camera->GetSpeed();
-		if (Engine::Input::IsKeyDown(VK_LEFT))
+		if (Engine::Input::IsKeyDown(ENGINE_KEY_LEFT))
 			CameraPosition.x -= m_Camera->GetSpeed();
-		if (Engine::Input::IsKeyDown(VK_UP))
+		if (Engine::Input::IsKeyDown(ENGINE_KEY_UP))
 			CameraPosition.y += m_Camera->GetSpeed();
-		if (Engine::Input::IsKeyDown(VK_DOWN))
+		if (Engine::Input::IsKeyDown(ENGINE_KEY_DOWN))
 			CameraPosition.y -= m_Camera->GetSpeed();
 
 		m_Camera->SetPosition(CameraPosition);
@@ -89,6 +87,7 @@ public:
 		ImGui::Text("Draw Calls: %d", Engine::Renderer2D::GetStats().DrawCallsCount);
 		ImGui::Text("Quads Count: %d", Engine::Renderer2D::GetStats().QuadsCount);
 		ImGui::Text("Quads Per Draw Call: %d", Engine::Renderer2D::GetStats().QuadPerDrawCall);
+		ImGui::Text("Camera position: %f, %f, %f", CameraPosition.x, CameraPosition.y, CameraPosition.z);
 		ImGui::End();
 	}
 
@@ -99,11 +98,14 @@ public:
 
 };
 
-#if TEST
+
+#if DirectX11
+#include "EntryPoint.h"
 Engine::App* CreateApp()
 {
 	return new DX11Game();
 }
 #endif
+
 
 

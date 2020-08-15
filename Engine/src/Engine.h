@@ -1,5 +1,8 @@
 #pragma once
 
+#define OpenGL 1
+#define DirectX11 0
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -14,6 +17,7 @@
 #include "glm/gtc/type_ptr.hpp"
 
 #include "Input/Input.h"
+#include "Input/KeyCodes.h"
 
 #include "Events/Event.h"
 #include "Events/ApplicationEvents.h"

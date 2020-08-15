@@ -1,9 +1,5 @@
 #include <Engine.h>
 
-#include "EntryPoint.h"
-
-#define TEST 0
-
 #define MAX_TEXTURES 32
 
 class OpenGLGame : public Engine::App
@@ -78,13 +74,13 @@ public:
 
 	void Update() override
 	{
-		if (Engine::Input::IsKeyDown(GLFW_KEY_RIGHT))
+		if (Engine::Input::IsKeyDown(ENGINE_KEY_RIGHT))
 			CameraPosition.x += m_Camera->GetSpeed();
-		if (Engine::Input::IsKeyDown(GLFW_KEY_LEFT))
+		if (Engine::Input::IsKeyDown(ENGINE_KEY_LEFT))
 			CameraPosition.x -= m_Camera->GetSpeed();
-		if (Engine::Input::IsKeyDown(GLFW_KEY_UP))
+		if (Engine::Input::IsKeyDown(ENGINE_KEY_UP))
 			CameraPosition.y += m_Camera->GetSpeed();
-		if (Engine::Input::IsKeyDown(GLFW_KEY_DOWN))
+		if (Engine::Input::IsKeyDown(ENGINE_KEY_DOWN))
 			CameraPosition.y -= m_Camera->GetSpeed();
 
 		m_Camera->SetPosition(CameraPosition);
@@ -129,6 +125,7 @@ public:
 		ImGui::Text("Draw Calls: %d", Engine::Renderer2D::GetStats().DrawCallsCount);
 		ImGui::Text("Quads Count: %d", Engine::Renderer2D::GetStats().QuadsCount);
 		ImGui::Text("Quads Per Draw Call: %d", Engine::Renderer2D::GetStats().QuadPerDrawCall);
+		ImGui::Text("Camera position: %f, %f, %f", CameraPosition.x, CameraPosition.y, CameraPosition.z);
 		ImGui::End();
 	}
 
@@ -140,7 +137,8 @@ public:
 };
 
 
-#if TEST
+#if OpenGL
+#include "EntryPoint.h"
 Engine::App* CreateApp()
 {
 	return new OpenGLGame();
