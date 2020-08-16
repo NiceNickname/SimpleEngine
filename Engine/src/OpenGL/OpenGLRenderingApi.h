@@ -5,6 +5,7 @@
 #include "GLFW/glfw3.h"
 
 #include "Renderer/RenderingAPI.h"
+#include "glm/glm.hpp"
 
 namespace Engine
 {
@@ -17,6 +18,9 @@ namespace Engine
 		virtual void ShutDown() override;
 		virtual void SwapBuffers() override;
 		virtual void ClearBuffer() override;
+		virtual void SetClearColor(const glm::vec4& color) override;
+		virtual void SetVSync(bool enabled) override;
+
 
 	private:
 		GLFWwindow* m_Window;

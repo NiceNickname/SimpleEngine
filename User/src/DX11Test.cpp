@@ -19,6 +19,8 @@ public:
 	void Start() override
 	{
 
+		Engine::Renderer2D::SetVSync(true);
+		Engine::Renderer2D::SetClearColor({ 0.0f, 0.2f, 0.4f, 1.0f });
 
 		m_Texture.reset(Engine::Texture::Create("res/textures/checkerboard.jpg"));
 		m_Texture->Bind(1);

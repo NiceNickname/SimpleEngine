@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Window/Window.h"
+#include "glm/glm.hpp"
+
 
 namespace Engine {
 	class RenderingAPI
@@ -12,5 +14,7 @@ namespace Engine {
 		virtual void SwapBuffers() = 0;
 		virtual void Prepare() {};
 		virtual void ClearBuffer() = 0;
+		virtual void SetVSync(bool enabled) = 0;
+		virtual void SetClearColor(const glm::vec4& color) = 0;
 	};
 }

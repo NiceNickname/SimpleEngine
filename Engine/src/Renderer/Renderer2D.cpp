@@ -19,6 +19,11 @@ namespace Engine {
 		m_Api->SwapBuffers();
 	}
 
+	void Renderer2D::SetClearColor(const glm::vec4& color)
+	{
+		m_Api->SetClearColor(color);
+	}
+
 	void Renderer2D::ClearBuffer()
 	{
 		m_Api->ClearBuffer();
@@ -76,6 +81,11 @@ namespace Engine {
 		}
 	}
 
+
+	void Renderer2D::SetVSync(bool enabled)
+	{
+		m_Api->SetVSync(enabled);
+	}
 
 	void Renderer2D::Prepare()
 	{

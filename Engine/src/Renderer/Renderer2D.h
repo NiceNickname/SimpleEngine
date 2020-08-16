@@ -23,8 +23,10 @@ namespace Engine {
 		static void Draw();
 		static void ShutDown();
 		static void SwapBuffers();
+		static void SetClearColor(const glm::vec4& color);
 		static void ClearBuffer();
 		static void SetApi(API api, std::unique_ptr<Window>& window, std::function<void(Event&)> fn);
+		static void SetVSync(bool enabled);
 		
 		// this function is for additional operations before actual rendering each frame (e.g. setting render target for dx11)
 		static void Prepare();

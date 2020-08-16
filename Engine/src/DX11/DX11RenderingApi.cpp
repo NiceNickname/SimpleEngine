@@ -6,6 +6,8 @@
 #include "examples/imgui_impl_win32.h"
 #include "examples/imgui_impl_dx11.h"
 
+#include "glm/gtc/type_ptr.hpp"
+
 #pragma comment(lib, "DXGI.lib")
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
@@ -15,12 +17,12 @@ namespace Engine {
 	DX11RenderingApi::DX11RenderingApi(const std::unique_ptr<Window>& window)
 	{
 
-		hwnd = static_cast<Win32Window*>(window.get())->GetHwnd();
-		InitD3D(hwnd);
+		s_Hwnd = static_cast<Win32Window*>(window.get())->GetHwnd();
+		InitD3D(s_Hwnd);
 
 		// Show the window
-		::ShowWindow(hwnd, SW_SHOWDEFAULT);
-		::UpdateWindow(hwnd);
+		::ShowWindow(s_Hwnd, SW_SHOWDEFAULT);
+		::UpdateWindow(s_Hwnd);
 
 		// Setup Dear ImGui context
 		IMGUI_CHECKVERSION();
@@ -50,8 +52,8 @@ namespace Engine {
 		}
 
 		// Setup Platform/Renderer bindings
-		ImGui_ImplWin32_Init(hwnd);
-		ImGui_ImplDX11_Init(m_Device, m_Context);
+		ImGui_ImplWin32_Init(s_Hwnd);
+		ImGui_ImplDX11_Init(s_Device, s_Context);
 	}
 
 	DX11RenderingApi::~DX11RenderingApi()
@@ -59,54 +61,67 @@ namespace Engine {
 		ShutDown();
 	}
 
+	void DX11RenderingApi::SetClearColor(const glm::vec4& color)
+	{
+		s_ClearColor = color;
+	}
+
 	// TODO: take color as a parameter
 	void DX11RenderingApi::ClearBuffer()
 	{
-		float color[] = { 0.0f, 0.2f, 0.4f, 1.0f };
-		// clear the back buffer to a deep blue
-		m_Context->ClearRenderTargetView(m_BackBuffer, color);
+		s_Context->ClearRenderTargetView(s_BackBuffer, glm::value_ptr(s_ClearColor));
 
-		m_Context->ClearDepthStencilView(m_ZBuffer, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		s_Context->ClearDepthStencilView(s_ZBuffer, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	}
 	
 
 
+	void DX11RenderingApi::SetVSync(bool enabled)
+	{
+		s_VSyncEnabled = enabled;
+	}
+
 	void DX11RenderingApi::Prepare()
 	{
-		m_Context->OMSetRenderTargets(1, &m_BackBuffer, m_ZBuffer);
+		s_Context->OMSetRenderTargets(1, &s_BackBuffer, s_ZBuffer);
 		ClearBuffer();
 	}
 
 	void DX11RenderingApi::ShutDown()
 	{
-		m_SwapChain->SetFullscreenState(FALSE, NULL);
+		s_SwapChain->SetFullscreenState(FALSE, NULL);
 
 		ImGui_ImplDX11_Shutdown();
 
-		m_BS->Release();
-		m_SS->Release();
-		m_BS->Release();
-		m_BackBuffer->Release();
-		m_SwapChain->Release();
-		m_Context->Release();
-		m_Device->Release();
-		m_ZBuffer->Release();
+		s_BS->Release();
+		s_SS->Release();
+		s_BS->Release();
+		s_BackBuffer->Release();
+		s_SwapChain->Release();
+		s_Context->Release();
+		s_Device->Release();
+		s_ZBuffer->Release();
 	}
 
 	void DX11RenderingApi::SwapBuffers()
 	{
-		m_SwapChain->Present(1, 0);
+		if (s_VSyncEnabled)
+			s_SwapChain->Present(1, 0);
+		else
+			s_SwapChain->Present(0, 0);
 	}
 
 	void DX11RenderingApi::InitD3D(HWND hwnd)
 	{
+		// get user's screen resolution
 		RECT ScreenSize;
 		HWND desktop = GetDesktopWindow();
 		GetWindowRect(desktop, &ScreenSize);
 
-		ScreenWidth = ScreenSize.right - ScreenSize.left;
-		ScreenHeight = ScreenSize.bottom - ScreenSize.top;
+		s_ScreenWidth = ScreenSize.right - ScreenSize.left;
+		s_ScreenHeight = ScreenSize.bottom - ScreenSize.top;
 
+		// get user's refresh rate
 		IDXGIFactory* factory;
 		IDXGIAdapter* adapter;
 		IDXGIOutput* adapterOutput;
@@ -121,12 +136,12 @@ namespace Engine {
 
 		for (int i = 0; i < displatModesCount; i++)
 		{
-			if (displayModeList[i].Width == ScreenWidth)
+			if (displayModeList[i].Width == s_ScreenWidth)
 			{
-				if (displayModeList[i].Height == ScreenHeight)
+				if (displayModeList[i].Height == s_ScreenHeight)
 				{
-					Numerator = displayModeList[i].RefreshRate.Numerator;
-					Denominator = displayModeList[i].RefreshRate.Denominator;
+					s_Numerator = displayModeList[i].RefreshRate.Numerator;
+					s_Denominator = displayModeList[i].RefreshRate.Denominator;
 				}
 			}
 		}
@@ -141,10 +156,10 @@ namespace Engine {
 		DXGI_SWAP_CHAIN_DESC sd;
 		ZeroMemory(&sd, sizeof(sd));
 		sd.BufferCount = 2;
-		sd.BufferDesc.Width = ScreenWidth;
-		sd.BufferDesc.Height = ScreenHeight;
-		sd.BufferDesc.RefreshRate.Denominator = Denominator;
-		sd.BufferDesc.RefreshRate.Numerator = Numerator;
+		sd.BufferDesc.Width = s_ScreenWidth;
+		sd.BufferDesc.Height = s_ScreenHeight;
+		sd.BufferDesc.RefreshRate.Denominator = s_Denominator;
+		sd.BufferDesc.RefreshRate.Numerator = s_Numerator;
 		sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 		sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 		sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
@@ -159,14 +174,14 @@ namespace Engine {
 		D3D_FEATURE_LEVEL featureLevel;
 		const D3D_FEATURE_LEVEL featureLevelArray[2] = { D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_10_0, };
 		D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags,
-			featureLevelArray, 2, D3D11_SDK_VERSION, &sd, &m_SwapChain, &m_Device, &featureLevel, &m_Context);
+			featureLevelArray, 2, D3D11_SDK_VERSION, &sd, &s_SwapChain, &s_Device, &featureLevel, &s_Context);
 
 
 		// set backbuffer as render target
 		ID3D11Texture2D* pBackBuffer;
-		m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+		s_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
 
-		m_Device->CreateRenderTargetView(pBackBuffer, NULL, &m_BackBuffer);
+		s_Device->CreateRenderTargetView(pBackBuffer, NULL, &s_BackBuffer);
 		pBackBuffer->Release();
 
 		// viewport (mapping NDC to pixel coordinates)
@@ -176,18 +191,20 @@ namespace Engine {
 
 		viewport.TopLeftX = 0;
 		viewport.TopLeftY = 0;
-		viewport.Width = ScreenWidth;
-		viewport.Height = ScreenHeight;
+		viewport.Width = s_ScreenWidth;
+		viewport.Height = s_ScreenHeight;
 		viewport.MinDepth = 0;
 		viewport.MaxDepth = 1;
 
-		m_Context->RSSetViewports(1, &viewport);
+		s_Context->RSSetViewports(1, &viewport);
 
+
+		// depth buffer
 		D3D11_TEXTURE2D_DESC texd;
 		ZeroMemory(&texd, sizeof(texd));
 
-		texd.Width = ScreenWidth;
-		texd.Height = ScreenHeight;
+		texd.Width = s_ScreenWidth;
+		texd.Height = s_ScreenHeight;
 		texd.ArraySize = 1;
 		texd.MipLevels = 1;
 		texd.SampleDesc.Count = 1;
@@ -195,24 +212,21 @@ namespace Engine {
 		texd.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
 		ID3D11Texture2D* pDepthBuffer;
-		m_Device->CreateTexture2D(&texd, NULL, &pDepthBuffer);
+		s_Device->CreateTexture2D(&texd, NULL, &pDepthBuffer);
 
 		
-
 		D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
 		ZeroMemory(&dsvd, sizeof(dsvd));
 
 		dsvd.Format = DXGI_FORMAT_D32_FLOAT;
 		dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
 
-		m_Device->CreateDepthStencilView(pDepthBuffer, &dsvd, &m_ZBuffer);
+		s_Device->CreateDepthStencilView(pDepthBuffer, &dsvd, &s_ZBuffer);
 		pDepthBuffer->Release();
 
 		InitStates();
 
-		m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-		
+		s_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	}
 
 	void DX11RenderingApi::InitStates()
@@ -232,8 +246,8 @@ namespace Engine {
 		rd.SlopeScaledDepthBias = 0.0f;
 
 
-		m_Device->CreateRasterizerState(&rd, &m_RS);
-		m_Context->RSSetState(m_RS);
+		s_Device->CreateRasterizerState(&rd, &s_RS);
+		s_Context->RSSetState(s_RS);
 
 		D3D11_SAMPLER_DESC sd;
 
@@ -250,8 +264,8 @@ namespace Engine {
 		sd.MaxLOD = FLT_MAX;
 		sd.MipLODBias = 0.0f;
 
-		m_Device->CreateSamplerState(&sd, &m_SS);
-		m_Context->PSSetSamplers(0, 1, &m_SS);
+		s_Device->CreateSamplerState(&sd, &s_SS);
+		s_Context->PSSetSamplers(0, 1, &s_SS);
 
 		D3D11_BLEND_DESC bd;
 		bd.RenderTarget[0].BlendEnable = TRUE;
@@ -265,37 +279,39 @@ namespace Engine {
 		bd.IndependentBlendEnable = FALSE;
 		bd.AlphaToCoverageEnable = FALSE;
 
-		m_Device->CreateBlendState(&bd, &m_BS);
-		m_Context->OMSetBlendState(m_BS, 0, 0xffffffff);
+		s_Device->CreateBlendState(&bd, &s_BS);
+		s_Context->OMSetBlendState(s_BS, 0, 0xffffffff);
 	}
 
-	ID3D11Device* DX11RenderingApi::m_Device;
+	ID3D11Device* DX11RenderingApi::s_Device;
 
-	ID3D11DeviceContext* DX11RenderingApi::m_Context;
+	ID3D11DeviceContext* DX11RenderingApi::s_Context;
 
-	IDXGISwapChain* DX11RenderingApi::m_SwapChain;
+	IDXGISwapChain* DX11RenderingApi::s_SwapChain;
 
-	ID3D11RenderTargetView* DX11RenderingApi::m_BackBuffer;
+	ID3D11RenderTargetView* DX11RenderingApi::s_BackBuffer;
 
-	ID3D11RasterizerState* DX11RenderingApi::m_RS;
+	ID3D11RasterizerState* DX11RenderingApi::s_RS;
 
-	ID3D11SamplerState* DX11RenderingApi::m_SS;
+	ID3D11SamplerState* DX11RenderingApi::s_SS;
 
-	ID3D11BlendState* DX11RenderingApi::m_BS;
+	ID3D11BlendState* DX11RenderingApi::s_BS;
 
-	ID3D11DepthStencilView* DX11RenderingApi::m_ZBuffer;
+	ID3D11DepthStencilView* DX11RenderingApi::s_ZBuffer;
 
-	HWND DX11RenderingApi::hwnd;
+	HWND DX11RenderingApi::s_Hwnd;
 
-	unsigned int DX11RenderingApi::ScreenWidth;
+	unsigned int DX11RenderingApi::s_ScreenWidth;
 
-	unsigned int DX11RenderingApi::ScreenHeight;
+	unsigned int DX11RenderingApi::s_ScreenHeight;
 
-	unsigned int DX11RenderingApi::Denominator;
+	unsigned int DX11RenderingApi::s_Denominator;
 	
-	unsigned int DX11RenderingApi::Numerator;
+	unsigned int DX11RenderingApi::s_Numerator;
 
+	bool DX11RenderingApi::s_VSyncEnabled = false;
 
+	glm::vec4 DX11RenderingApi::s_ClearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
 

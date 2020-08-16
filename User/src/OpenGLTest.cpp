@@ -20,6 +20,8 @@ public:
 
 	virtual void Start() override
 	{
+		Engine::Renderer2D::SetVSync(true);
+		Engine::Renderer2D::SetClearColor({0.0f, 1.0f, 0.0f, 1.0f});
 
 		float vertices[] = {
 			-10.0f, -10.0f, 0.0f, 0.0f, 0.0f,

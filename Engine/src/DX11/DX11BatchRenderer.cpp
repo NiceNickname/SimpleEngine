@@ -1,7 +1,7 @@
 #include "pch.h"
-
-
 #include "DX11BatchRenderer.h"
+
+#define VERTEX_SHADER_PATH L"../User/res/shaders/VertexShader.cso"
 
 namespace Engine {
 
@@ -15,7 +15,7 @@ namespace Engine {
 	{
 		m_Stats.QuadPerDrawCall = MaxQuadCount;
 
-		D3DReadFileToBlob(L"../User/res/shaders/VertexShader.cso", &m_Data.VSByteCode);
+		D3DReadFileToBlob(VERTEX_SHADER_PATH, &m_Data.VSByteCode);
 
 		m_Data.QuadBuffer = new Vertex[MaxVertexCount];
 
