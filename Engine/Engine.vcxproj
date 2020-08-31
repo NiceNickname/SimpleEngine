@@ -112,7 +112,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\GLFW\include;vendor\GLEW\include;vendor\stb_image;vendor\imgui;vendor\glm;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\GLFW\include;vendor\GLEW\include;vendor\stb_image;vendor\imgui;vendor\glm;vendor\spdlog\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -132,7 +132,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\GLFW\include;vendor\GLEW\include;vendor\stb_image;vendor\imgui;vendor\glm;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\GLFW\include;vendor\GLEW\include;vendor\stb_image;vendor\imgui;vendor\glm;vendor\spdlog\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -152,7 +152,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\GLFW\include;vendor\GLEW\include;vendor\stb_image;vendor\imgui;vendor\glm;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\GLFW\include;vendor\GLEW\include;vendor\stb_image;vendor\imgui;vendor\glm;vendor\spdlog\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -176,7 +176,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\GLFW\include;vendor\GLEW\include;vendor\stb_image;vendor\imgui;vendor\glm;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\GLFW\include;vendor\GLEW\include;vendor\stb_image;vendor\imgui;vendor\glm;vendor\spdlog\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -195,40 +195,41 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\App.h" />
+    <ClInclude Include="src\Core\Log.h" />
+    <ClInclude Include="src\Core\OrthographicCamera.h" />
     <ClInclude Include="src\DX11\DX11BatchRenderer.h" />
     <ClInclude Include="src\DX11\DX11ConstantBuffer.h" />
+    <ClInclude Include="src\DX11\DX11IndexBuffer.h" />
+    <ClInclude Include="src\DX11\DX11RenderingApi.h" />
+    <ClInclude Include="src\DX11\DX11Shader.h" />
     <ClInclude Include="src\DX11\DX11Texture.h" />
+    <ClInclude Include="src\DX11\DX11VertexBuffer.h" />
+    <ClInclude Include="src\Engine.h" />
+    <ClInclude Include="src\EntryPoint.h" />
     <ClInclude Include="src\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Events\Event.h" />
     <ClInclude Include="src\Events\KeyboardEvents.h" />
     <ClInclude Include="src\Events\MouseEvents.h" />
+    <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Input\KeyCodes.h" />
     <ClInclude Include="src\OpenGL\OpenGLBatchRenderer.h" />
-    <ClInclude Include="src\Renderer\BatchRenderer.h" />
-    <ClInclude Include="src\Renderer\UniformElement.h" />
-    <ClInclude Include="src\Window\GlfwWindow.h" />
-    <ClInclude Include="src\Core\App.h" />
-    <ClInclude Include="src\Core\OrthographicCamera.h" />
-    <ClInclude Include="src\DX11\DX11IndexBuffer.h" />
-    <ClInclude Include="src\DX11\DX11RenderingApi.h" />
-    <ClInclude Include="src\DX11\DX11Shader.h" />
-    <ClInclude Include="src\DX11\DX11VertexBuffer.h" />
-    <ClInclude Include="src\Engine.h" />
-    <ClInclude Include="src\EntryPoint.h" />
-    <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\OpenGL\OpenGLIndexBuffer.h" />
     <ClInclude Include="src\OpenGL\OpenGLRenderingApi.h" />
     <ClInclude Include="src\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\OpenGL\VertexArray.h" />
+    <ClInclude Include="src\Renderer\BatchRenderer.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Renderer\RenderingAPI.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
+    <ClInclude Include="src\Renderer\UniformElement.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Renderer\VertexBufferLayout.h" />
+    <ClInclude Include="src\Window\GlfwWindow.h" />
     <ClInclude Include="src\Window\Win32Window.h" />
     <ClInclude Include="src\Window\Window.h" />
     <ClInclude Include="src\pch.h" />
@@ -615,40 +616,41 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\App.cpp" />
+    <ClCompile Include="src\Core\Log.cpp" />
+    <ClCompile Include="src\Core\OrthographicCamera.cpp" />
     <ClCompile Include="src\DX11\DX11BatchRenderer.cpp" />
     <ClCompile Include="src\DX11\DX11ConstantBuffer.cpp" />
+    <ClCompile Include="src\DX11\DX11IndexBuffer.cpp" />
+    <ClCompile Include="src\DX11\DX11RenderingApi.cpp" />
+    <ClCompile Include="src\DX11\DX11Shader.cpp" />
     <ClCompile Include="src\DX11\DX11Texture.cpp" />
+    <ClCompile Include="src\DX11\DX11VertexBuffer.cpp" />
     <ClCompile Include="src\ImGui\ImGuiBuildDX11.cpp" />
+    <ClCompile Include="src\ImGui\ImGuiBuildOpenGL.cpp" />
     <ClCompile Include="src\Input\GlfwInput.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Input\Win32Input.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLBatchRenderer.cpp" />
-    <ClCompile Include="src\Renderer\BatchRenderer.cpp" />
-    <ClCompile Include="src\Renderer\RenderingAPI.cpp" />
-    <ClCompile Include="src\Window\GlfwWindow.cpp" />
-    <ClCompile Include="src\Core\App.cpp" />
-    <ClCompile Include="src\Core\OrthographicCamera.cpp" />
-    <ClCompile Include="src\DX11\DX11IndexBuffer.cpp" />
-    <ClCompile Include="src\DX11\DX11RenderingApi.cpp" />
-    <ClCompile Include="src\DX11\DX11Shader.cpp" />
-    <ClCompile Include="src\DX11\DX11VertexBuffer.cpp" />
-    <ClCompile Include="src\ImGui\ImGuiBuildOpenGL.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLRenderingApi.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\OpenGL\VertexArray.cpp" />
+    <ClCompile Include="src\Renderer\BatchRenderer.cpp" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Renderer\RenderingAPI.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Window\GlfwWindow.cpp" />
+    <ClCompile Include="src\Window\Win32Window.cpp" />
+    <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Window\Win32Window.cpp" />
-    <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="vendor\stb_image\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>

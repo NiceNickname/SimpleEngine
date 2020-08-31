@@ -10,6 +10,9 @@
     <Filter Include="src\DX11">
       <UniqueIdentifier>{9AF51CCF-86C2-77DA-AFDB-65829B07AD68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Events">
+      <UniqueIdentifier>{7162C20E-5D1A-045C-C621-DDB7B2F89E4C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\ImGui">
       <UniqueIdentifier>{170E22B3-8378-D629-CCB6-87CF3860B47E}</UniqueIdentifier>
     </Filter>
@@ -54,8 +57,17 @@
     <ClInclude Include="src\Core\App.h">
       <Filter>src\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Log.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\OrthographicCamera.h">
       <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX11\DX11BatchRenderer.h">
+      <Filter>src\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX11\DX11ConstantBuffer.h">
+      <Filter>src\DX11</Filter>
     </ClInclude>
     <ClInclude Include="src\DX11\DX11IndexBuffer.h">
       <Filter>src\DX11</Filter>
@@ -64,6 +76,9 @@
       <Filter>src\DX11</Filter>
     </ClInclude>
     <ClInclude Include="src\DX11\DX11Shader.h">
+      <Filter>src\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX11\DX11Texture.h">
       <Filter>src\DX11</Filter>
     </ClInclude>
     <ClInclude Include="src\DX11\DX11VertexBuffer.h">
@@ -75,8 +90,26 @@
     <ClInclude Include="src\EntryPoint.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Events\ApplicationEvents.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\Event.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\KeyboardEvents.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\MouseEvents.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Input\Input.h">
       <Filter>src\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\KeyCodes.h">
+      <Filter>src\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\OpenGLBatchRenderer.h">
+      <Filter>src\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\OpenGLIndexBuffer.h">
       <Filter>src\OpenGL</Filter>
@@ -96,7 +129,13 @@
     <ClInclude Include="src\OpenGL\VertexArray.h">
       <Filter>src\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\BatchRenderer.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\IndexBuffer.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Renderer2D.h">
       <Filter>src\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\RenderingAPI.h">
@@ -108,11 +147,20 @@
     <ClInclude Include="src\Renderer\Texture.h">
       <Filter>src\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\UniformElement.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\VertexBuffer.h">
       <Filter>src\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\VertexBufferLayout.h">
       <Filter>src\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\GlfwWindow.h">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\Win32Window.h">
+      <Filter>src\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\Window.h">
       <Filter>src\Window</Filter>
@@ -1263,31 +1311,22 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window\GlfwWindow.h">
-      <Filter>src\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\Win32Window.h" />
-    <ClInclude Include="src\DX11\DX11ConstantBuffer.h" />
-    <ClInclude Include="src\Renderer\BatchRenderer.h" />
-    <ClInclude Include="src\OpenGL\OpenGLBatchRenderer.h" />
-    <ClInclude Include="src\DX11\DX11BatchRenderer.h" />
-    <ClInclude Include="src\DX11\DX11Texture.h" />
-    <ClInclude Include="src\Renderer\Renderer2D.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\UniformElement.h" />
-    <ClInclude Include="src\Events\Event.h" />
-    <ClInclude Include="src\Events\ApplicationEvents.h" />
-    <ClInclude Include="src\Events\MouseEvents.h" />
-    <ClInclude Include="src\Events\KeyboardEvents.h" />
-    <ClInclude Include="src\Input\KeyCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
       <Filter>src\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\Log.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Core\OrthographicCamera.cpp">
       <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX11\DX11BatchRenderer.cpp">
+      <Filter>src\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX11\DX11ConstantBuffer.cpp">
+      <Filter>src\DX11</Filter>
     </ClCompile>
     <ClCompile Include="src\DX11\DX11IndexBuffer.cpp">
       <Filter>src\DX11</Filter>
@@ -1298,8 +1337,29 @@
     <ClCompile Include="src\DX11\DX11Shader.cpp">
       <Filter>src\DX11</Filter>
     </ClCompile>
+    <ClCompile Include="src\DX11\DX11Texture.cpp">
+      <Filter>src\DX11</Filter>
+    </ClCompile>
     <ClCompile Include="src\DX11\DX11VertexBuffer.cpp">
       <Filter>src\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGui\ImGuiBuildDX11.cpp">
+      <Filter>src\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGui\ImGuiBuildOpenGL.cpp">
+      <Filter>src\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input\GlfwInput.cpp">
+      <Filter>src\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input\Input.cpp">
+      <Filter>src\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input\Win32Input.cpp">
+      <Filter>src\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\OpenGLBatchRenderer.cpp">
+      <Filter>src\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\OpenGLIndexBuffer.cpp">
       <Filter>src\OpenGL</Filter>
@@ -1319,7 +1379,16 @@
     <ClCompile Include="src\OpenGL\VertexArray.cpp">
       <Filter>src\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\BatchRenderer.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Renderer\IndexBuffer.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Renderer2D.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\RenderingAPI.cpp">
       <Filter>src\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Shader.cpp">
@@ -1331,32 +1400,20 @@
     <ClCompile Include="src\Renderer\VertexBuffer.cpp">
       <Filter>src\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Window\GlfwWindow.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\Win32Window.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\Window.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
     <ClCompile Include="src\pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Window\GlfwWindow.cpp">
-      <Filter>src\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\Window.cpp" />
-    <ClCompile Include="src\Window\Win32Window.cpp" />
-    <ClCompile Include="src\Renderer\RenderingAPI.cpp" />
-    <ClCompile Include="src\ImGui\ImGuiBuildOpenGL.cpp">
-      <Filter>src\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ImGui\ImGuiBuildDX11.cpp" />
-    <ClCompile Include="src\DX11\DX11ConstantBuffer.cpp" />
-    <ClCompile Include="src\OpenGL\OpenGLBatchRenderer.cpp" />
-    <ClCompile Include="src\Renderer\BatchRenderer.cpp" />
-    <ClCompile Include="src\DX11\DX11BatchRenderer.cpp" />
-    <ClCompile Include="src\DX11\DX11Texture.cpp" />
-    <ClCompile Include="src\Renderer\Renderer2D.cpp">
-      <Filter>src\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Input\Win32Input.cpp" />
-    <ClCompile Include="src\Input\GlfwInput.cpp" />
-    <ClCompile Include="src\Input\Input.cpp" />
   </ItemGroup>
 </Project>

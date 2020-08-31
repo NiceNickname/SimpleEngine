@@ -41,6 +41,7 @@ project "Engine"
       "%{prj.name}/vendor/stb_image",
       "%{prj.name}/vendor/imgui",
       "%{prj.name}/vendor/glm",
+      "%{prj.name}/vendor/spdlog/include",
       "%{prj.name}/src"
    }
    
@@ -99,6 +100,7 @@ project "User"
       "Engine/vendor/stb_image",
       "Engine/vendor/imgui",
       "Engine/vendor/glm",
+      "Engine/vendor/spdlog/include",
       "Engine/src"
 	}
 

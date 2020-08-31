@@ -1,12 +1,13 @@
 #pragma once
 
-#define OpenGL 1
-#define DirectX11 0
+#define OpenGL 0
+#define DirectX11 1
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <memory>
+#include "Core/Log.h"
 
 #include <imgui.h>
 #include <examples/imgui_impl_glfw.h>
