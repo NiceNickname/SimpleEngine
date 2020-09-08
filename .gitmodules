@@ -7,6 +7,6 @@
 [submodule "Engine/vendor/imgui"]
 	path = Engine/vendor/imgui
 	url = https://github.com/NiceNickname/imgui
-[submodule "Engine\\vendor\\spdlog"]
-	path = Engine\\vendor\\spdlog
+[submodule "Engine/vendor/spdlog"]
+	path = Engine/vendor/spdlog
 	url = https://github.com/gabime/spdlog
