@@ -6,14 +6,16 @@
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
 
+#include "glad/glad.h"
+
 namespace Engine {
 
 	OpenGLRenderingApi::OpenGLRenderingApi(const std::unique_ptr<Window>& window)
 	{
-		if (glewInit() != GLEW_OK)
-			std::cout << "glew not initialized" << std::endl;
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_MULTISAMPLE);
 
 
 		glEnable(GL_BLEND);

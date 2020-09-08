@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #include "OpenGLBatchRenderer.h"
-#include <GL/glew.h>
+#include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
 namespace Engine {
@@ -16,10 +16,10 @@ namespace Engine {
 		m_Stats.QuadPerDrawCall = MaxQuadCount;
 		m_Data.QuadBuffer = new Vertex[MaxVertexCount];
 
-		glGenVertexArrays(1, &m_Data.QuadVA);
+		glCreateVertexArrays(1, &m_Data.QuadVA);
 		glBindVertexArray(m_Data.QuadVA);
 
-		glGenBuffers(1, &m_Data.QuadVB);
+		glCreateBuffers(1, &m_Data.QuadVB);
 		glBindBuffer(GL_ARRAY_BUFFER, m_Data.QuadVB);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * MaxVertexCount, nullptr, GL_DYNAMIC_DRAW);
 
@@ -52,24 +52,27 @@ namespace Engine {
 			offset += 4;
 		}
 
-			glGenBuffers(1, &m_Data.QuadIB);
+			glCreateBuffers(1, &m_Data.QuadIB);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Data.QuadIB);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 
 			// white texture
 
-			glGenTextures(1, &m_Data.WhiteTexture);
-			glBindTexture(GL_TEXTURE_2D, m_Data.WhiteTexture);
+			glCreateTextures(GL_TEXTURE_2D, 1, &m_Data.WhiteTexture);
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTextureStorage2D(m_Data.WhiteTexture, 1, GL_RGBA8, 1, 1);
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+			glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
 			unsigned int color = 0xffffffff;
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, &color);
-			m_Data.TextureSlots[0] = m_Data.WhiteTexture;
+			glTextureSubImage2D(m_Data.WhiteTexture, 0, 0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, &color);
+
+			m_Data.TextureSlots[m_Data.WhiteTextureSlot] = m_Data.WhiteTexture;
 
 			for (int i = 1; i < MaxTextures; i++)
 				m_Data.TextureSlots[i] = 0;
@@ -206,9 +209,9 @@ namespace Engine {
 	{
 		for (unsigned int i = 0; i < MaxTextures; i++)
 		{
-			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, m_Data.TextureSlots[i]);
+			glBindTextureUnit(i, m_Data.TextureSlots[i]);
 		}
+		glActiveTexture(GL_TEXTURE);
 
 		glBindVertexArray(m_Data.QuadVA);
 		glDrawElements(GL_TRIANGLES, m_Data.IndexCount, GL_UNSIGNED_INT, nullptr);

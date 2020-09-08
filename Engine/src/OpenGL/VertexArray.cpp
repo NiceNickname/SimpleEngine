@@ -1,13 +1,14 @@
 #include "pch.h"
 
 #include "VertexArray.h"
+#include "glad/glad.h"
 
 
 namespace Engine
 {
 	VertexArray::VertexArray()
 	{
-		glGenVertexArrays(1, &m_Id);
+		glCreateVertexArrays(1, &m_Id);
 	}
 
 	VertexArray::~VertexArray()

@@ -9,9 +9,9 @@ public:
 	std::shared_ptr<Engine::Shader> m_Shader;
 	std::shared_ptr<Engine::Shader> m_BatchShader;
 	std::shared_ptr<Engine::Texture> m_Texture;
-	std::shared_ptr<Engine::OrthographicCamera> m_Camera;
+	std::shared_ptr<Engine::Camera> m_Camera;
 
-	glm::vec3 CameraPosition = { 0.0f, 0.0f, 0.0f };
+	
 
 	void ChooseApi() override
 	{
@@ -21,7 +21,7 @@ public:
 	virtual void Start() override
 	{
 		Engine::Renderer2D::SetVSync(true);
-		Engine::Renderer2D::SetClearColor({0.0f, 1.0f, 0.0f, 1.0f});
+		Engine::Renderer2D::SetClearColor({0.0f, 0.0f, 1.0f, 1.0f});
 
 		float vertices[] = {
 			-10.0f, -10.0f, 0.0f, 0.0f, 0.0f,
@@ -40,8 +40,8 @@ public:
 		std::shared_ptr<Engine::IndexBuffer> indexbuffer;
 		indexbuffer.reset(Engine::IndexBuffer::Create(indices, sizeof(indices)));
 
-		m_Camera = std::make_shared<Engine::OrthographicCamera>(16.0f / 9.0f);
-		m_Camera->SetPosition(CameraPosition);
+		m_Camera = std::make_shared<Engine::Camera>(glm::perspectiveFov(glm::radians(45.0f), 1280.0f, 720.0f, 0.1f, 10000.0f));
+		
 
 		Engine::VertexBufferLayout layout = { {"positions", Engine::DATATYPE::FLOAT3 },
 											  {"texCoord", Engine::DATATYPE::FLOAT2} };
@@ -56,14 +56,14 @@ public:
 		
 		m_Shader->Bind();
 		m_Shader->SetUniform1i("tex", 1);
-		m_Shader->SetUniformMat4f("view", m_Camera->GetProjection() * m_Camera->GetView());
+		m_Shader->SetUniformMat4f("view", m_Camera->GetProjectionMatrix() * m_Camera->GetViewMatrix());
 
 		m_Texture.reset(Engine::Texture::Create("res/textures/checkerboard.jpg"));
 		
 
 		m_BatchShader = std::make_shared<Engine::OpenGLShader>("res/shaders/BatchShader.vert", "res/shaders/BatchShader.fragm");
 		m_BatchShader->Bind();
-		m_BatchShader->SetUniformMat4f("view", m_Camera->GetProjection() * m_Camera->GetView());
+		m_BatchShader->SetUniformMat4f("view", m_Camera->GetProjectionMatrix() * m_Camera->GetViewMatrix());
 
 		
 		int samplers[MAX_TEXTURES];
@@ -76,22 +76,13 @@ public:
 
 	void Update() override
 	{
-		if (Engine::Input::IsKeyDown(ENGINE_KEY_RIGHT))
-			CameraPosition.x += m_Camera->GetSpeed();
-		if (Engine::Input::IsKeyDown(ENGINE_KEY_LEFT))
-			CameraPosition.x -= m_Camera->GetSpeed();
-		if (Engine::Input::IsKeyDown(ENGINE_KEY_UP))
-			CameraPosition.y += m_Camera->GetSpeed();
-		if (Engine::Input::IsKeyDown(ENGINE_KEY_DOWN))
-			CameraPosition.y -= m_Camera->GetSpeed();
-
-		m_Camera->SetPosition(CameraPosition);
+		m_Camera->Update();
 
 		m_Shader->Bind();
-		m_Shader->SetUniformMat4f("view", m_Camera->GetProjection() * m_Camera->GetView());
+		m_Shader->SetUniformMat4f("view", m_Camera->GetProjectionMatrix() * m_Camera->GetViewMatrix());
 
 		m_BatchShader->Bind();
-		m_BatchShader->SetUniformMat4f("view", m_Camera->GetProjection() *  m_Camera->GetView());
+		m_BatchShader->SetUniformMat4f("view", m_Camera->GetProjectionMatrix() *  m_Camera->GetViewMatrix());
 		
 	}
 
@@ -112,11 +103,10 @@ public:
 		}
 
 		Engine::Renderer2D::End();
-
+		
 		Engine::Renderer2D::Draw();
 
 		m_Shader->Bind();
-		m_Texture->Bind(1);
 		m_VAO->Bind();
 		m_VAO->Draw();
 	}
@@ -127,14 +117,19 @@ public:
 		ImGui::Text("Draw Calls: %d", Engine::Renderer2D::GetStats().DrawCallsCount);
 		ImGui::Text("Quads Count: %d", Engine::Renderer2D::GetStats().QuadsCount);
 		ImGui::Text("Quads Per Draw Call: %d", Engine::Renderer2D::GetStats().QuadPerDrawCall);
-		ImGui::Text("Camera position: %f, %f, %f", CameraPosition.x, CameraPosition.y, CameraPosition.z);
+		ImGui::End();
+
+		ImGui::Begin("Camera stats");
+		ImGui::Text("Camera position: %f, %f, %f", m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z);
+		ImGui::Text("Camera focal point: %f, %f, %f", m_Camera->GetFocalPoint().x, m_Camera->GetFocalPoint().y, m_Camera->GetFocalPoint().z);
+		ImGui::Text("Distance from camera to focal point: %f", m_Camera->GetDistance());
 		ImGui::End();
 	}
 
 
 	void OnMouseScrolled(Engine::MouseScrolledEvent& e) override
 	{
-		m_Camera->Zoom(e.m_YOffset);
+		m_Camera->MouseZoom(e.m_YOffset);
 	}
 };
 

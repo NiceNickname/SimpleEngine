@@ -2,13 +2,13 @@
 
 #include "OpenGLVertexBuffer.h"
 
-
+#include "glad/glad.h"
 
 namespace Engine
 {
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* data, unsigned int size)
 	{
-		glGenBuffers(1, &m_Id);
+		glCreateBuffers(1, &m_Id);
 		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}

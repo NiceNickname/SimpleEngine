@@ -127,6 +127,8 @@ namespace Engine
 					}
 			}
 		});
+
+		glfwWindowHint(GLFW_SAMPLES, 4);
 	}
 
 	GlfwWindow::~GlfwWindow()

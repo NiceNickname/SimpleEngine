@@ -29,7 +29,7 @@ namespace Engine {
 		if (Renderer2D::GetApi() == Renderer2D::API::DX11)
 			return MousePositionWin32();
 		else if (Renderer2D::GetApi() == Renderer2D::API::OPENGL)
-			return MousePositionWin32();
+			return MousePostionGlfw();
 	}
 
 

@@ -3,9 +3,9 @@
    platforms { "Win64", "Win32"}
    startproject "User"
 
-   include "Engine/vendor/GLEW"
    include "Engine/vendor/GLFW"
    include "Engine/vendor/imgui"
+   include "Engine/vendor/Glad"
 
 project "Engine"
    location "Engine"
@@ -32,12 +32,11 @@ project "Engine"
 		"%{prj.name}/vendor/glm/glm/**.inl"
    }
 
-   defines { "GLEW_STATIC" }
 
    includedirs 
    { 
       "%{prj.name}/vendor/GLFW/include", 
-      "%{prj.name}/vendor/GLEW/include", 
+      "%{prj.name}/vendor/Glad/include", 
       "%{prj.name}/vendor/stb_image",
       "%{prj.name}/vendor/imgui",
       "%{prj.name}/vendor/glm",
@@ -50,7 +49,7 @@ project "Engine"
    {
         "opengl32.lib",
         "GLFW",
-        "GLEW",
+        "Glad",
         "ImGui"
    }
 
@@ -95,8 +94,8 @@ project "User"
 
 	includedirs
 	{
-		"Engine/vendor/GLEW/include",
       "Engine/vendor/GLFW/include",
+      "Engine/vendor/Glad/include",
       "Engine/vendor/stb_image",
       "Engine/vendor/imgui",
       "Engine/vendor/glm",

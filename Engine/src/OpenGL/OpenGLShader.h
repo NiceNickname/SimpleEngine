@@ -1,5 +1,5 @@
 #include <string>
-#include <GL/glew.h>
+#include "glad/glad.h"
 #include <unordered_map>
 #include "glm/gtc/matrix_transform.hpp"
 #include "Renderer/Shader.h"

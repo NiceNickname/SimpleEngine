@@ -1,9 +1,9 @@
 #pragma once
 
-#define OpenGL 0
-#define DirectX11 1
+#define OpenGL 1
+#define DirectX11 0
 
-#include <GL/glew.h>
+#include "glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <memory>
@@ -49,5 +49,6 @@
 
 #include "Core/App.h"
 #include "Core/OrthographicCamera.h"
+#include "Core/Camera.h"
 #include "Renderer/Renderer2D.h"
 

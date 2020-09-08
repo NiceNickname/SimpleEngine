@@ -2,6 +2,8 @@
 
 #include "OpenGLTexture.h"
 
+#include "glad/glad.h"
+
 namespace Engine
 {
 	OpenGLTexture::OpenGLTexture(const std::string& path)
@@ -11,17 +13,19 @@ namespace Engine
 	
 		data = stbi_load(path.c_str(), &m_Width, &m_Height, &m_Channels, 4);
 	
-		glGenTextures(1, &m_Id);
+		glCreateTextures(GL_TEXTURE_2D, 1, &m_Id);
+
+		glTextureStorage2D(m_Id, 1, GL_RGBA8, m_Width, m_Height);
+
+		glTextureParameteri(m_Id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTextureParameteri(m_Id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTextureParameteri(m_Id, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(m_Id, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		glTextureSubImage2D(m_Id, 0, 0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, data);
 	
-		glBindTexture(GL_TEXTURE_2D, m_Id);
-	
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
 		stbi_image_free(data);
 	
 	}
@@ -33,9 +37,7 @@ namespace Engine
 	
 	void OpenGLTexture::Bind(unsigned int slot)
 	{
-		glActiveTexture(GL_TEXTURE0 + slot);
-	
-		glBindTexture(GL_TEXTURE_2D, m_Id);
+		glBindTextureUnit(slot, m_Id);
 	}
 
 	void OpenGLTexture::Unbind()
