@@ -1,6 +1,7 @@
 #include <Engine.h>
 
 #define MAX_TEXTURES 32
+#define SQUARES 0
 
 class OpenGLGame : public Engine::App
 {
@@ -8,8 +9,11 @@ public:
 	std::shared_ptr<Engine::VertexArray> m_VAO;
 	std::shared_ptr<Engine::Shader> m_Shader;
 	std::shared_ptr<Engine::Shader> m_BatchShader;
+	std::shared_ptr<Engine::Shader> m_WhiteShader;
 	std::shared_ptr<Engine::Texture> m_Texture;
 	std::shared_ptr<Engine::Camera> m_Camera;
+	std::shared_ptr<Engine::Mesh> m_Mesh;
+	
 
 	
 
@@ -51,6 +55,7 @@ public:
 		m_VAO = std::make_shared<Engine::VertexArray>();
 		m_VAO->SetVB(vertexbuffer);
 		m_VAO->SetIB(indexbuffer);
+		m_VAO->Unbind();
 
 		m_Shader.reset(Engine::Shader::Create("res/shaders/shader.vert", "res/shaders/shader.fragm"));
 		
@@ -65,12 +70,17 @@ public:
 		m_BatchShader->Bind();
 		m_BatchShader->SetUniformMat4f("view", m_Camera->GetProjectionMatrix() * m_Camera->GetViewMatrix());
 
+		m_WhiteShader = std::make_shared<Engine::OpenGLShader>("res/shaders/WhiteShader.vert", "res/shaders/WhiteShader.fragm");
+		m_WhiteShader->Bind();
+		m_WhiteShader->SetUniformMat4f("view", m_Camera->GetProjectionMatrix() * m_Camera->GetViewMatrix());
 		
 		int samplers[MAX_TEXTURES];
 		for (int i = 0; i < MAX_TEXTURES; i++)
 			samplers[i] = i;
 
 		m_BatchShader->SetUniformIntArray("u_Textures", sizeof(samplers), samplers);
+
+		m_Mesh = std::make_shared<Engine::Mesh>("res/meshes/cerberus.fbx");
 
 	}
 
@@ -84,10 +94,14 @@ public:
 		m_BatchShader->Bind();
 		m_BatchShader->SetUniformMat4f("view", m_Camera->GetProjectionMatrix() *  m_Camera->GetViewMatrix());
 		
+		m_WhiteShader->Bind();
+		m_WhiteShader->SetUniformMat4f("view", m_Camera->GetProjectionMatrix() * m_Camera->GetViewMatrix());
 	}
 
 	void Render() override
 	{
+
+#if SQUARES
 		m_BatchShader->Bind();
 
 		Engine::Renderer2D::Begin();
@@ -98,17 +112,21 @@ public:
 			{
 				glm::vec4 color = { 1.0f, 0.0f, 0.0f, 1.0f };
 				Engine::Renderer2D::DrawQuad({ j, i, 0.0f }, { 0.8f, 0.8f }, color);
-				Engine::Renderer2D::DrawQuad({ j + 5, i, 0.0f }, { 0.8f, 0.8f}, m_Texture);
+				Engine::Renderer2D::DrawQuad({ j + 5, i, 0.0f }, { 0.8f, 0.8f }, m_Texture);
 			}
 		}
 
 		Engine::Renderer2D::End();
-		
+
 		Engine::Renderer2D::Draw();
 
 		m_Shader->Bind();
 		m_VAO->Bind();
 		m_VAO->Draw();
+
+#endif
+		m_WhiteShader->Bind();
+		m_Mesh->Render();
 	}
 
 	void ImGuiRender() override

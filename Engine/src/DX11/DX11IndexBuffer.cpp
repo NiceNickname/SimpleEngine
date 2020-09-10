@@ -5,7 +5,7 @@
 
 namespace Engine {
 
-	DX11IndexBuffer::DX11IndexBuffer(unsigned int* data, unsigned int size)
+	DX11IndexBuffer::DX11IndexBuffer(void* data, unsigned int size)
 	{
 		D3D11_BUFFER_DESC bd;
 
@@ -32,7 +32,7 @@ namespace Engine {
 		m_IndexBuffer->Release();
 	}
 
-	void DX11IndexBuffer::SetData(unsigned int* data, unsigned int size)
+	void DX11IndexBuffer::SetData(void* data, unsigned int size)
 	{
 
 	}

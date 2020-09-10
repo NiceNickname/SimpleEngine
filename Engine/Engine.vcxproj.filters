@@ -138,6 +138,9 @@
     <ClInclude Include="src\Renderer\IndexBuffer.h">
       <Filter>src\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Mesh.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\Renderer2D.h">
       <Filter>src\Renderer</Filter>
     </ClInclude>
@@ -1389,6 +1392,9 @@
       <Filter>src\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\IndexBuffer.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Mesh.cpp">
       <Filter>src\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Renderer2D.cpp">

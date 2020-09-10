@@ -6,11 +6,13 @@
 
 namespace Engine
 {
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* data, unsigned int size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(void* data, unsigned int size)
 	{
 		glCreateBuffers(1, &m_Id);
 		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
@@ -18,7 +20,7 @@ namespace Engine
 		glDeleteBuffers(1, &m_Id);
 	}
 
-	void OpenGLVertexBuffer::SetData(float* data, unsigned int size)
+	void OpenGLVertexBuffer::SetData(void* data, unsigned int size)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);

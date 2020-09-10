@@ -7,9 +7,9 @@ namespace Engine
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(float* data, unsigned int size);
+		OpenGLVertexBuffer(void* data, unsigned int size);
 		~OpenGLVertexBuffer();
-		void SetData(float* data, unsigned int size);
+		void SetData(void* data, unsigned int size);
 		virtual void SetLayout(const VertexBufferLayout& layout) override;
 		void Bind();
 		void Unbind();

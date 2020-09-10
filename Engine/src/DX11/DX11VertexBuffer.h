@@ -7,11 +7,11 @@ namespace Engine {
 	class DX11VertexBuffer : public VertexBuffer
 	{
 	public:
-		DX11VertexBuffer(float* data, unsigned int size);
+		DX11VertexBuffer(void* data, unsigned int size);
 		~DX11VertexBuffer();
 		virtual void Bind() override;
 		virtual void Unbind() override;
-		virtual void SetData(float* data, unsigned int size) override;
+		virtual void SetData(void* data, unsigned int size) override;
 		virtual void SetLayout(const VertexBufferLayout& layout) override;
 		virtual inline VertexBufferLayout GetLayout() override { return m_LayoutDesc; };
 		virtual void SetShader(const std::shared_ptr<Shader>& shader) override;

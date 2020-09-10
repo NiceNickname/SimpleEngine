@@ -7,9 +7,9 @@ namespace Engine {
 	class DX11IndexBuffer : public IndexBuffer
 	{
 	public:
-		DX11IndexBuffer(unsigned int* data, unsigned int size);
+		DX11IndexBuffer(void* data, unsigned int size);
 		~DX11IndexBuffer();
-		virtual void SetData(unsigned int* data, unsigned int size) override;
+		virtual void SetData(void* data, unsigned int size) override;
 		virtual void Bind() override;
 		virtual void Unbind() override;
 		virtual int GetCount() const override;

@@ -6,7 +6,7 @@
 
 namespace Engine {
 
-	VertexBuffer* VertexBuffer::Create(float* data, unsigned int size)
+	VertexBuffer* VertexBuffer::Create(void* data, unsigned int size)
 	{
 		if (Renderer2D::GetApi() == Renderer2D::API::NONE)
 			std::cout << "None API is set\n";

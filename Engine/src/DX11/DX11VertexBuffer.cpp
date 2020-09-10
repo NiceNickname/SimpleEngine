@@ -6,7 +6,7 @@ namespace Engine {
 
 
 
-	DX11VertexBuffer::DX11VertexBuffer(float* data, unsigned int size)
+	DX11VertexBuffer::DX11VertexBuffer(void* data, unsigned int size)
 	{
 		// vertex buffer
 		D3D11_BUFFER_DESC bd;
@@ -48,7 +48,7 @@ namespace Engine {
 
 	}
 
-	void DX11VertexBuffer::SetData(float* data, unsigned int size)
+	void DX11VertexBuffer::SetData(void* data, unsigned int size)
 	{
 
 	}

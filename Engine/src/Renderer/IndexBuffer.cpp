@@ -8,7 +8,7 @@
 namespace Engine {
 
 	
-	Engine::IndexBuffer* IndexBuffer::Create(unsigned int* data, unsigned int size)
+	Engine::IndexBuffer* IndexBuffer::Create(void* data, unsigned int size)
 	{
 		if (Renderer2D::GetApi() == Renderer2D::API::NONE)
 			std::cout << "None rendering API is set\n";

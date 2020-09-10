@@ -41,6 +41,7 @@ project "Engine"
       "%{prj.name}/vendor/imgui",
       "%{prj.name}/vendor/glm",
       "%{prj.name}/vendor/spdlog/include",
+      "%{prj.name}/vendor/assimp/include",
       "%{prj.name}/src"
    }
    
@@ -105,7 +106,8 @@ project "User"
 
 	links
 	{
-		"Engine"
+      "Engine",
+      "Engine/vendor/assimp/Win64/assimp-vc142-mt.lib"
 	}
 
    filter "platforms:Win32"
